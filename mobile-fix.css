@@ -1,0 +1,171 @@
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  /* General feature text container fix */
+  .feature-text-container {
+    position: relative !important;
+    z-index: 20 !important;
+  }
+  
+  /* CTA Section Fixes */
+  .cta-section {
+    padding: 60px 20px !important;
+    overflow: visible !important;
+  }
+  
+  .cta-content {
+    margin-bottom: 30px !important;
+    padding: 0 15px !important;
+  }
+  
+  .cta-title {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+    padding: 0 10px !important;
+    /* Re-apply shimmer effect properties */
+    background-image:
+      /* 1. Base text gradient */
+      linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%),
+      /* 2. Shimmer gradient (brighter, narrower highlight) */
+      linear-gradient(90deg,
+        rgba(255,255,255,0) calc(50% - 20px), /* Transparent edge */
+        rgba(255,255,255,0.8) 50%,            /* Brighter white highlight */
+        rgba(255,255,255,0) calc(50% + 20px)  /* Transparent edge */
+      ) !important; /* Using 20px spread */
+    background-size: 100% 100%, 250% 100% !important; /* Base size, Shimmer size */
+    background-position: 0% 0%, 0% 0% !important; /* Initial position for Base and Shimmer (Shimmer starts left) */
+    background-repeat: no-repeat !important;
+    animation: framer-shimmer 2s linear infinite !important; /* Slower animation (2s) */
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    position: relative !important;
+    font-weight: 700 !important; /* Keep mobile font-weight */
+    /* Remove the single background property that was overriding the shimmer */
+  }
+  
+  /* Define the glow animation with movement */
+  @keyframes glowKinetic {
+    0% {
+      filter: blur(12px) !important;
+      opacity: 0.7 !important;
+      transform: translateX(-1px) translateY(0px) !important;
+    }
+    25% {
+      filter: blur(14px) !important;
+      opacity: 0.8 !important;
+      transform: translateX(0px) translateY(-1px) !important;
+    }
+    50% {
+      filter: blur(16px) !important;
+      opacity: 0.9 !important;
+      transform: translateX(1px) translateY(0px) !important;
+    }
+    75% {
+      filter: blur(14px) !important;
+      opacity: 0.8 !important;
+      transform: translateX(0px) translateY(1px) !important;
+    }
+    100% {
+      filter: blur(12px) !important;
+      opacity: 0.7 !important;
+      transform: translateX(-1px) translateY(0px) !important;
+    }
+  }
+  
+  @keyframes glowKineticWide {
+    0% {
+      filter: blur(20px) !important;
+      opacity: 0.4 !important;
+      transform: translateX(-2px) translateY(0px) !important;
+    }
+    25% {
+      filter: blur(22px) !important;
+      opacity: 0.5 !important;
+      transform: translateX(0px) translateY(-2px) !important;
+    }
+    50% {
+      filter: blur(25px) !important;
+      opacity: 0.6 !important;
+      transform: translateX(2px) translateY(0px) !important;
+    }
+    75% {
+      filter: blur(22px) !important;
+      opacity: 0.5 !important;
+      transform: translateX(0px) translateY(2px) !important;
+    }
+    100% {
+      filter: blur(20px) !important;
+      opacity: 0.4 !important;
+      transform: translateX(-2px) translateY(0px) !important;
+    }
+  }
+  
+  /* Glowing text effect for CTA title */
+  .cta-title::after {
+    content: attr(data-text) !important;
+    position: absolute !important;
+    left: 10px !important; /* Match padding */
+    top: 0 !important;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    filter: blur(12px) !important;
+    z-index: -1 !important;
+    opacity: 0.9 !important;
+    animation: glowKinetic 3s infinite ease-in-out !important;
+    will-change: transform, filter, opacity !important;
+  }
+  
+  /* Additional glow layer for stronger effect */
+  .cta-title::before {
+    content: attr(data-text) !important;
+    position: absolute !important;
+    left: 10px !important;
+    top: 0 !important;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    filter: blur(20px) !important;
+    z-index: -2 !important;
+    opacity: 0.5 !important;
+    animation: glowKineticWide 4s infinite ease-in-out !important;
+    will-change: transform, filter, opacity !important;
+  }
+  
+  .cta-description {
+    font-size: 14px !important; /* Reduced font size */
+    line-height: 1.4 !important;
+    color: #BFBFBF !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 10px !important;
+    margin: 0 auto !important;
+    /* Removed line clamping properties */
+  }
+  
+  /* AI Gene Video Fix */
+  .cta-image-container {
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+    position: relative !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    height: auto !important;
+  }
+  
+  .cta-video {
+    width: 100% !important;
+    height: auto !important;
+    max-width: none !important;
+    position: relative !important;
+    transform: scale(1) !important;
+    transform-origin: center !important;
+    z-index: 999 !important;
+    margin: 0 auto !important;
+    display: block !important;
+  }
+}

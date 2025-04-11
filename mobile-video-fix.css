@@ -1,0 +1,62 @@
+/* Fix for feature videos on mobile - Updated v3 */
+@media (max-width: 768px) {
+  /* Feature video container styling */
+  .feature-video-container {
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+  
+  .feature-video, .feature-fallback-image {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    aspect-ratio: 16/9 !important;
+  }
+  
+  /* Hide the existing overlay */
+  .feature-overlay-container {
+    display: none !important;
+  }
+  
+  /* Position text below the video with proper spacing */
+  .feature-text-container {
+    position: relative !important;
+    margin-top: 48px !important;
+    padding: 0 20px !important;
+    z-index: 10 !important;
+    width: 100% !important; /* Ensure full width */
+  }
+  
+  /* Feature description text width fix */
+  .feature-description {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    color: #8C8C8C !important;
+    font-weight: 400 !important;
+    text-align: left !important;
+  }
+  
+  /* CTA section styling */
+  .cta-section {
+    position: relative !important;
+    padding: 60px 20px !important;
+    margin: 40px 0 !important;
+    overflow: visible !important;
+  }
+  
+  /* NFT video styling for mobile */
+  .agent-gallery .agent-item {
+    position: relative !important;
+    overflow: hidden !important;
+  }
+  
+  .agent-gallery .agent-item video.nft-video {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  }
+}

@@ -1,0 +1,55 @@
+/* Mobile overlay for feature videos */
+@media (max-width: 768px) {
+  /* Position the features section relative for absolute positioning */
+  .features-section {
+    position: relative;
+  }
+  
+  /* Hide the existing overlay containers in mobile view */
+  .feature-overlay-container {
+    display: none !important;
+  }
+  
+  /* Style for each feature item */
+  .feature-item {
+    position: relative;
+    margin-bottom: 40px;
+  }
+  
+  /* Video container styles */
+  .feature-video-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  
+  /* Ensure text is above the overlay */
+  .feature-text-container {
+    position: relative;
+    z-index: 20 !important;
+    padding: 0 20px;
+    margin-top: -120px;
+  }
+  
+  /* Feature title styling */
+  .feature-title {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: left;
+  }
+  
+  /* Feature description styling */
+  .feature-description {
+    font-size: 14px;
+    line-height: 125%;
+    color: #8C8C8C !important;
+    font-weight: 700 !important;
+    text-align: left;
+  }
+}

@@ -1,0 +1,40 @@
+/* AI Gene Video Fix - Specifically for making the AI Gene video visible and bigger on mobile */
+
+@media (max-width: 768px) {
+  /* Target the AI Gene video directly with the highest specificity possible */
+  video[src*="AI Gene video.mp4"],
+  .cta-image-container video.cta-video,
+  .cta-section .cta-image-container video,
+  .cta-section video,
+  video.cta-video {
+    width: 100% !important; /* Reduced from 120% to 100% */
+    height: auto !important;
+    max-width: none !important;
+    position: relative !important;
+    left: 0 !important; /* Removed the -10% offset */
+    transform: scale(1) !important; /* Removed the additional scaling */
+    transform-origin: center !important;
+    z-index: 999 !important; /* High z-index to ensure visibility */
+    margin: 0 auto !important;
+    display: block !important;
+    object-fit: contain !important; /* Ensure the video maintains its aspect ratio */
+  }
+
+  /* Make sure the container doesn't constrain the video */
+  .cta-image-container,
+  .cta-section .cta-image-container {
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+    position: relative !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    text-align: center !important; /* Center the video */
+  }
+
+  /* Ensure the CTA section doesn't constrain the container */
+  .cta-section {
+    overflow: visible !important;
+    padding: 60px 20px !important; /* Add horizontal padding */
+  }
+}

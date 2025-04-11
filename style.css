@@ -1,0 +1,1280 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #000000;
+    color: #FFFFFF;
+    overflow-x: hidden;
+    line-height: 1.2;
+}
+
+/* Placeholder for Poxel Font */
+@font-face {
+  font-family: 'Poxel Font';
+  src: local('Courier New'), local('Courier'), monospace;
+}
+.poxel-font {
+    font-family: 'Poxel Font', 'Courier New', monospace;
+    font-weight: 400;
+    font-size: 14.86px;
+    line-height: 1.25;
+    text-align: center;
+    background: linear-gradient(to right, #BDD3CE 0%, #A3BEB8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.05em;
+}
+
+/* Utility for gradient text */
+.gradient-text {
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+}
+
+/* Landing Page Container */
+.landing-page {
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    background-color: #000000;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; /* Set explicit height */
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.logo-container {
+    width: 108px; /* Reduced to 50% of previous size (216px) */
+    height: 54px; /* Reduced to 50% of previous size (108px) */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.main-nav {
+    display: flex;
+    gap: 24px;
+}
+
+/* Hide mobile menu icon by default */
+.mobile-menu-icon {
+    display: none;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 24px; /* Adjust size as needed */
+    cursor: pointer;
+    padding: 0; /* Remove padding if any */
+}
+
+.nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.15;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: opacity 0.3s ease;
+    letter-spacing: 0.05em;
+}
+
+.nav-link:hover {
+    opacity: 0.8;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align content to bottom for desktop */
+    background-color: #000000;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero-background-video, .hero-fallback-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-bottom-gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 237px; /* Reverted height */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%); /* Adjusted for 100% transparent at top */
+    z-index: 1; /* Ensure it's above the video but below content */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Keep internal alignment */
+    align-items: center;
+    padding-bottom: 0; /* Remove bottom padding for desktop bottom alignment */
+    flex: 1; /* Allow content to fill space before being pushed down for desktop */
+}
+
+.hero-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0; /* Ensure no extra margin at the bottom */
+}
+
+.soma-logo-svg {
+    width: 400px; /* Reverted to original size */
+    height: auto;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.hero-subtitle-jp {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 0.9;
+    text-align: center;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Hero title and features moved to intro section */
+.hero-title-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    z-index: 10;
+    max-width: 1000px;
+    margin-bottom: 40px;
+}
+
+.hero-main-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 0.9;
+    text-align: center;
+    /* CSS Variables for customization */
+    --base-color: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    --shimmer-color: rgba(255, 255, 255, 0.8);
+    --shimmer-duration: 2s;
+    --shimmer-spread: 40px; /* Will be dynamically adjusted by JS */
+    /* Base styling */
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    /* Text styling */
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    /* Shimmer effect */
+    background-image: 
+        linear-gradient(
+            90deg,
+            transparent calc(50% - var(--shimmer-spread)),
+            var(--shimmer-color),
+            transparent calc(50% + var(--shimmer-spread))
+        ),
+        var(--base-color);
+    background-size: 250% 100%, 100% 100%;
+    background-position: 100% 0%, 0% 0%;
+    background-repeat: no-repeat;
+    animation: framer-shimmer var(--shimmer-duration) linear infinite;
+}
+
+.hero-main-title.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Glow effect for hero-main-title - only on mobile */
+@media (max-width: 768px) {
+    .hero-main-title::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: blur(10px);
+        z-index: -1;
+        opacity: 0.85;
+        animation: glowKineticTight 3s infinite ease-in-out;
+        will-change: transform, filter, opacity;
+        display: block;
+        text-align: center;
+        pointer-events: none;
+        letter-spacing: 0.02em; /* Match the original text */
+        line-height: 0.9; /* Match the original text */
+    }
+
+    .hero-main-title::before {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: blur(18px);
+        z-index: -2;
+        opacity: 0.7;
+        animation: glowKineticWideTight 4s infinite ease-in-out;
+        will-change: transform, filter, opacity;
+        display: block;
+        text-align: center;
+        pointer-events: none;
+        letter-spacing: 0.02em; /* Match the original text */
+        line-height: 0.9; /* Match the original text */
+    }
+}
+
+/* For desktop, no glow effect on hero-main-title */
+@media (min-width: 769px) {
+    .hero-main-title::before,
+    .hero-main-title::after {
+        display: none;
+    }
+}
+
+.hero-sub-features {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 41px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    white-space: nowrap; /* Prevent feature points from wrapping */
+}
+
+.feature-point {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.15;
+    text-align: center;
+    letter-spacing: 0.03em;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease, transform 1.2s ease; /* Slower animation (1.2s instead of 0.8s) */
+    transition-delay: calc(var(--index, 0) * 0.3s); /* Increased delay between items */
+    
+    /* CSS Variables for shimmer customization - monochrome */
+    --base-color: linear-gradient(to right, #595959 0%, #595959 50%, #595959 100%);
+    --shimmer-color: rgba(255, 255, 255, 0.8);
+    --shimmer-duration: 2s;
+    --shimmer-spread: 40px;
+    
+    /* Text styling with shimmer */
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    
+    /* Shimmer effect */
+    background-image: 
+        linear-gradient(
+            90deg,
+            transparent calc(50% - var(--shimmer-spread)),
+            var(--shimmer-color),
+            transparent calc(50% + var(--shimmer-spread))
+        ),
+        var(--base-color);
+    background-size: 250% 100%, 100% 100%;
+    background-position: 100% 0%, 0% 0%;
+    background-repeat: no-repeat;
+    animation: framer-shimmer var(--shimmer-duration) linear infinite;
+}
+
+.feature-point.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Introduction Section */
+.intro-section {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+}
+
+    .intro-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 800px;
+        padding: 0 40px;
+    }
+
+    @media (max-width: 768px) {
+        .intro-content {
+            padding: 0 20px;
+            margin: 40px 0;
+        }
+    }
+
+.intro-title-container {
+    margin-bottom: 30px;
+}
+
+.intro-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 1.1;
+    text-align: center;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.02em;
+}
+
+/* Features Section */
+.features-section {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background-color: #000000;
+}
+
+.feature-item {
+    position: relative;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+    opacity: 0.5;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feature-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.feature-video-container {
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    position: relative;
+}
+
+.feature-video, .feature-fallback-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+    @media (max-width: 768px) {
+        .feature-item {
+            position: relative; /* Ensure proper positioning context */
+            overflow: visible; /* Allow content to overflow */
+        }
+        
+        .feature-video-container {
+            position: relative; /* Ensure proper stacking context */
+            z-index: 0; /* Lower z-index for the video container */
+        }
+        
+        /* Position the text container */
+        .feature-text-container {
+            position: relative; /* Changed to relative positioning */
+            width: 100%;
+            z-index: 20; /* Higher z-index to ensure it's above the video */
+            padding: 20px; /* Add padding for better spacing */
+            background-color: transparent; /* No background */
+        }
+    }
+
+/* Removed overlay styles */
+
+.feature-text-container {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    padding: 40px 80px;
+    display: flex; /* Make it a flex container */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space between title and description */
+    background-color: rgba(0, 0, 0, 0.05); /* Same as header background */
+    backdrop-filter: blur(20px); /* Same as header background */
+    -webkit-backdrop-filter: blur(20px); /* Same as header background */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.feature-text-container.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feature-title-frame {
+    flex: 0 0 40%; /* Take up 40% of the container width */
+    display: flex;
+    align-items: center;
+    margin-bottom: 0; /* Remove bottom margin */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+    transition-delay: 0.2s;
+}
+
+.feature-title-frame.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feature-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 0.9;
+    text-align: left; /* Left align instead of center */
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.02em;
+}
+
+.feature-description-frame {
+    flex: 0 0 55%; /* Take up 55% of the container width */
+    margin-left: 5%; /* Add some space between title and description */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+    transition-delay: 0.4s;
+}
+
+.feature-description-frame.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feature-description {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400; /* Lighter weight for better readability */
+    font-size: 18px;
+    line-height: 1.5;
+    color: #FFFFFF;
+    letter-spacing: 0.02em;
+    text-align: left;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 100px 0 20px; /* Reduced bottom padding */
+    text-align: center;
+    position: relative;
+    /* min-height: 100vh; */ /* Removed to allow section to shrink */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #000000;
+}
+
+.cta-content {
+    z-index: 1;
+    max-width: 872px;
+    margin-bottom: 60px;
+}
+
+.cta-title {
+    font-family: "Helvetica Neue";
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 125%;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 0.02em;
+    /* CSS Variables for customization */
+    --base-color: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    --shimmer-color: rgba(255, 255, 255, 0.8);
+    --shimmer-duration: 2s;
+    --shimmer-spread: 40px; /* Will be dynamically adjusted by JS */
+    /* Base styling */
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 1;
+    /* Text styling */
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    /* Shimmer effect */
+    background-image: 
+        linear-gradient(
+            90deg,
+            transparent calc(50% - var(--shimmer-spread)),
+            var(--shimmer-color),
+            transparent calc(50% + var(--shimmer-spread))
+        ),
+        var(--base-color);
+    background-size: 250% 100%, 100% 100%;
+    background-position: 100% 0%, 0% 0%;
+    background-repeat: no-repeat;
+    animation: framer-shimmer var(--shimmer-duration) linear infinite;
+}
+
+/* Define the glow animation with movement for desktop */
+@keyframes glowKinetic {
+    0% {
+        filter: blur(12px);
+        opacity: 0.7;
+        transform: translateX(-1px) translateY(0px);
+    }
+    25% {
+        filter: blur(14px);
+        opacity: 0.8;
+        transform: translateX(0px) translateY(-1px);
+    }
+    50% {
+        filter: blur(16px);
+        opacity: 0.9;
+        transform: translateX(1px) translateY(0px);
+    }
+    75% {
+        filter: blur(14px);
+        opacity: 0.8;
+        transform: translateX(0px) translateY(1px);
+    }
+    100% {
+        filter: blur(12px);
+        opacity: 0.7;
+        transform: translateX(-1px) translateY(0px);
+    }
+}
+
+/* Tighter animation for main title's first glow layer */
+@keyframes glowKineticTight {
+    0% {
+        filter: blur(9px);
+        opacity: 0.8;
+        transform: translateX(-0.5px) translateY(0px);
+    }
+    25% {
+        filter: blur(10px);
+        opacity: 0.85;
+        transform: translateX(0px) translateY(-0.5px);
+    }
+    50% {
+        filter: blur(11px);
+        opacity: 0.9;
+        transform: translateX(0.5px) translateY(0px);
+    }
+    75% {
+        filter: blur(10px);
+        opacity: 0.85;
+        transform: translateX(0px) translateY(0.5px);
+    }
+    100% {
+        filter: blur(9px);
+        opacity: 0.8;
+        transform: translateX(-0.5px) translateY(0px);
+    }
+}
+
+@keyframes glowKineticWide {
+    0% {
+        filter: blur(20px);
+        opacity: 0.4;
+        transform: translateX(-2px) translateY(0px);
+    }
+    25% {
+        filter: blur(22px);
+        opacity: 0.5;
+        transform: translateX(0px) translateY(-2px);
+    }
+    50% {
+        filter: blur(25px);
+        opacity: 0.6;
+        transform: translateX(2px) translateY(0px);
+    }
+    75% {
+        filter: blur(22px);
+        opacity: 0.5;
+        transform: translateX(0px) translateY(2px);
+    }
+    100% {
+        filter: blur(20px);
+        opacity: 0.4;
+        transform: translateX(-2px) translateY(0px);
+    }
+}
+
+/* Tighter animation for main title's second glow layer */
+@keyframes glowKineticWideTight {
+    0% {
+        filter: blur(16px);
+        opacity: 0.6;
+        transform: translateX(-1px) translateY(0px);
+    }
+    25% {
+        filter: blur(17px);
+        opacity: 0.65;
+        transform: translateX(0px) translateY(-1px);
+    }
+    50% {
+        filter: blur(18px);
+        opacity: 0.7;
+        transform: translateX(1px) translateY(0px);
+    }
+    75% {
+        filter: blur(17px);
+        opacity: 0.65;
+        transform: translateX(0px) translateY(1px);
+    }
+    100% {
+        filter: blur(16px);
+        opacity: 0.6;
+        transform: translateX(-1px) translateY(0px);
+    }
+}
+
+/* Improved shimmer animation based on Framer component */
+@keyframes framer-shimmer {
+  from {
+    background-position: 100% 0%, 0% 0%; /* Start shimmer from right */
+  }
+  to {
+    background-position: 0% 0%, 0% 0%; /* Move shimmer to left */
+  }
+}
+
+/* Glowing text effect for CTA title - works regardless of revealed class */
+.cta-title::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: blur(15px);
+    z-index: -1;
+    opacity: 0.8;
+    animation: glowKinetic 3s infinite ease-in-out;
+    will-change: transform, filter, opacity;
+    display: block; /* Ensure it's displayed */
+    text-align: center;
+    pointer-events: none; /* Prevent interference with text selection */
+}
+
+/* Additional glow layer for stronger effect - works regardless of revealed class */
+.cta-title::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: blur(25px);
+    z-index: -2;
+    opacity: 0.6;
+    animation: glowKineticWide 4s infinite ease-in-out;
+    will-change: transform, filter, opacity;
+    display: block; /* Ensure it's displayed */
+    text-align: center;
+    pointer-events: none; /* Prevent interference with text selection */
+}
+
+.cta-title.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cta-description {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.4;
+    text-align: center;
+    color: #BFBFBF;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-bottom: 20px; /* Added bottom padding */
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    transition-delay: 0.3s;
+}
+
+.cta-description.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cta-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px; /* 2 times bigger than original 500px */
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    transition-delay: 0.6s;
+}
+
+.cta-image-container.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cta-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Collection Section */
+.collection-section {
+    padding: 0 0 50px; /* Set top padding to 0 */
+    text-align: center;
+    position: relative;
+    background-color: #000000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.agent-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin-bottom: 100px; /* Increased space after gallery */
+}
+
+.agent-item {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.agent-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.agent-item img.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.agent-item img:hover {
+    transform: scale(1.05);
+}
+
+.agent-item img {
+    display: none; /* Hide images on all devices */
+}
+
+.agent-item video.nft-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block; /* Show videos on all devices */
+}
+
+.collection-text-content {
+    max-width: 800px;
+    margin: 0 auto 100px; /* Changed to add bottom margin and remove top margin */
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.collection-subtitle {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5;
+    text-transform: capitalize;
+    color: #8C8C8C;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 0.02em;
+}
+
+.collection-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.collection-logo-container.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.collection-logo-svg {
+    width: 300px;
+    height: auto;
+    margin-bottom: 10px;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.collection-soma-jp {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 0.9em;
+    text-align: center;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0;
+}
+
+.collection-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 30px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    transition-delay: 0.3s;
+}
+
+.collection-title-container.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.collection-title-first,
+.collection-title-second {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(to right, #E9C11F 0%, #FFB7F4 27.68%, #DBFF39 52.4%, #C2FFBE 97.4%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    position: relative;
+    z-index: 10;
+}
+
+.collection-title-first {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.collection-title-second {
+    font-size: 80px;
+}
+
+.collection-info {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.4em;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(0, 128, 255, 0.88) 0%, rgba(189, 255, 204, 0.71) 59.13%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    transition-delay: 0.6s;
+}
+
+.collection-info.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.redacted {
+    color: inherit;
+}
+
+/* Footer */
+.footer {
+    padding: 60px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #000000;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.social-links a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 24px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    color: #FFFFFF;
+    transform: scale(1.2);
+}
+
+/* Animation Classes */
+.revealed {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .soma-logo-text { font-size: 140px; }
+    .hero-main-title { font-size: 56px; }
+    .feature-title { font-size: 40px; }
+    .collection-title { font-size: 80px; }
+    .cta-title { font-size: 60px; }
+    .agent-gallery { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 992px) {
+    .soma-logo-text { font-size: 120px; }
+    .hero-subtitle-jp { font-size: 36px; }
+    .hero-sub-features { gap: 30px; }
+    
+    .feature-content-wrapper {
+        padding: 40px;
+        gap: 40px;
+    }
+    
+    .feature-text-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .feature-title-container,
+    .feature-description-container {
+        flex: 0 0 100%;
+        width: 100%;
+        padding-right: 0;
+    }
+    
+    .feature-title {
+        font-size: 48px;
+        text-align: center;
+    }
+    
+    .feature-description {
+        text-align: center;
+    }
+    
+    .agent-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 20px;
+        flex-direction: row; /* Change back to row for logo/icon alignment */
+        justify-content: space-between; /* Space out logo and icon */
+        align-items: center; /* Vertically align items */
+        gap: 15px;
+        position: absolute; /* Keep header absolute for alignment */
+        /* Revert mobile header background to desktop style */
+        background-color: rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* .logo-container { width: 120px; height: auto; } */ /* Remove redundant rule */
+    .header {
+        height: auto; /* Allow height to adjust */
+        min-height: 60px; /* Ensure minimum height */
+    }
+    .logo-container {
+        width: 90px; /* Slightly smaller logo */
+        justify-content: flex-start; /* Ensure logo stays left */
+    }
+    .main-nav { display: none; } /* Keep desktop nav hidden */
+    .mobile-menu-icon { display: block; } /* Show mobile menu icon */
+
+    .hero-section {
+        height: auto;
+        min-height: 80vh; /* Slightly less than full viewport */
+        padding: 80px 20px 0; /* Remove bottom padding */
+        justify-content: flex-end; /* Explicitly push content to bottom */
+    }
+    .hero-content {
+        margin-top: 0;
+        padding-bottom: 0; /* Set to 0 to move content to the very bottom */
+    }
+
+    .hero-logo-container {
+        margin-bottom: 0; /* Remove bottom margin to push content lower */
+    }
+    .soma-logo-svg { width: 168px; } /* 2x bigger than 84px */
+    .hero-subtitle-jp { font-size: 28px; } /* Adjust size */
+
+    /* Intro Section adjustments */
+    .intro-section {
+        height: auto;
+        min-height: 60vh;
+        padding: 60px 10px 0; /* Remove bottom padding to bring feature videos closer */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hero-main-title {
+        font-size: 32px; /* Matching Figma design */
+        line-height: 0.9; /* Matching Figma design */
+        letter-spacing: normal; /* Reset letter spacing */
+    }
+    .hero-title-frame {
+        margin-bottom: 0; /* Remove bottom margin as it's now last */
+        max-width: 100%; /* Allow frame to take full width */
+    }
+    .hero-sub-features {
+        flex-direction: column;
+        gap: 10px; /* Reduced gap */
+        margin-bottom: 60px; /* Increased margin to create more space above title */
+    }
+    
+    .hero-title-frame {
+        margin-top: 20px; /* Add space above title */
+        margin-bottom: 28px; /* Exactly 28px space below title as requested */
+    }
+    .feature-point {
+        font-size: 11.6px; /* Match Figma design */
+        color: #595959; /* Match Figma design */
+        text-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5); /* Match Figma shadow effect */
+        font-weight: 500; /* Match Figma design */
+        line-height: 1.15; /* Match Figma design */
+    }
+
+    /* Features Section adjustments */
+    .feature-item {
+        min-height: auto;
+        padding: 0; /* Remove padding to allow full-width video */
+        margin-bottom: 20px; /* Add margin between feature items */
+        border-bottom: none; /* Remove border for mobile view */
+    }
+    .feature-video-container { 
+        height: auto; /* Allow natural height */
+        width: 100vw; /* Full viewport width */
+        margin-left: calc(-50vw + 50%); /* Center the container */
+        position: relative;
+    }
+    
+    .feature-video, .feature-fallback-image {
+        width: 100%;
+        height: auto; /* Allow natural height ratio */
+        object-fit: cover; /* Cover the container */
+        aspect-ratio: 16/9; /* Maintain aspect ratio */
+    }
+    .feature-text-container {
+        flex-direction: column; /* Stack title and description */
+        padding: 30px 20px; /* Adjust padding */
+        text-align: center; /* Center text */
+        position: relative; /* Change from absolute */
+        bottom: auto;
+        left: auto;
+        background-color: transparent; /* Remove backdrop */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+    .feature-title-frame {
+        flex-basis: auto; /* Reset flex basis */
+        margin-bottom: 15px; /* Add space below title */
+        width: 100%;
+    }
+    .feature-title {
+        font-family: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 24px;
+        font-weight: 700; /* Bold */
+        line-height: 29px; /* ~1.2x font size */
+        color: #E6E6E6;
+        letter-spacing: 0.02em;
+        text-align: left;
+        background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .feature-description-frame {
+        flex-basis: auto; /* Reset flex basis */
+        margin-left: 0; /* Remove left margin */
+        width: 100%;
+    }
+    .feature-description {
+        font-family: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 16px;
+        font-weight: 400; /* Regular */
+        line-height: 24px; /* 1.5x font size */
+        color: #E6E6E6;
+        letter-spacing: 0.03em;
+        text-align: left;
+    }
+
+    /* CTA Section adjustments */
+    .cta-section {
+        padding: 60px 20px; /* Adjust padding */
+        min-height: auto;
+    }
+    .cta-title { font-size: 32px; } /* Adjust size */
+    .cta-description { font-size: 16px; } /* Adjust size */
+    .cta-image-container { max-width: 80%; } /* Adjust image size */
+
+    /* Collection Section adjustments */
+    .collection-section { padding: 60px 0 40px; }
+    .agent-gallery {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+        gap: 5px; /* Reduce gap */
+        padding: 0 10px; /* Adjust padding */
+        margin-bottom: 60px; /* Adjust spacing */
+    }
+    .collection-text-content { margin-bottom: 60px; }
+    .collection-logo-svg { width: 200px; } /* Smaller logo */
+    .collection-soma-jp { font-size: 24px; } /* Adjust size */
+    .collection-title-first { font-size: 36px; } /* Adjust size */
+    .collection-title-second { font-size: 48px; } /* Adjust size */
+    .collection-info { font-size: 24px; } /* Adjust size */
+
+    /* Footer adjustments */
+    .footer { padding: 40px 0; }
+    .social-links { gap: 20px; }
+    .social-links a { font-size: 20px; }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .hero-main-title { font-size: 26px; }
+    .feature-point { font-size: 14px; }
+    .feature-title { font-size: 24px; }
+    .feature-description { font-size: 15px; }
+    .cta-title { font-size: 28px; }
+    .cta-description { font-size: 15px; }
+    .collection-title-first { font-size: 30px; }
+    .collection-title-second { font-size: 40px; }
+    .collection-info { font-size: 20px; }
+    .poxel-font { font-size: 12px; }
+}

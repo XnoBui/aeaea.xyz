@@ -1,0 +1,309 @@
+/* Consolidated Mobile Fixes - Overrides all other mobile styles */
+
+/* Global fixes to prevent horizontal overflow */
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  /* Container fixes */
+  .landing-page,
+  main,
+  section,
+  .hero-section,
+  .intro-section,
+  .features-section,
+  .cta-section,
+  .collection-section,
+  .footer {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Header fixes */
+  .header {
+    padding: 15px 20px !important;
+    height: auto !important;
+    min-height: 60px !important;
+  }
+  
+  .logo-container {
+    width: 90px !important;
+    height: auto !important;
+  }
+  
+  /* Hero section fixes */
+  .hero-section {
+    height: auto !important;
+    min-height: 80vh !important;
+    padding: 80px 20px 0 !important;
+  }
+  
+  .soma-logo-svg {
+    width: 168px !important;
+  }
+  
+  .hero-subtitle-jp {
+    font-size: 28px !important;
+  }
+  
+  /* Intro section fixes */
+  .intro-section {
+    height: auto !important;
+    min-height: 60vh !important;
+    padding: 60px 10px 0 !important;
+  }
+  
+  .hero-main-title {
+    font-size: 32px !important;
+    line-height: 0.9 !important;
+  }
+  
+  .hero-sub-features {
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-bottom: 60px !important;
+  }
+  
+  .feature-point {
+    font-size: 11.6px !important;
+    font-weight: 500 !important;
+  }
+  
+  /* Feature section fixes */
+  .feature-item {
+    position: relative !important;
+    margin-bottom: 40px !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    border-bottom: none !important;
+  }
+  
+  .feature-content-wrapper {
+    width: 100% !important;
+    position: relative !important;
+  }
+  
+  .feature-video-container {
+    width: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+  }
+  
+  .feature-video, .feature-fallback-image {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    aspect-ratio: 16/9 !important;
+  }
+  
+  /* Hide the existing overlay */
+  .feature-overlay-container {
+    display: none !important;
+  }
+  
+  /* Fix feature text container positioning */
+  .feature-text-container {
+    position: relative !important;
+    z-index: 20 !important;
+    padding: 0 20px !important;
+    margin-top: 20px !important; /* Consistent margin-top */
+    width: 100% !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  /* Feature title styling */
+  .feature-title {
+    font-size: 28px !important;
+    font-weight: 500 !important;
+    margin-bottom: 15px !important;
+    background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    text-align: left !important;
+  }
+  
+  /* Feature description styling */
+  .feature-description {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    color: #8C8C8C !important;
+    font-weight: 400 !important; /* Consistent font weight */
+    text-align: left !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* CTA section fixes */
+  .cta-section {
+    padding: 60px 20px !important;
+    overflow: visible !important;
+    margin: 40px 0 !important;
+  }
+  
+  .cta-content {
+    margin-bottom: 30px !important;
+    padding: 0 15px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .cta-title {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+    padding: 0 10px !important;
+    font-weight: 700 !important;
+  }
+  
+  .cta-description {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    color: #BFBFBF !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 10px !important;
+    margin: 0 auto !important;
+  }
+  
+  /* AI Gene Video Fix */
+  .cta-image-container {
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+    position: relative !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    height: auto !important;
+  }
+  
+  .cta-video {
+    width: 100% !important;
+    height: auto !important;
+    max-width: none !important;
+    position: relative !important;
+    transform: scale(1) !important;
+    transform-origin: center !important;
+    z-index: 999 !important;
+    margin: 0 auto !important;
+    display: block !important;
+    object-fit: contain !important;
+  }
+  
+  /* Collection section fixes */
+  .collection-section {
+    padding: 60px 0 40px !important;
+  }
+  
+  .agent-gallery {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 5px !important;
+    padding: 0 10px !important;
+    margin-bottom: 60px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .agent-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+  
+  .agent-gallery .agent-item video.nft-video {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  }
+  
+  .collection-text-content {
+    margin-bottom: 60px !important;
+    max-width: 100% !important;
+    padding: 0 20px !important;
+  }
+  
+  .collection-logo-svg {
+    width: 200px !important;
+  }
+  
+  .collection-soma-jp {
+    font-size: 24px !important;
+  }
+  
+  .collection-title-first {
+    font-size: 36px !important;
+  }
+  
+  .collection-title-second {
+    font-size: 48px !important;
+  }
+  
+  .collection-info {
+    font-size: 24px !important;
+  }
+  
+  /* Footer fixes */
+  .footer {
+    padding: 40px 0 !important;
+  }
+  
+  .social-links {
+    gap: 20px !important;
+  }
+  
+  .social-links a {
+    font-size: 20px !important;
+  }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+  .hero-main-title {
+    font-size: 26px !important;
+  }
+  
+  .feature-point {
+    font-size: 14px !important;
+  }
+  
+  .feature-title {
+    font-size: 24px !important;
+  }
+  
+  .feature-description {
+    font-size: 15px !important;
+  }
+  
+  .cta-title {
+    font-size: 28px !important;
+  }
+  
+  .cta-description {
+    font-size: 15px !important;
+  }
+  
+  .collection-title-first {
+    font-size: 30px !important;
+  }
+  
+  .collection-title-second {
+    font-size: 40px !important;
+  }
+  
+  .collection-info {
+    font-size: 20px !important;
+  }
+}
