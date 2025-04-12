@@ -1,19 +1,20 @@
-FROM node:18-alpine
+FROM nginx:alpine
 
-# Set working dir
-WORKDIR /app
+# Install envsubst
+RUN apk add --no-cache gettext
 
-# Copy only package.json & lock file
-COPY package*.json ./
+# Copy static files to Nginx's default public directory
+COPY . /usr/share/nginx/html/
 
-# Install only inside container
-RUN npm install
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
-# Copy rest of app (excluding node_modules via ..dockerignore)
-COPY . .
+# Create entrypoint script
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
-# Expose port
-EXPOSE 3000
+# Expose port (will be overridden by Cloud Run)
+EXPOSE 8080
 
-# Run app
-CMD HOSTNAME="0.0.0.0" PORT="3000" node server.js
+# Start Nginx using the entrypoint script
+ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -2,4 +2,7 @@ node_modules
 npm-debug.log
 .DS_Store
 .git
+.gitignore
 .idea
+README.md
+*.log
