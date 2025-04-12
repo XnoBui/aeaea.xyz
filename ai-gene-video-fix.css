@@ -19,7 +19,7 @@
     display: block !important;
     object-fit: contain !important; /* Ensure the video maintains its aspect ratio */
   }
-
+  
   /* Make sure the container doesn't constrain the video */
   .cta-image-container,
   .cta-section .cta-image-container {
@@ -31,7 +31,7 @@
     margin: 0 auto !important;
     text-align: center !important; /* Center the video */
   }
-
+  
   /* Ensure the CTA section doesn't constrain the container */
   .cta-section {
     overflow: visible !important;
