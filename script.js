@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnimations();
     initNavigation();
     initScrollEffects();
+    // Removed call to initSmoothVideoLoop()
 });
 
 // Initialize animations for page elements
@@ -485,3 +486,5 @@ window.addEventListener('load', function() {
     // Check for elements in view
     revealOnScroll();
 });
+
+// Removed the initSmoothVideoLoop function
