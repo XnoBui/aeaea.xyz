@@ -54,9 +54,9 @@
     overflow: hidden !important;
   }
   
-  .agent-gallery .agent-item video.nft-video {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: cover !important;
-  }
+.agent-gallery .agent-item video.nft-video {
+  width: 100% !important;
+  height: 100% !important; /* Changed from auto to 100% */
+  object-fit: cover !important;
+}
 }
