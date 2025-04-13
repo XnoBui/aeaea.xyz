@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnimations();
     initNavigation();
     initScrollEffects();
-    // Removed call to initSmoothVideoLoop()
+    initSmoothVideoLoop(); // Re-added call to initSmoothVideoLoop
 });
 
 // Initialize animations for page elements
@@ -487,4 +487,23 @@ window.addEventListener('load', function() {
     revealOnScroll();
 });
 
-// Removed the initSmoothVideoLoop function
+// Function to handle smooth video looping for NFT videos
+// Function to handle smooth video looping for NFT videos using the 'ended' event
+function initSmoothVideoLoop() {
+    const nftVideos = document.querySelectorAll('.nft-video');
+
+    nftVideos.forEach(video => {
+        // Use the 'ended' event to restart the video immediately
+        video.addEventListener('ended', function() {
+            video.currentTime = 0; // Explicitly set time to 0 before playing again
+            video.play(); // Restart the video when it ends
+        });
+
+        // Attempt to play initially, respecting autoplay policies
+        video.play().catch(error => {
+            console.log("Autoplay prevented for NFT video. User interaction might be needed.", error);
+            // Fallback: Ensure the video is ready to play on interaction
+            // You might add an overlay here prompting the user to click to play
+        });
+    });
+}
