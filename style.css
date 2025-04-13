@@ -226,8 +226,9 @@ body {
     padding: 0;
     letter-spacing: 0.02em;
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.5s ease, transform 1.5s ease;
+    transform: translateY(30px) scale(0.95); /* Add initial scale */
+    filter: blur(5px); /* Add initial blur */
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out, filter 1s ease-out; /* Add filter transition */
     /* Text styling */
     color: transparent;
     background-clip: text;
@@ -249,7 +250,8 @@ body {
 
 .hero-main-title.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1); /* Reveal scale */
+    filter: blur(0px); /* Remove blur */
 }
 
 /* Glow effect for hero-main-title - only on mobile */
@@ -328,10 +330,11 @@ body {
     text-align: center;
     letter-spacing: 0.03em;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1.2s ease, transform 1.2s ease; /* Slower animation (1.2s instead of 0.8s) */
-    transition-delay: calc(var(--index, 0) * 0.3s); /* Increased delay between items */
-    
+    transform: translateY(20px) scale(0.9); /* Add initial scale */
+    filter: blur(4px); /* Add initial blur */
+    transition: opacity 1.0s ease-out, transform 1.0s ease-out, filter 0.8s ease-out; /* Adjust timing */
+    transition-delay: calc(var(--index, 0) * 0.2s); /* Slightly faster stagger */
+
     /* CSS Variables for shimmer customization - monochrome */
     --base-color: linear-gradient(to right, #595959 0%, #595959 50%, #595959 100%);
     --shimmer-color: rgba(255, 255, 255, 0.8);
@@ -361,7 +364,8 @@ body {
 
 .feature-point.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1); /* Reveal scale */
+    filter: blur(0px); /* Remove blur */
 }
 
 /* Introduction Section */
@@ -430,15 +434,17 @@ body {
     flex-direction: column;
     min-height: 100vh;
     box-sizing: border-box;
-    opacity: 0.5;
-    transform: translateY(50px);
-    transition: opacity 1s ease, transform 1s ease;
+    opacity: 0; /* Start fully transparent */
+    transform: translateY(60px) scale(0.95); /* Start lower and slightly smaller */
+    filter: blur(8px); /* Start blurred */
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out, filter 1.2s ease-out; /* Smoother transition */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .feature-item.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1); /* Reveal to normal position and scale */
+    filter: blur(0px); /* Remove blur */
 }
 
 .feature-content-wrapper {
@@ -501,7 +507,8 @@ body {
     -webkit-backdrop-filter: blur(20px); /* Same as header background */
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
+    /* Apply transition with a delay after the parent .feature-item starts revealing */
+    transition: opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s;
 }
 
 .feature-text-container.revealed {
@@ -515,14 +522,14 @@ body {
     align-items: center;
     margin-bottom: 0; /* Remove bottom margin */
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease, transform 1s ease;
-    transition-delay: 0.2s;
+    transform: translateY(20px) scale(0.9); /* Add initial scale */
+    /* Stagger delay further */
+    transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s;
 }
 
 .feature-title-frame.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1); /* Reveal to normal scale */
 }
 
 .feature-title {
@@ -542,14 +549,14 @@ body {
     flex: 0 0 55%; /* Take up 55% of the container width */
     margin-left: 5%; /* Add some space between title and description */
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease, transform 1s ease;
-    transition-delay: 0.4s;
+    transform: translateY(20px) scale(0.9); /* Add initial scale */
+    /* Stagger delay even further */
+    transition: opacity 0.8s ease-out 0.7s, transform 0.8s ease-out 0.7s;
 }
 
 .feature-description-frame.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1); /* Reveal to normal scale */
 }
 
 .feature-description {
@@ -596,8 +603,11 @@ body {
     --shimmer-spread: 40px; /* Will be dynamically adjusted by JS */
     /* Base styling */
     position: relative;
-    opacity: 1;
-    transform: translateY(0);
+    /* Start revealed state for CTA title will be handled by JS, but set initial state for potential non-JS scenarios */
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    filter: blur(5px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out, filter 1s ease-out;
     z-index: 1;
     /* Text styling */
     color: transparent;
@@ -789,7 +799,8 @@ body {
 
 .cta-title.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
 }
 
 .cta-description {
@@ -804,14 +815,15 @@ body {
     padding-bottom: 20px; /* Added bottom padding */
     letter-spacing: 0.02em;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
-    transition-delay: 0.3s;
+    transform: translateY(20px) scale(0.95); /* Add scale */
+    filter: blur(3px); /* Add blur */
+    transition: opacity 1.0s ease-out 0.3s, transform 1.0s ease-out 0.3s, filter 0.8s ease-out 0.3s; /* Stagger delay */
 }
 
 .cta-description.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1); /* Reveal scale */
+    filter: blur(0px); /* Remove blur */
 }
 
 .cta-image-container {
@@ -820,14 +832,15 @@ body {
     max-width: 1000px; /* 2 times bigger than original 500px */
     margin: 0 auto;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
-    transition-delay: 0.6s;
+    transform: translateY(20px) scale(0.9); /* Add scale */
+    filter: blur(8px); /* Add blur */
+    transition: opacity 1.0s ease-out 0.6s, transform 1.0s ease-out 0.6s, filter 0.8s ease-out 0.6s; /* Stagger delay */
 }
 
 .cta-image-container.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1); /* Reveal scale */
+    filter: blur(0px); /* Remove blur */
 }
 
 .cta-video {
@@ -836,70 +849,98 @@ body {
     display: block;
 }
 
-/* Collection Section */
+/* Collection Section - Reverted for Grid + Horizontal Scroll */
 .collection-section {
-    padding: 0 0 50px; /* Set top padding to 0 */
-    text-align: center;
     position: relative;
     background-color: #000000;
-    overflow: hidden;
+    height: 180vh; /* Reduced height again to minimize space before footer */
+    overflow: hidden; /* Hide overflow from horizontal track */
+    padding: 0;
+}
+
+.collection-sticky-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* Stack track and text */
+    justify-content: space-between; /* Push track to top, text to bottom */
+    align-items: center; /* Center items horizontally */
+    /* overflow: hidden; */ /* REMOVED to prevent clipping text content */
+    padding: 5vh 0; /* Add some vertical padding */
+    box-sizing: border-box;
+}
+
+.collection-horizontal-track {
+    display: flex; /* Use flex to center the grid container */
+    justify-content: flex-start; /* Align grid to the start */
+    align-items: center; /* Vertically center grid */
+    width: max-content; /* Allow track to be as wide as its content */
+    will-change: transform;
+    position: relative;
+    padding: 0 5vw; /* Horizontal padding for start/end */
+    box-sizing: border-box;
+    /* Remove height/flex properties that conflict with grid */
 }
 
 .agent-gallery {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin: 0 auto;
-    max-width: 1200px;
-    padding: 0 20px;
-    margin-bottom: 100px; /* Increased space after gallery */
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-rows: repeat(3, auto); /* 3 rows */
+    gap: 15px; /* Gap between items */
+    width: 100%; /* Take full width of its container (track) */
+    max-width: 1200px; /* Max width for the grid */
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+    /* The total width will be determined by the items + gaps */
 }
 
 .agent-item {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1; /* Maintain square shape */
     overflow: hidden;
+    position: relative;
+    background-color: #111;
+    border-radius: 8px;
+    opacity: 0; /* Start hidden */
+    transform: scale(0.8) rotate(-5deg); /* Start smaller and slightly rotated */
+    filter: blur(6px); /* Start blurred */
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.8s ease-out; /* Add bouncy transform */
+    /* Remove fixed width/height and flex-shrink */
 }
 
-.agent-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease, opacity 0.5s ease;
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-.agent-item img.revealed {
+/* Add revealed state for agent-item */
+.agent-item.revealed {
     opacity: 1;
-    transform: translateY(0);
-}
-
-.agent-item img:hover {
-    transform: scale(1.05);
-}
-
-.agent-item img {
-    display: none; /* Hide images on all devices */
+    transform: scale(1) rotate(0deg); /* Reveal to normal scale and rotation */
+    filter: blur(0px); /* Remove blur */
 }
 
 .agent-item video.nft-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block; /* Show videos on all devices */
+    display: block;
 }
 
 .collection-text-content {
-    max-width: 800px;
-    margin: 0 auto 100px; /* Changed to add bottom margin and remove top margin */
-    padding: 0 20px;
-    position: relative;
-    z-index: 10;
+    position: relative; /* Change from absolute */
+    bottom: auto; /* Reset positioning */
+    left: auto;
+    transform: none; /* Reset transform */
+    max-width: 800px; /* Restore original max-width */
+    width: 90%; /* Adjust width */
+    text-align: center;
+    z-index: 5; /* Ensure it's above background but below potential overlays */
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 20px auto 0; /* Reduced margin top slightly, ensure it's below track */
 }
 
+/* Restore original text styles within collection-text-content */
 .collection-subtitle {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -917,27 +958,26 @@ body {
     flex-direction: column;
     align-items: center;
     margin-bottom: 30px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.5s ease, transform 1.5s ease;
+    opacity: 1;
+    transform: none;
+    transition: none;
 }
 
-.collection-logo-container.revealed {
-    opacity: 1;
-    transform: translateY(0);
+.collection-logo-img {
+    max-width: 300px; /* Restore original size */
+    height: auto;
+    display: block;
+    margin: 0 auto 15px;
 }
 
 .collection-logo-svg {
-    width: 300px;
-    height: auto;
-    margin-bottom: 10px;
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
+   display: none;
 }
 
 .collection-soma-jp {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 30px; /* Restore original size */
     line-height: 0.9em;
     text-align: center;
     background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
@@ -952,15 +992,9 @@ body {
     flex-direction: column;
     align-items: center;
     margin: 0 auto 30px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.5s ease, transform 1.5s ease;
-    transition-delay: 0.3s;
-}
-
-.collection-title-container.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+    transition: none;
 }
 
 .collection-title-first,
@@ -974,40 +1008,38 @@ body {
     color: transparent;
     margin: 0;
     padding: 0;
-    line-height: 1.2;
+    line-height: 1.2; /* Restore original line height */
     position: relative;
     z-index: 10;
 }
 
 .collection-title-first {
-    font-size: 60px;
-    margin-bottom: 10px;
+    font-size: 60px; /* Restore original size */
+    margin-bottom: 10px; /* Restore original margin */
 }
 
 .collection-title-second {
-    font-size: 80px;
+    font-size: 80px; /* Restore original size */
 }
 
 .collection-info {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 700;
-    font-size: 40px;
-    line-height: 1.4em;
+    font-size: 40px; /* Restore original size */
+    line-height: 1.4em; /* Restore original line height */
     text-align: center;
     background: linear-gradient(135deg, rgba(0, 128, 255, 0.88) 0%, rgba(189, 255, 204, 0.71) 59.13%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    margin-bottom: 40px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.5s ease, transform 1.5s ease;
-    transition-delay: 0.6s;
+    margin-bottom: 40px; /* Restore original margin */
+    opacity: 1;
+    transform: none;
+    transition: none;
 }
 
 .collection-info.revealed {
-    opacity: 1;
-    transform: translateY(0);
+    /* No change needed */
 }
 
 .redacted {
@@ -1020,6 +1052,8 @@ body {
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     background-color: #000000;
+    position: relative; /* Ensure footer is positioned correctly after tall section */
+    z-index: 5; /* Ensure footer is above background elements */
 }
 
 .social-links {
@@ -1051,9 +1085,10 @@ body {
     .soma-logo-text { font-size: 140px; }
     .hero-main-title { font-size: 56px; }
     .feature-title { font-size: 40px; }
-    .collection-title { font-size: 80px; }
+    /* .collection-title { font-size: 80px; } */ /* Removed as title sizes are now smaller */
     .cta-title { font-size: 60px; }
-    .agent-gallery { grid-template-columns: repeat(4, 1fr); }
+    /* .agent-gallery { grid-template-columns: repeat(4, 1fr); } */ /* Removed grid style */
+    .agent-item { width: 280px; height: 280px; } /* Adjust item size */
 }
 
 @media (max-width: 992px) {
@@ -1087,9 +1122,10 @@ body {
         text-align: center;
     }
     
-    .agent-gallery {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    /* .agent-gallery { grid-template-columns: repeat(3, 1fr); } */ /* Removed grid style */
+    .agent-item { width: 250px; height: 250px; } /* Adjust item size */
+    .agent-gallery { gap: 15px; } /* Adjust gap */
+    .collection-horizontal-track { padding-left: 4vw; padding-right: 4vw; }
 }
 
 @media (max-width: 768px) {
@@ -1244,20 +1280,59 @@ body {
     .cta-description { font-size: 16px; } /* Adjust size */
     .cta-image-container { max-width: 80%; } /* Adjust image size */
 
-    /* Collection Section adjustments */
-    .collection-section { padding: 60px 0 40px; }
+    /* Collection Section adjustments for mobile */
+    .collection-section {
+        height: auto; /* Revert height for mobile */
+        padding: 60px 0 40px; /* Restore padding */
+    }
+    .collection-sticky-container {
+        position: relative; /* Revert sticky positioning */
+        height: auto; /* Revert height */
+        overflow: visible; /* Allow overflow */
+    }
+    .collection-horizontal-track {
+        display: block; /* Revert to block display */
+        padding: 0; /* Remove padding */
+        transform: none !important; /* Disable transform */
+        will-change: auto; /* Reset will-change */
+    }
     .agent-gallery {
+        display: grid; /* Revert to grid */
         grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
-        gap: 5px; /* Reduce gap */
+        gap: 10px; /* Adjust gap */
         padding: 0 10px; /* Adjust padding */
         margin-bottom: 60px; /* Adjust spacing */
+        width: 100%; /* Take full width */
     }
-    .collection-text-content { margin-bottom: 60px; }
-    .collection-logo-svg { width: 200px; } /* Smaller logo */
-    .collection-soma-jp { font-size: 24px; } /* Adjust size */
-    .collection-title-first { font-size: 36px; } /* Adjust size */
-    .collection-title-second { font-size: 48px; } /* Adjust size */
-    .collection-info { font-size: 24px; } /* Adjust size */
+    .agent-item {
+        width: auto; /* Revert width */
+        height: auto; /* Revert height */
+        aspect-ratio: 1 / 1; /* Restore aspect ratio */
+        border-radius: 0; /* Remove border radius */
+        background-color: transparent; /* Remove background */
+    }
+    .collection-text-content {
+        position: relative; /* Revert positioning */
+        bottom: auto;
+        left: auto;
+        transform: none; /* Reset transform */
+        margin: 0 auto 60px; /* Restore margin */
+        padding: 0 20px; /* Restore padding */
+        background-color: transparent; /* Remove background */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        max-width: 800px; /* Restore max-width */
+        width: 100%; /* Take full width */
+    }
+    /* Restore original text sizes for mobile */
+    .collection-subtitle { font-size: 24px; margin-bottom: 30px; }
+    .collection-logo-container { margin-bottom: 30px; }
+    .collection-logo-img { max-width: 200px; margin-bottom: 10px; }
+    .collection-soma-jp { font-size: 24px; }
+    .collection-title-container { margin: 0 auto 30px; }
+    .collection-title-first { font-size: 36px; margin-bottom: 10px; }
+    .collection-title-second { font-size: 48px; }
+    .collection-info { font-size: 24px; margin-bottom: 40px; }
 
     /* Footer adjustments */
     .footer { padding: 40px 0; }
@@ -1273,8 +1348,13 @@ body {
     .feature-description { font-size: 15px; }
     .cta-title { font-size: 28px; }
     .cta-description { font-size: 15px; }
+    /* Adjust collection text for very small screens if needed */
     .collection-title-first { font-size: 30px; }
     .collection-title-second { font-size: 40px; }
     .collection-info { font-size: 20px; }
     .poxel-font { font-size: 12px; }
+    /* Adjust agent item size for horizontal scroll on small screens */
+    .agent-item { width: 200px; height: 200px; }
+    .agent-gallery { gap: 10px; }
+    .collection-horizontal-track { padding-left: 3vw; padding-right: 3vw; }
 }

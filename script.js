@@ -4,8 +4,110 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnimations();
     initNavigation();
     initScrollEffects();
-    initSmoothVideoLoop(); // Re-added call to initSmoothVideoLoop
+    initSmoothVideoLoop();
+    initHorizontalScroll(); // Add call for horizontal scroll
 });
+
+// --- Horizontal Scroll Logic ---
+
+function initHorizontalScroll() {
+    const collectionSection = document.getElementById('collection-section');
+    const stickyContainer = collectionSection?.querySelector('.collection-sticky-container');
+    const horizontalTrack = collectionSection?.querySelector('.collection-horizontal-track');
+
+    if (!collectionSection || !stickyContainer || !horizontalTrack) {
+        console.warn('Horizontal scroll elements not found.');
+        return;
+    }
+
+    let trackWidth = 0;
+    let maxTranslateX = 0;
+    let sectionScrollStart = 0;
+    let sectionScrollEnd = 0;
+    // let effectiveScrollDistance = 0; // Removed variable
+    let isMobile = window.innerWidth <= 768;
+
+    function calculateDimensions() {
+        isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            // Reset styles if switching to mobile
+            horizontalTrack.style.transform = '';
+            return; // Don't calculate for mobile
+        }
+
+        // Calculate track width
+        trackWidth = horizontalTrack.scrollWidth;
+        // Calculate max translation (how much the track needs to move left)
+        // Subtract viewport width and account for padding
+        const containerWidth = stickyContainer.clientWidth;
+        maxTranslateX = -(trackWidth - containerWidth);
+
+        // Calculate section scroll boundaries
+        const sectionRect = collectionSection.getBoundingClientRect();
+        const scrollY = window.scrollY || window.pageYOffset;
+        sectionScrollStart = sectionRect.top + scrollY;
+        // End scroll when the bottom of the section hits the bottom of the viewport
+        sectionScrollEnd = sectionScrollStart + collectionSection.offsetHeight - window.innerHeight;
+
+        // Initial application in case scroll is already partway
+        handleScroll();
+    }
+
+    function handleScroll() {
+        if (isMobile) return; // Don't run on mobile
+
+        const scrollY = window.scrollY || window.pageYOffset;
+
+        // Calculate progress within the section's scrollable height (0 to 1)
+        let progress = 0;
+        const scrollableHeight = sectionScrollEnd - sectionScrollStart;
+
+        if (scrollableHeight > 0 && scrollY >= sectionScrollStart && scrollY <= sectionScrollEnd) {
+            progress = (scrollY - sectionScrollStart) / scrollableHeight;
+        } else if (scrollY > sectionScrollEnd) {
+            progress = 1;
+        }
+
+        // Clamp progress between 0 and 1
+        progress = Math.max(0, Math.min(1, progress));
+
+        // Calculate the required translation
+        const translateX = progress * maxTranslateX;
+
+        // Apply the transform
+        // Use requestAnimationFrame for smoother animation
+        requestAnimationFrame(() => {
+            horizontalTrack.style.transform = `translateX(${translateX}px)`;
+        });
+    }
+
+    // Debounce function to limit resize calculations
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    const debouncedCalculateDimensions = debounce(calculateDimensions, 250);
+
+    // Initial calculation
+    // Use setTimeout to ensure layout is stable after initial render/CSS application
+    setTimeout(calculateDimensions, 100);
+
+
+    // Add event listeners
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', debouncedCalculateDimensions);
+}
+
+
+// --- Existing Functions ---
 
 // Initialize animations for page elements
 function initAnimations() {
@@ -267,20 +369,20 @@ function createMobileMenu() {
 
 // Initialize scroll-based effects
 function initScrollEffects() {
+    const heroVideo = document.querySelector('.hero-background-video'); // Select the video element
+
     // Add scroll event listener
     window.addEventListener('scroll', function() {
         // Get current scroll position
         const scrollPosition = window.scrollY;
-        
-        // Parallax effect for hero section background
-        const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
-            const scrollRelative = scrollPosition;
-            if (scrollRelative > 0) {
-                heroSection.style.backgroundPositionY = `${scrollRelative * 0.05}px`;
-            }
+
+        // Parallax effect for hero section background video
+        if (heroVideo) {
+            // Apply a slower scroll effect using transform
+            const translateY = scrollPosition * 0.3; // Adjust multiplier for desired speed
+            heroVideo.style.transform = `translateY(${translateY}px)`;
         }
-        
+
         // Reveal elements on scroll
         revealOnScroll();
     });
@@ -346,7 +448,7 @@ function revealOnScroll() {
     const featureTextContainers = document.querySelectorAll('.feature-text-container');
     const featureTitleFrames = document.querySelectorAll('.feature-title-frame');
     const featureDescriptionFrames = document.querySelectorAll('.feature-description-frame');
-    const agentItems = document.querySelectorAll('.agent-item img');
+    const agentItems = document.querySelectorAll('.agent-item'); // Target the container div
     const introSection = document.querySelector('.intro-section');
     const ctaSection = document.querySelector('.cta-section');
     
@@ -471,9 +573,6 @@ function isElementInViewport(el) {
         rect.right >= 0
     );
 }
-
-// Initialize parallax effect
-parallaxFeatureImages();
 
 // Add a simple preloader
 window.addEventListener('load', function() {
