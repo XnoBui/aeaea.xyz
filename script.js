@@ -498,13 +498,16 @@ function revealOnScroll() {
     const introSection = document.querySelector('.intro-section');
     const ctaSection = document.querySelector('.cta-section');
     
-    // Check if elements are in viewport
+    // Check if elements are in viewport (revised for better detection)
     const isInViewport = (element) => {
         const rect = element.getBoundingClientRect();
+        const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+        // Check if element top is above the bottom of the viewport
+        // AND element bottom is below the top of the viewport (allowing partial visibility)
+        // Adjusted trigger point slightly (e.g., 85% from top)
         return (
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.75 &&
-            rect.top >= 0 &&
-            rect.bottom >= 0
+            rect.top < windowHeight * 0.85 && // Element top enters lower 85% of viewport
+            rect.bottom > 0 // Element bottom is below the viewport top
         );
     };
     
