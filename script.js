@@ -72,17 +72,16 @@ function initVideoLazyLoad() {
             generalLazyVideos.forEach(video => generalVideoObserver.observe(video));
         }
 
-        // Observer for NFT videos within the horizontal scroll container
-        if (nftLazyVideos.length > 0 && nftScrollContainer) {
-            const nftVideoObserver = new IntersectionObserver(handleIntersection, nftObserverOptions);
+        // Observer for NFT videos (using viewport as root)
+        if (nftLazyVideos.length > 0) {
+            // Always use generalObserverOptions (viewport root) for NFT videos now
+            const nftVideoObserver = new IntersectionObserver(handleIntersection, generalObserverOptions);
             nftLazyVideos.forEach(video => nftVideoObserver.observe(video));
-        } else if (nftLazyVideos.length > 0 && !nftScrollContainer) {
-             console.warn("NFT videos found, but '.collection-sticky-container' not found. Using viewport observer as fallback.");
-             const fallbackNftObserver = new IntersectionObserver(handleIntersection, generalObserverOptions); // Use general options as fallback
-             nftLazyVideos.forEach(video => fallbackNftObserver.observe(video));
         }
+        // The fallback logic using nftScrollContainer or triggering a warning is removed,
+        // as we now consistently use the viewport observer for NFTs when IntersectionObserver is available.
 
-    } else {
+    } else { // Fallback for browsers without IntersectionObserver
         // Fallback for browsers without IntersectionObserver (load all videos)
         console.warn("IntersectionObserver not supported. Loading all videos.");
         document.querySelectorAll('video.lazy-load-video').forEach(video => { // Select all lazy videos for fallback
