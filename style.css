@@ -867,51 +867,44 @@ body {
     display: block;
 }
 
-/* Collection Section - Reverted for Grid + Horizontal Scroll */
+/* Collection Section - Adjusted for Standard Vertical Flow */
 .collection-section {
     position: relative;
     background-color: #000000;
-    height: 220vh; /* Increased height to prevent content cutoff */
-    overflow: hidden; /* Restore overflow for horizontal scroll */
-    padding: 0;
+    height: auto; /* Allow height to be determined by content */
+    overflow: visible; /* Allow content to be visible */
+    padding: 80px 0; /* Add vertical padding */
 }
 
 .collection-sticky-container {
-    position: sticky;
-    top: 0;
-    /* height: 100vh; */ /* Remove fixed height */
+    /* Removed sticky positioning and related flex properties */
+    position: relative; /* Change to relative */
     width: 100%;
-    display: flex;
-    flex-direction: column; /* Stack track and text */
-    justify-content: flex-start; /* Align items to the start (top) */
-    align-items: center; /* Center items horizontally */
-    /* overflow: hidden; */ /* REMOVED to prevent clipping text content */
-    padding: 5vh 0; /* Add some vertical padding */
+    display: block; /* Change to block */
+    padding: 0; /* Remove padding */
     box-sizing: border-box;
 }
 
 .collection-horizontal-track {
-    display: flex; /* Use flex to center the grid container */
-    justify-content: flex-start; /* Align grid to the start */
-    align-items: center; /* Vertically center grid */
-    width: max-content; /* Allow track to be as wide as its content */
-    will-change: transform;
+    /* Removed properties related to horizontal scrolling track */
+    display: block; /* Change to block */
+    width: auto; /* Allow normal width */
+    will-change: auto; /* Reset */
     position: relative;
-    padding: 0 5vw; /* Horizontal padding for start/end */
+    padding: 0; /* Remove padding */
     box-sizing: border-box;
-    /* Remove height/flex properties that conflict with grid */
+    margin-bottom: 60px; /* Add space below the gallery */
 }
 
 .agent-gallery {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    grid-template-rows: repeat(3, auto); /* 3 rows */
-    gap: 15px; /* Gap between items */
-    width: 100%; /* Take full width of its container (track) */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid columns */
+    /* grid-template-rows: repeat(3, auto); */ /* Let rows be determined automatically */
+    gap: 20px; /* Slightly larger gap */
+    width: 90%; /* Limit width */
     max-width: 1200px; /* Max width for the grid */
-    margin: 0; /* Reset margin */
+    margin: 0 auto; /* Center the grid */
     padding: 0; /* Reset padding */
-    /* The total width will be determined by the items + gaps */
 }
 
 .agent-item {
@@ -1380,7 +1373,12 @@ body {
 /* Desktop specific adjustments */
 @media (min-width: 769px) {
   .collection-section {
-    margin-bottom: 200px; /* Increased space below collection section on desktop */
+    margin-bottom: 100px; /* Adjusted space below collection section on desktop */
+  }
+
+  .agent-gallery {
+      grid-template-columns: repeat(4, 1fr); /* Keep 4 columns on larger screens */
+      gap: 25px;
   }
 
   /* Force visibility for collection text elements on desktop */
