@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Comparison - Other Videos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .stats {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .summary {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+            border-left: 4px solid #4682b4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Optimization Comparison - Other Videos</h1>
+    <p>This page shows a comparison between the original videos and their optimized versions. The optimized versions maintain the original resolution but have been compressed using H.264 encoding with CRF 28 and no audio.</p>
+    
+    <div class="summary">
+        <h2>Optimization Summary</h2>
+        <ul>
+            <li><strong>AI Gene video.mp4:</strong> 7.8MB → 580KB (93% reduction)</li>
+            <li><strong>Soma Logo.mp4:</strong> 3.9MB → 496KB (87% reduction)</li>
+            <li><strong>feature1.mp4:</strong> 15MB → 2.0MB (87% reduction)</li>
+            <li><strong>feature2.mp4:</strong> 15MB → 4.0MB (73% reduction)</li>
+            <li><strong>feature3.mp4:</strong> 8.5MB → 784KB (91% reduction)</li>
+            <li><strong>hero-background.mp4:</strong> 32MB → 4.0MB (88% reduction)</li>
+        </ul>
+        <p><strong>Total size reduction:</strong> ~82MB → ~12MB (85% overall reduction)</p>
+    </div>
+    
+    <h2>AI Gene Video</h2>
+    <div class="comparison">
+        <div class="video-container">
+            <h3>Original (7.8 MB)</h3>
+            <video controls>
+                <source src="videos/AI Gene video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1080x1080</p>
+                <p><strong>File size:</strong> 7.8 MB</p>
+            </div>
+        </div>
+        
+        <div class="video-container">
+            <h3>Optimized (580 KB)</h3>
+            <video controls>
+                <source src="videos/AI Gene video_optimized.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1080x1080 (unchanged)</p>
+                <p><strong>File size:</strong> 580 KB</p>
+                <p><strong>Size reduction:</strong> 93%</p>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Soma Logo</h2>
+    <div class="comparison">
+        <div class="video-container">
+            <h3>Original (3.9 MB)</h3>
+            <video controls>
+                <source src="videos/Soma Logo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1920x1080</p>
+                <p><strong>File size:</strong> 3.9 MB</p>
+            </div>
+        </div>
+        
+        <div class="video-container">
+            <h3>Optimized (496 KB)</h3>
+            <video controls>
+                <source src="videos/Soma Logo_optimized.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1920x1080 (unchanged)</p>
+                <p><strong>File size:</strong> 496 KB</p>
+                <p><strong>Size reduction:</strong> 87%</p>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Feature 1</h2>
+    <div class="comparison">
+        <div class="video-container">
+            <h3>Original (15 MB)</h3>
+            <video controls>
+                <source src="videos/feature1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1920x1080</p>
+                <p><strong>File size:</strong> 15 MB</p>
+            </div>
+        </div>
+        
+        <div class="video-container">
+            <h3>Optimized (2.0 MB)</h3>
+            <video controls>
+                <source src="videos/feature1_optimized.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1920x1080 (unchanged)</p>
+                <p><strong>File size:</strong> 2.0 MB</p>
+                <p><strong>Size reduction:</strong> 87%</p>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Feature 2</h2>
+    <div class="comparison">
+        <div class="video-container">
+            <h3>Original (15 MB)</h3>
+            <video controls>
+                <source src="videos/feature2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1920x1080</p>
+                <p><strong>File size:</strong> 15 MB</p>
+            </div>
+        </div>
+        
+        <div class="video-container">
+            <h3>Optimized (4.0 MB)</h3>
+            <video controls>
+                <source src="videos/feature2_optimized.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1920x1080 (unchanged)</p>
+                <p><strong>File size:</strong> 4.0 MB</p>
+                <p><strong>Size reduction:</strong> 73%</p>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Feature 3</h2>
+    <div class="comparison">
+        <div class="video-container">
+            <h3>Original (8.5 MB)</h3>
+            <video controls>
+                <source src="videos/feature3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1440x1080</p>
+                <p><strong>File size:</strong> 8.5 MB</p>
+            </div>
+        </div>
+        
+        <div class="video-container">
+            <h3>Optimized (784 KB)</h3>
+            <video controls>
+                <source src="videos/feature3_optimized.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1440x1080 (unchanged)</p>
+                <p><strong>File size:</strong> 784 KB</p>
+                <p><strong>Size reduction:</strong> 91%</p>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Hero Background</h2>
+    <div class="comparison">
+        <div class="video-container">
+            <h3>Original (32 MB)</h3>
+            <video controls>
+                <source src="videos/hero-background.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1920x1080</p>
+                <p><strong>File size:</strong> 32 MB</p>
+            </div>
+        </div>
+        
+        <div class="video-container">
+            <h3>Optimized (4.0 MB)</h3>
+            <video controls>
+                <source src="videos/hero-background_optimized.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="stats">
+                <p><strong>Resolution:</strong> 1920x1080 (unchanged)</p>
+                <p><strong>File size:</strong> 4.0 MB</p>
+                <p><strong>Size reduction:</strong> 88%</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="summary">
+        <h2>Optimization Details</h2>
+        <p>The videos were optimized using the following settings:</p>
+        <ul>
+            <li>Removed audio tracks</li>
+            <li>Maintained original resolution</li>
+            <li>Used H.264 encoding with CRF 28 (balancing quality and file size)</li>
+            <li>Added faststart flag for better web streaming</li>
+        </ul>
+        <p>The total size of all videos was reduced from approximately 82 MB to about 12 MB, which is an 85% overall reduction. This will significantly improve loading times on the web while maintaining the original resolution and good visual quality.</p>
+    </div>
+</body>
+</html>
