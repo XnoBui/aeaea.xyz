@@ -438,7 +438,7 @@ body {
     transform: translateY(60px) scale(0.95); /* Start lower and slightly smaller */
     filter: blur(8px); /* Start blurred */
     transition: opacity 1.2s ease-out, transform 1.2s ease-out, filter 1.2s ease-out; /* Smoother transition */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */ /* Removed border */
 }
 
 .feature-item.revealed {
@@ -469,7 +469,25 @@ body {
     display: block;
 }
 
+/* Gradient overlay for feature videos (matches hero overlay) */
+.feature-bottom-gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 237px; /* Same height as hero overlay */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1; /* Above video, below text container */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
     @media (max-width: 768px) {
+        /* Hide feature gradient on mobile if needed, or adjust height */
+        .feature-bottom-gradient-overlay {
+             display: none; /* Example: Hide on mobile */
+             /* height: 100px; */ /* Example: Reduce height on mobile */
+        }
+
         .feature-item {
             position: relative; /* Ensure proper positioning context */
             overflow: visible; /* Allow content to overflow */
@@ -502,7 +520,7 @@ body {
     display: flex; /* Make it a flex container */
     align-items: center; /* Center items vertically */
     justify-content: space-between; /* Space between title and description */
-    background-color: rgba(0, 0, 0, 0.05); /* Same as header background */
+    background-color: rgba(0, 0, 0, 0.15); /* Updated background color */
     backdrop-filter: blur(20px); /* Same as header background */
     -webkit-backdrop-filter: blur(20px); /* Same as header background */
     opacity: 0;
@@ -571,7 +589,7 @@ body {
 
 /* CTA Section */
 .cta-section {
-    padding: 100px 0 20px; /* Reduced bottom padding */
+    padding: 50px 0 20px; /* Reduced top padding from 100px */
     text-align: center;
     position: relative;
     /* min-height: 100vh; */ /* Removed to allow section to shrink */
@@ -585,7 +603,7 @@ body {
 .cta-content {
     z-index: 1;
     max-width: 872px;
-    margin-bottom: 60px;
+    margin-bottom: 30px; /* Reduced space below text from 60px */
 }
 
 .cta-title {
@@ -829,7 +847,7 @@ body {
 .cta-image-container {
     position: relative;
     width: 100%;
-    max-width: 1000px; /* 2 times bigger than original 500px */
+    max-width: 400px; /* Further reduced from 500px */
     margin: 0 auto;
     opacity: 0;
     transform: translateY(20px) scale(0.9); /* Add scale */
@@ -853,19 +871,19 @@ body {
 .collection-section {
     position: relative;
     background-color: #000000;
-    height: 180vh; /* Reduced height again to minimize space before footer */
-    overflow: hidden; /* Hide overflow from horizontal track */
+    height: 220vh; /* Increased height to prevent content cutoff */
+    overflow: hidden; /* Restore overflow for horizontal scroll */
     padding: 0;
 }
 
 .collection-sticky-container {
     position: sticky;
     top: 0;
-    height: 100vh;
+    /* height: 100vh; */ /* Remove fixed height */
     width: 100%;
     display: flex;
     flex-direction: column; /* Stack track and text */
-    justify-content: space-between; /* Push track to top, text to bottom */
+    justify-content: flex-start; /* Align items to the start (top) */
     align-items: center; /* Center items horizontally */
     /* overflow: hidden; */ /* REMOVED to prevent clipping text content */
     padding: 5vh 0; /* Add some vertical padding */
@@ -924,12 +942,12 @@ body {
 }
 
 .collection-text-content {
-    position: relative; /* Change from absolute */
-    bottom: auto; /* Reset positioning */
-    left: auto;
-    transform: none; /* Reset transform */
-    max-width: 800px; /* Restore original max-width */
-    width: 90%; /* Adjust width */
+    /* position: relative; */ /* No longer needed as it's outside sticky */
+    /* bottom: auto; */ /* Reset */
+    /* left: auto; */ /* Reset */
+    /* transform: none; */ /* Reset */
+    max-width: 800px;
+    width: 90%;
     text-align: center;
     z-index: 5; /* Ensure it's above background but below potential overlays */
     padding: 20px;
@@ -937,7 +955,7 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
-    margin: 20px auto 0; /* Reduced margin top slightly, ensure it's below track */
+    margin: 80px auto 0; /* Add top margin for space below gallery, center horizontally */
 }
 
 /* Restore original text styles within collection-text-content */
@@ -1357,4 +1375,19 @@ body {
     .agent-item { width: 200px; height: 200px; }
     .agent-gallery { gap: 10px; }
     .collection-horizontal-track { padding-left: 3vw; padding-right: 3vw; }
+}
+
+/* Desktop specific adjustments */
+@media (min-width: 769px) {
+  .collection-section {
+    margin-bottom: 200px; /* Increased space below collection section on desktop */
+  }
+
+  /* Force visibility for collection text elements on desktop */
+  .collection-title-second,
+  .collection-info {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
 }

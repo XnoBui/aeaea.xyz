@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollEffects();
     initSmoothVideoLoop();
     initHorizontalScroll(); // Add call for horizontal scroll
+    initVideoLazyLoad(); // Add call for video lazy loading
 });
 
 // --- Horizontal Scroll Logic ---
@@ -106,6 +107,51 @@ function initHorizontalScroll() {
     window.addEventListener('resize', debouncedCalculateDimensions);
 }
 
+// --- Video Lazy Loading ---
+
+function initVideoLazyLoad() {
+    const lazyVideos = document.querySelectorAll('video.lazy-load-video');
+
+    if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    const source = video.querySelector('source');
+                    
+                    if (source && source.dataset.src) {
+                        // Load the video source
+                        source.src = source.dataset.src;
+                        video.load(); // Important: Load the new source
+                        
+                        // Optional: Attempt to play muted videos once loaded
+                        // This respects autoplay policies but tries if possible
+                        video.play().catch(e => console.log("Lazy-loaded video play prevented:", e));
+                        
+                        // Remove the class and unobserve after loading
+                        video.classList.remove('lazy-load-video');
+                        observer.unobserve(video);
+                    }
+                }
+            });
+        }, { rootMargin: "0px 0px 200px 0px" }); // Load when 200px away from viewport bottom
+
+        lazyVideos.forEach(video => {
+            videoObserver.observe(video);
+        });
+    } else {
+        // Fallback for browsers without IntersectionObserver (load all videos)
+        console.warn("IntersectionObserver not supported. Loading all videos.");
+        lazyVideos.forEach(video => {
+            const source = video.querySelector('source');
+            if (source && source.dataset.src) {
+                source.src = source.dataset.src;
+                video.load();
+                video.play().catch(e => console.log("Fallback video play prevented:", e));
+            }
+        });
+    }
+}
 
 // --- Existing Functions ---
 
@@ -588,21 +634,36 @@ window.addEventListener('load', function() {
 
 // Function to handle smooth video looping for NFT videos
 // Function to handle smooth video looping for NFT videos using the 'ended' event
+// Adjusted to work with lazy loading
 function initSmoothVideoLoop() {
     const nftVideos = document.querySelectorAll('.nft-video');
 
     nftVideos.forEach(video => {
-        // Use the 'ended' event to restart the video immediately
-        video.addEventListener('ended', function() {
-            video.currentTime = 0; // Explicitly set time to 0 before playing again
-            video.play(); // Restart the video when it ends
-        });
+        // Function to handle looping
+        const loopHandler = () => {
+            video.currentTime = 0;
+            video.play().catch(e => console.log("Loop replay prevented:", e));
+        };
 
-        // Attempt to play initially, respecting autoplay policies
-        video.play().catch(error => {
-            console.log("Autoplay prevented for NFT video. User interaction might be needed.", error);
-            // Fallback: Ensure the video is ready to play on interaction
-            // You might add an overlay here prompting the user to click to play
-        });
+        // Add the ended listener
+        video.addEventListener('ended', loopHandler);
+
+        // Check if the video source is already loaded (not lazy) or becomes loaded
+        const source = video.querySelector('source');
+        if (source && source.src) { // If src is already set (not lazy-loaded or already loaded)
+            video.play().catch(error => {
+                console.log("Autoplay prevented for NFT video. User interaction might be needed.", error);
+            });
+        } else {
+            // If lazy-loaded, wait for the 'loadeddata' event before trying to play
+            video.addEventListener('loadeddata', () => {
+                 // Only play if it's an NFT video that should loop
+                 if (video.classList.contains('nft-video')) {
+                    video.play().catch(error => {
+                        console.log("Lazy-loaded NFT video play prevented:", error);
+                    });
+                 }
+            }, { once: true }); // Only run this once per video
+        }
     });
 }
