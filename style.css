@@ -5,11 +5,11 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #000000;
     color: #FFFFFF;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Apply to both html and body */
     line-height: 1.2;
 }
 
@@ -490,7 +490,7 @@ body {
 
         .feature-item {
             position: relative; /* Ensure proper positioning context */
-            overflow: visible; /* Allow content to overflow */
+            overflow: hidden !important; /* Change from visible to hidden */
         }
         
         .feature-video-container {
@@ -771,6 +771,22 @@ body {
   }
 }
 
+/* Pulse Animation Keyframes */
+@keyframes pulse-gradient {
+  0% {
+    transform: translateX(-50%) rotate(-1.2deg) scale(0.4);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(-50%) rotate(-1.2deg) scale(1.5);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(-50%) rotate(-1.2deg) scale(0.4);
+    opacity: 0.6;
+  }
+}
+
 /* Glowing text effect for CTA title - works regardless of revealed class */
 .cta-title::after {
     content: attr(data-text);
@@ -896,42 +912,131 @@ body {
     margin-bottom: 60px; /* Add space below the gallery */
 }
 
-.agent-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid columns */
-    /* grid-template-rows: repeat(3, auto); */ /* Let rows be determined automatically */
-    gap: 20px; /* Slightly larger gap */
-    width: 90%; /* Limit width */
-    max-width: 1200px; /* Max width for the grid */
-    margin: 0 auto; /* Center the grid */
-    padding: 0; /* Reset padding */
+/* New Agent Card Styles */
+.agent-card {
+    box-shadow: 0px 0px 6px 0px rgba(207, 213, 219, 0.05) inset;
+    overflow: hidden; /* Ensure content stays within rounded corners */
+    padding: 8px; /* Padding around the entire card content */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Keep subtle hover effect */
+    cursor: default; /* Remove pointer cursor if not interactive */
+    position: relative; /* Establishes stacking context */
+    border-radius: 36px; /* Keep overall rounding */
 }
 
-.agent-item {
-    aspect-ratio: 1 / 1; /* Maintain square shape */
+/* Inner background element */
+.agent-card-background {
+    position: absolute;
+    inset: 0; /* Cover the entire parent */
+    border-radius: inherit; /* Inherit parent's border-radius */
+    border-bottom: 1px solid rgba(207, 213, 219, 0.10);
+    background: rgba(203, 210, 218, 0.10);
+    backdrop-filter: blur(15px);
+    z-index: 2; /* Middle layer (above pulse and decoration) */
+}
+
+/* New pulsing gradient element */
+.agent-card-pulse-gradient {
+    position: absolute;
+    bottom: 10.295px; /* Match decoration position */
+    left: 50%;
+    /* transform: translateX(-50%) rotate(-1.2deg); */ /* Initial transform handled by animation */
+    width: 160px;
+    height: 39px;
+    background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    border-radius: 50%; /* Make it circular/oval based on width/height */
+    z-index: 0; /* Lowest layer */
+    animation: pulse-gradient 3s infinite ease-in-out;
+}
+
+/* New decoration element */
+.agent-card-decoration {
+    position: absolute;
+    bottom: 10.295px; /* Position at the bottom with some padding */
+    left: 50%;
+    transform: translateX(-50%) rotate(-0.839deg); /* Center and apply slight rotation */
+    width: 230px;  /* Increased from 196px */
+    height: 14px; /* Increased from 12px */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='18' viewBox='0 0 144 18' fill='none'%3E%3Cpath d='M4.47803 6.47656L73.478 13.5026L140.478 4.46913' stroke='%236D7681' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    z-index: 1; /* Bottom layer (behind background) */
+}
+
+.agent-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Adjusted shadow */
+}
+
+.agent-card-media-container {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Maintain square aspect ratio for the media */
     overflow: hidden;
-    position: relative;
-    background-color: #111;
-    border-radius: 8px;
-    opacity: 0; /* Start hidden */
-    transform: scale(0.8) rotate(-5deg); /* Start smaller and slightly rotated */
-    filter: blur(6px); /* Start blurred */
-    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.8s ease-out; /* Add bouncy transform */
-    /* Remove fixed width/height and flex-shrink */
+    border-radius: 12px; /* Slightly less rounded corners for the media */
+    margin-bottom: 20px; /* Space between media and text (matches image) */
+    position: relative; /* Needed for z-index */
+    z-index: 3; /* Top layer (above background and decoration) */
 }
 
-/* Add revealed state for agent-item */
-.agent-item.revealed {
-    opacity: 1;
-    transform: scale(1) rotate(0deg); /* Reveal to normal scale and rotation */
-    filter: blur(0px); /* Remove blur */
-}
-
-.agent-item video.nft-video {
+.agent-card .nft-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.agent-card-text-container {
+    padding: 0 8px 4px; /* Reduced bottom padding */
+    text-align: center;
+    position: relative; /* Needed for z-index */
+    z-index: 3; /* Top layer (above background and decoration) */
+}
+
+.agent-card-title {
+    color: #BFBFBF; /* var(--Solid-Colors-N5, #BFBFBF); */
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Added fallback fonts */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 19.2px */
+    text-transform: uppercase;
+    margin-bottom: 4px; /* Keep existing margin */
+}
+
+.agent-card-subtitle {
+    align-self: stretch;
+    color: #8C8C8C; /* var(--Solid-Colors-N6-B, #8C8C8C); */
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Added fallback fonts */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 17.6px */
+}
+
+/* Remove old overlay class if it exists */
+.agent-card-overlay {
+    display: none;
+}
+
+/* Adjustments for the grid layout */
+.agent-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust minmax for card size */
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 60px; /* Center and add bottom margin */
+    padding: 0;
+}
+
+/* Remove old agent-item styles if they exist */
+.agent-item {
+    /* These styles are no longer needed as .agent-card is used */
+     display: none; /* Hide elements with this class if they still exist */
 }
 
 .collection-text-content {
@@ -1099,7 +1204,7 @@ body {
     /* .collection-title { font-size: 80px; } */ /* Removed as title sizes are now smaller */
     .cta-title { font-size: 60px; }
     /* .agent-gallery { grid-template-columns: repeat(4, 1fr); } */ /* Removed grid style */
-    .agent-item { width: 280px; height: 280px; } /* Adjust item size */
+    /* .agent-item { width: 280px; height: 280px; } */ /* Removed agent-item reference */
 }
 
 @media (max-width: 992px) {
@@ -1133,13 +1238,20 @@ body {
         text-align: center;
     }
     
-    /* .agent-gallery { grid-template-columns: repeat(3, 1fr); } */ /* Removed grid style */
-    .agent-item { width: 250px; height: 250px; } /* Adjust item size */
-    .agent-gallery { gap: 15px; } /* Adjust gap */
+    /* .agent-gallery { grid-template-columns: repeat(3, 1fr); } */
+    /* .agent-item { width: 250px; height: 250px; } */ /* Removed agent-item reference */
+    .agent-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjust grid for tablets */
+        gap: 15px;
+    }
     .collection-horizontal-track { padding-left: 4vw; padding-right: 4vw; }
 }
 
 @media (max-width: 768px) {
+    .landing-page {
+        overflow-x: hidden !important; /* Prevent horizontal overflow within the main container */
+    }
+
     .header {
         padding: 15px 20px;
         flex-direction: row; /* Change back to row for logo/icon alignment */
@@ -1227,8 +1339,9 @@ body {
     }
     .feature-video-container { 
         height: auto; /* Allow natural height */
-        width: 100vw; /* Full viewport width */
-        margin-left: calc(-50vw + 50%); /* Center the container */
+        width: 100%; /* Use 100% instead of 100vw */
+        margin-left: 0; /* Remove calculated margin */
+        margin-right: 0;
         position: relative;
     }
     
@@ -1294,7 +1407,7 @@ body {
     /* Collection Section adjustments for mobile */
     .collection-section {
         height: auto; /* Revert height for mobile */
-        padding: 60px 0 40px; /* Restore padding */
+        padding: 60px 0 40px; /* Remove horizontal padding */
     }
     .collection-sticky-container {
         position: relative; /* Revert sticky positioning */
@@ -1309,21 +1422,37 @@ body {
     }
     .agent-gallery {
         display: grid; /* Revert to grid */
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
-        gap: 10px; /* Adjust gap */
-        padding: 0 10px; /* Adjust padding */
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on mobile */
+        gap: 8px; /* Adjust gap */
+        padding: 0; /* REMOVE horizontal padding */
         margin-bottom: 60px; /* Adjust spacing */
-        width: 100%; /* Take full width */
+        /* Make gallery full width */
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box; /* Keep box-sizing */
+        padding: 0 10px; /* Add small padding directly to gallery if needed */
     }
-    .agent-item {
-        width: auto; /* Revert width */
-        height: auto; /* Revert height */
-        aspect-ratio: 1 / 1; /* Restore aspect ratio */
-        border-radius: 0; /* Remove border radius */
-        background-color: transparent; /* Remove background */
+    /* Agent card specific mobile styles */
+    .agent-card {
+        padding: 3px; /* Adjust padding */
+        border-radius: 13px; /* Adjust border-radius */
     }
+    .agent-card-title {
+        font-size: 8px; /* Mobile font size */
+    }
+    .agent-card-subtitle {
+        font-size: 8px; /* Mobile font size */
+    }
+     .agent-card-overlay {
+        font-size: 14px;
+        padding: 10px;
+    }
+    /* Remove agent-item mobile styles */
+    /* .agent-item { ... } */
+
     .collection-text-content {
-        position: relative; /* Revert positioning */
+        position: relative;
         bottom: auto;
         left: auto;
         transform: none; /* Reset transform */
@@ -1364,9 +1493,17 @@ body {
     .collection-title-second { font-size: 40px; }
     .collection-info { font-size: 20px; }
     .poxel-font { font-size: 12px; }
-    /* Adjust agent item size for horizontal scroll on small screens */
-    .agent-item { width: 200px; height: 200px; }
-    .agent-gallery { gap: 10px; }
+    /* Adjust agent card size for very small screens */
+    .agent-gallery {
+        grid-template-columns: repeat(2, 1fr); /* Keep 2 columns */
+        gap: 10px;
+    }
+     .agent-card-overlay {
+        font-size: 12px;
+        padding: 8px;
+    }
+    /* Remove agent-item reference */
+    /* .agent-item { width: 200px; height: 200px; } */
     .collection-horizontal-track { padding-left: 3vw; padding-right: 3vw; }
 }
 

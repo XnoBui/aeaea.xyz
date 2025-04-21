@@ -8,11 +8,15 @@
   
   /* CTA Section Fixes */
   .cta-section {
-    padding: 60px 20px !important;
-    overflow: visible !important;
+    padding-top: 5px !important; /* Reduce top padding */
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-bottom: 20px !important; /* Reduced bottom padding to decrease space between CTA and Collection */
+    overflow: hidden !important; /* Change from visible to hidden */
   }
   
   .cta-content {
+    max-width: 100% !important; /* Ensure content doesn't exceed container width */
     margin-bottom: 30px !important;
     padding: 0 15px !important;
   }
@@ -151,7 +155,7 @@
     margin-bottom: 5px !important; /* Reduce bottom margin */
     width: 100% !important;
     max-width: none !important;
-    overflow: visible !important;
+    overflow: hidden !important; /* Change from visible to hidden */
     position: relative !important;
     padding: 0 !important;
     margin-left: auto !important; /* Keep auto horizontal margins */
@@ -159,24 +163,35 @@
     height: auto !important;
   }
 
-  /* Adjust CTA section top padding */
-  .cta-section {
-    padding-top: 5px !important; /* Reduce top padding */
-    /* Keep existing padding-left/right and bottom */
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    padding-bottom: 60px !important; /* Assuming this was the original bottom padding from other rules */
+  
+  /* Reduce top padding of Collection section to decrease space between CTA and Collection */
+  .collection-section {
+    padding-top: 20px !important; /* Reduced from 60px */
   }
   
   .cta-video {
-    width: 100% !important;
+    width: 25% !important; /* Further reduced size to 25% */
     height: auto !important;
-    max-width: none !important;
+    /* max-width: none !important; /* Removed or adjust if needed */
     position: relative !important;
     transform: scale(1) !important;
     transform-origin: center !important;
     z-index: 999 !important;
     margin: 0 auto !important;
     display: block !important;
+  }
+
+  /* Agent Card Text Size */
+  .agent-card-title {
+    font-size: 12px !important; /* Adjusted target class */
+  }
+
+  .agent-card-subtitle {
+    font-size: 12px !important; /* Adjusted target class */
+  }
+
+  /* Reduce space between NFT media and text on mobile */
+  .agent-card-media-container {
+    margin-bottom: 10px !important; 
   }
 }

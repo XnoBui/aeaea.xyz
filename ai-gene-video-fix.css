@@ -7,7 +7,7 @@
   .cta-section .cta-image-container video,
   .cta-section video,
   video.cta-video {
-    width: 100% !important; /* Reverted back from 60% */
+    width: 60% !important; /* Set size to 60% */
     height: auto !important;
     max-width: none !important;
     position: relative !important;
