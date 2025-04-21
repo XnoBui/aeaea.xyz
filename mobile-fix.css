@@ -12,7 +12,7 @@
     padding-left: 20px !important;
     padding-right: 20px !important;
     padding-bottom: 20px !important; /* Reduced bottom padding to decrease space between CTA and Collection */
-    overflow: hidden !important; /* Change from visible to hidden */
+    overflow: visible !important; /* Changed from hidden to visible to match ai-gene-video-fix.css */
   }
   
   .cta-content {
@@ -155,7 +155,7 @@
     margin-bottom: 5px !important; /* Reduce bottom margin */
     width: 100% !important;
     max-width: none !important;
-    overflow: hidden !important; /* Change from visible to hidden */
+    overflow: visible !important; /* Changed from hidden to visible to match ai-gene-video-fix.css */
     position: relative !important;
     padding: 0 !important;
     margin-left: auto !important; /* Keep auto horizontal margins */
@@ -169,17 +169,7 @@
     padding-top: 20px !important; /* Reduced from 60px */
   }
   
-  .cta-video {
-    width: 25% !important; /* Further reduced size to 25% */
-    height: auto !important;
-    /* max-width: none !important; /* Removed or adjust if needed */
-    position: relative !important;
-    transform: scale(1) !important;
-    transform-origin: center !important;
-    z-index: 999 !important;
-    margin: 0 auto !important;
-    display: block !important;
-  }
+  /* Removed conflicting .cta-video styles to allow ai-gene-video-fix.css to take precedence */
 
   /* Agent Card Text Size */
   .agent-card-title {
