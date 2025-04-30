@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Test - About Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .mobile-frame {
+            width: 375px;
+            height: 667px;
+            border: 10px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 0 5px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-frame">
+        <iframe src="about.html" id="mobile-iframe"></iframe>
+    </div>
+    <div class="controls">
+        <button onclick="document.getElementById('mobile-iframe').contentWindow.location.reload()">Reload</button>
+    </div>
+
+    <script>
+        // Add a message to help debug
+        window.addEventListener('message', function(event) {
+            console.log('Message from iframe:', event.data);
+        });
+    </script>
+</body>
+</html>

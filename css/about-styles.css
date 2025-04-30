@@ -1,0 +1,2089 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-color: #f5f5f7;
+    --text-color-secondary: #86868b;
+    --background-color: #000;
+    --background-color-secondary: #1d1d1f;
+    --accent-color: #0071e3;
+    --accent-color-hover: #0077ed;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-background: #1d1d1f;
+    --modal-background: rgba(0, 0, 0, 0.8);
+}
+
+.light-theme {
+    --text-color: #1d1d1f;
+    --text-color-secondary: #86868b;
+    --background-color: #fff;
+    --background-color-secondary: #f5f5f7;
+    --accent-color: #0071e3;
+    --accent-color-hover: #0077ed;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --card-background: #fff;
+    --modal-background: rgba(255, 255, 255, 0.8);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header styles */
+header {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.global-nav {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.global-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 44px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #f5f5f7;
+    font-size: 12px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+.search-icon, .bag-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 44px;
+}
+
+.local-nav {
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+
+.local-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.product-name {
+    font-size: 21px;
+    font-weight: 500;
+    color: #f5f5f7;
+}
+
+.local-nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.local-nav-links a {
+    color: #f5f5f7;
+    font-size: 12px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.local-nav-links a:hover {
+    opacity: 1;
+}
+
+.buy-button {
+    background-color: #0071e3; /* Reverted background color to blue */
+    color: #fff; /* Reverted text color to white */
+    padding: 4px 11px;
+    border-radius: 980px;
+    font-size: 12px;
+    opacity: 1 !important;
+    transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+    background-color: #0077ed; /* Reverted hover color to light blue */
+}
+
+/* Main content styles */
+main {
+    padding-top: 0;
+}
+
+section {
+    margin-bottom: 120px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+section .container {
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    font-size: 56px;
+    font-weight: 600;
+    margin-bottom: 0; /* Changed from 6px */
+    background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+/* General h2 styles (excluding hero h2) */
+h2:not(.hero h2) {
+    font-size: 48px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px; /* Restore default bottom margin */
+}
+
+/* Specific style for Vision Section headline */
+#vision-section .section-headline {
+    background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback */
+    display: inline-block; /* Ensure background clip works correctly */
+    font-size: 52px; /* Increased font size */
+    /* Add properties for animation */
+    background-size: 300% 100%; /* Make gradient larger for movement */
+    animation:
+        gradient-animation 5s linear infinite, /* Gradient movement */
+        text-inhale 1.2s ease-out forwards; /* UPDATED: Text inhale animation */
+    animation-play-state: paused; /* Start paused */
+    /* clip-path: inset(0 100% 0 0); */ /* REMOVED */
+    position: relative; /* Needed for potential pseudo-elements if required later */
+    white-space: nowrap; /* Prevent wrapping during reveal */
+    /* Add initial state for inhale */
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(2px); /* Optional: add blur */
+}
+
+/* Style for the H2 inside the vision section */
+#vision-section .section-content h2 {
+    /* color: #FFFFFF !important; /* Color is handled by .gradient-text */
+    /* text-align: center; /* Removed - centering handled by margin */
+    display: block; /* Ensure block for margin auto */
+    width: fit-content; /* Size block to content */
+    margin-left: auto; /* Center block */
+    margin-right: auto; /* Center block */
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Added */
+    font-size: 48px; /* Changed from 64px */
+    font-style: normal; /* Added */
+    font-weight: 700; /* Updated */
+    line-height: 1.2; /* Adjusted line-height */
+    margin-bottom: 60px; /* Added margin for spacing */
+    text-shadow: none; /* Removed glow effect */
+}
+
+/* Style for the "What is Aeaea Society?" H2 inside the aeaea_society section */
+#aeaea_society .section-headline {
+    /* color: #FFFFFF !important; /* Set color to pure white and force override */
+    background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent; /* Fallback */
+    display: inline-block; /* Ensure background clip works correctly */
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 64px; /* Set font size to 64px */
+    font-style: normal;
+    font-weight: 700;
+    line-height: 90%; /* 57.6px */
+    margin-bottom: 60px; /* Added margin for spacing */
+    /* text-shadow:
+        0 0 5px rgba(255, 255, 255, 0.7), /* Inner sharp glow * /
+        0 0 10px rgba(255, 255, 255, 0.5), /* Medium glow * /
+        0 0 20px rgba(255, 255, 255, 0.3), /* Outer soft glow * /
+        0 0 30px rgba(255, 255, 255, 0.2); /* Faintest outer glow * /
+    */
+}
+
+/* Keyframes for the gradient animation */
+@keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Keyframes for the text inhale animation */
+@keyframes text-inhale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+        filter: blur(2px); /* Optional: add blur */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0); /* Optional: remove blur */
+    }
+}
+
+/* Trigger animations when section is visible */
+#vision-section.visible .section-headline {
+    animation-play-state: running; /* Play animations */
+}
+
+/* Style for the H3 in the Vision section */
+#vision-section .section-content h3 {
+    color: #D9FF45; /* Updated specific color */
+    font-size: 24px; /* Updated font size */
+    display: block; /* Ensure block for margin auto */
+    width: fit-content; /* Size block to content */
+    margin-left: auto; /* Center block */
+    margin-right: auto; /* Center block */
+    margin-bottom: 15px; /* Adjusted margin-bottom */
+    /* text-align: center; /* Removed - centering handled by margin */
+}
+
+/* Rule for gradient text */
+.gradient-text {
+    background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback */
+    /* Removed all layout properties */
+}
+
+/* Rule for voyage text */
+.voyage-text {
+    background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback */
+    font-size: 48px; /* Desktop font size for "voyage of your life?" */
+}
+
+/* Updated general H3 styles as requested */
+h3 {
+    color: var(--Neutral-N6, #8C8C8C);
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Added fallbacks */
+    font-size: 24px; /* Updated as requested */
+    font-style: normal;
+    font-weight: 300;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: 0px; /* Updated as requested */
+    margin-bottom: 20px; /* Keep original bottom margin */
+}
+
+/* Note: Specific H3 styles (e.g., in modals, protagonist cards) might override this general rule. */
+
+h4 {
+    font-size: 21px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.availability {
+    font-size: 17px;
+    color: var(--text-color-secondary);
+    margin-bottom: 20px;
+}
+
+/* General style for feature description paragraphs */
+main .feature-description {
+    text-align: center; /* Default alignment - REMOVED !important */
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; /* Prioritize SF Pro Display */
+    font-size: 21px !important; /* Updated */
+    font-style: normal !important; /* Added */
+    font-weight: 500 !important; /* Updated to medium weight */
+    line-height: 1.381002381 !important; /* Updated */
+    text-transform: capitalize !important; /* Added */
+    color: #86868B !important; /* Updated base paragraph color */
+    max-width: 600px !important; /* Default max-width */
+    margin: 0 auto 30px !important; /* Default margin */
+    letter-spacing: normal !important; /* Reset letter spacing to default */
+}
+
+/* Specific style for feature description in vision section */
+#vision-section .feature-description {
+    text-align: justify !important; /* Changed to justify */
+    margin: 0 auto 30px auto !important; /* Center block and add bottom margin */
+    max-width: 600px !important; /* Ensure max-width */
+    color: #8C8C8C !important; /* Changed color */
+}
+
+/* Remove highlight style if not needed */
+/*
+#vision-section .section-content p.feature-description span.highlight-word {
+    color: #FFFFFF !important;
+}
+*/
+
+.cta-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0 40px;
+}
+
+.button {
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 980px;
+    font-size: 17px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.learn-more {
+    color: var(--accent-color);
+    font-size: 17px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.learn-more:hover {
+    text-decoration: underline;
+}
+
+.arrow {
+    font-size: 17px;
+    margin-left: 2px;
+}
+
+.hero-image, .feature-image {
+    position: relative; /* Re-added */
+    max-width: 100%; /* Increased from 90% */
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: visible; /* Changed from hidden */
+    border-radius: 18px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* flex-grow: 1; */ /* Removed */
+    /* display: flex; */ /* Removed */
+    /* align-items: center; */ /* Removed */
+    /* justify-content: center; */ /* Removed */
+}
+
+.hero-image img, .feature-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 1.5s ease-out;
+}
+
+/* Added rule for hero video */
+.hero-image video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video covers the container */
+    display: block; /* Removes potential extra space */
+}
+
+/* Style for the image within the #aeaea_society section's product display */
+#aeaea_society .product-display img {
+    width: 100%;
+    height: auto;
+    display: block; /* Ensure it behaves as a block element */
+}
+
+/* Added space between Aeaea Society image and text */
+#aeaea_society .section-content {
+    margin-top: 80px;
+}
+
+/* Style for h2 specifically within the hero section */
+.hero h2 {
+    position: absolute;
+    top: 10%; /* Changed from 20% */
+    left: 0;
+    right: 0;
+    width: 100%; /* Span the width of the relative parent (.hero-image) */
+    text-align: center;
+    z-index: 1; /* Ensure it's above the video */
+    margin: 0; /* Reset margins */
+    font-size: 48px; /* Keep original size */
+    font-weight: 600; /* Keep original weight */
+    color: var(--text-color); /* Ensure visibility */
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.8); /* Restore text shadow */
+}
+
+/* Updated flex properties for hero container */
+.hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontal centering */
+    /* Removed justify-content: center */
+    height: 100%; /* Allow container to fill hero height */
+    width: 100%; /* Ensure container takes full width */
+    text-align: center; /* Center text within elements */
+}
+
+.hero {
+    padding-top: 150px;
+    padding-bottom: 0;
+    background: #000;
+    min-height: 100vh;
+    display: flex; /* Re-added */
+    align-items: center; /* Re-added */
+    justify-content: center; /* Re-added */
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 40px;
+    border: 2px solid #86868b;
+    border-radius: 13px;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.scroll-arrow {
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid #86868b;
+    border-bottom: 2px solid #86868b;
+    transform: rotate(45deg);
+    animation: scrollAnimation 2s infinite;
+}
+
+@keyframes scrollAnimation {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(-5px, -5px);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+}
+
+/* Updated section-content for vision section */
+#vision-section .section-content {
+    max-width: 800px; /* Keep container width */
+    margin: 0 auto 40px; /* Keep centering the container */
+    padding: 40px 20px 0;
+    text-align: center; /* Ensure container centers children */
+    /* Removed flex properties */
+}
+
+.specs-list {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin: 30px 0;
+}
+
+.spec-item {
+    text-align: center;
+}
+
+.spec-value {
+    font-size: 40px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 5px;
+}
+
+.spec-label {
+    font-size: 14px;
+    color: var(--text-color-secondary);
+}
+
+.apple-intelligence {
+    background-color: #111;
+    padding: 80px 0;
+}
+
+.camera-control {
+    background-color: #000;
+    padding: 80px 0;
+}
+
+.video {
+    background-color: #111;
+    padding: 80px 0;
+}
+
+.display {
+    background-color: #000;
+    padding: 80px 0;
+}
+
+.chip {
+    background-color: #111;
+    padding: 80px 0;
+}
+
+.battery {
+    background-color: #000;
+    padding: 80px 0;
+}
+
+/* Highlights section with slideshow */
+.highlights {
+    background-color: #111;
+    padding: 80px 0;
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.slideshow {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 500px;
+}
+
+.slide {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: #1d1d1f;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.slide-content {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.slide-content h3 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.slide-content p {
+    font-size: 18px;
+    color: var(--text-color-secondary);
+}
+
+.slide-image {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.slide-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.slideshow-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+}
+
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-dot.active {
+    background-color: var(--accent-color);
+}
+
+.slideshow-prev, .slideshow-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+}
+
+.slideshow-prev:hover, .slideshow-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slideshow-prev {
+    left: 20px;
+}
+
+.slideshow-next {
+    right: 20px;
+}
+
+/* Colors section */
+.colors {
+    background-color: #111;
+    padding: 80px 0;
+}
+
+.color-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.iphone-display {
+    width: 300px;
+    height: 400px;
+    margin-bottom: 40px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s ease;
+}
+
+.iphone-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.color-options {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.color-option:hover {
+    transform: translateY(-10px);
+}
+
+.color-option.active {
+    position: relative;
+}
+
+.color-option.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+}
+
+.color-image-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.color-option img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.color-option:hover img {
+    transform: scale(1.05);
+}
+
+.color-option span {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.modal-trigger {
+    margin-top: 30px;
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-size: 17px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.modal-trigger:hover {
+    text-decoration: underline;
+}
+
+/* Camera deep dive section */
+.camera-deep-dive {
+    background-color: #000;
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.modal.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    position: relative;
+    background-color: #1d1d1f;
+    margin: 50px auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.modal-close:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Color modal specific styles */
+.color-showcase {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.color-showcase-image {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.color-showcase-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.color-showcase-options {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.color-showcase-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.color-showcase-option:hover {
+    transform: translateY(-5px);
+}
+
+.color-showcase-option.active {
+    position: relative;
+}
+
+.color-showcase-option.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+}
+
+.color-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.color-showcase-option span {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.color-details {
+    flex: 1;
+    min-width: 300px;
+}
+
+.color-details h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.color-details p {
+    font-size: 17px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.color-specs {
+    display: flex;
+    gap: 40px;
+}
+
+.color-spec {
+    text-align: center;
+}
+
+.color-spec .spec-value {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.color-spec .spec-label {
+    font-size: 14px;
+    color: var(--text-color-secondary);
+}
+
+/* Camera modal specific styles */
+.camera-showcase {
+    flex: 1;
+    min-width: 300px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.camera-showcase img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.camera-details {
+    flex: 1;
+    min-width: 300px;
+}
+
+.camera-details h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.camera-details p {
+    font-size: 17px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.camera-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.camera-feature {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 12px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.camera-feature:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.camera-feature h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.camera-feature p {
+    font-size: 14px;
+    margin-bottom: 0;
+    color: var(--text-color-secondary);
+}
+
+/* Compare section */
+.compare {
+    background-color: #111;
+    padding: 80px 0;
+}
+
+.compare-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.compare-item {
+    background-color: #1d1d1f;
+    border-radius: 18px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.compare-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.compare-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 60px;
+    overflow: hidden;
+}
+
+.compare-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.compare-price {
+    font-size: 14px;
+    color: var(--text-color-secondary);
+    margin-bottom: 20px;
+}
+
+.compare-features {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.compare-features li {
+    font-size: 14px;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.compare-features li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.compare-item .button {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.compare-item .learn-more {
+    font-size: 14px;
+}
+
+/* Buy section */
+.buy-section {
+    background-color: #000;
+    padding: 80px 0;
+}
+
+.buy-options {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+}
+
+.buy-option {
+    background-color: #1d1d1f;
+    border-radius: 18px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buy-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.buy-icon {
+    margin: 0 auto 20px;
+    width: 56px;
+    height: 56px;
+}
+
+.buy-option h4 {
+    margin-bottom: 10px;
+}
+
+.buy-option p {
+    font-size: 14px;
+    color: var(--text-color-secondary);
+    margin-bottom: 20px;
+}
+
+.buy-option .button {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.buy-option .learn-more {
+    font-size: 14px;
+}
+
+/* Footer styles */
+footer {
+    background-color: #1d1d1f;
+    padding: 40px 0;
+    font-size: 12px;
+    color: #6e6e73;
+    border-top: 1px solid #333;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+.footer-column h3 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    color: #6e6e73;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-legal {
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.legal-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Responsive styles */
+@media (max-width: 1068px) {
+    h1 {
+        font-size: 48px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    .section-content {
+        padding: 30px 20px 0;
+    }
+
+    .specs-list {
+        gap: 40px;
+    }
+
+    .spec-value {
+        font-size: 32px;
+    }
+
+    .color-options {
+        gap: 30px;
+    }
+
+    .color-image-container {
+        width: 150px;
+        height: 150px;
+        border-radius: 75px;
+    }
+
+    .compare-grid {
+        flex-wrap: wrap;
+    }
+
+    .compare-item {
+        width: 280px;
+    }
+
+    .buy-options {
+        gap: 30px;
+    }
+
+    .buy-option {
+        width: 280px;
+    }
+
+    .footer-column {
+        flex: 1 0 30%;
+    }
+}
+
+@media (max-width: 734px) {
+    .local-nav-links {
+        display: none;
+    }
+
+    .product-name {
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-size: 32px; /* Updated from 40px */
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+    h3 {
+        font-size: 28px; /* Updated from 19px */
+    }
+
+    .feature-description {
+        font-size: 15px;
+    }
+
+    .section-content {
+        padding: 20px 15px 0;
+    }
+
+    .specs-list {
+        gap: 20px;
+    }
+
+    .spec-value {
+        font-size: 28px;
+    }
+
+    .color-image-container {
+        width: 120px;
+        height: 120px;
+        border-radius: 60px;
+    }
+
+    .compare-item, .buy-option {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .footer-column {
+        flex: 1 0 45%;
+    }
+
+    .footer-legal {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 734px) {
+    /* Voyage text mobile font size */
+    .voyage-text {
+        font-size: 32px; /* Mobile font size for "voyage of your life?" */
+    }
+    
+    /* Vision Section Mobile Fixes */
+    #vision-section .centered-content {
+        padding-left: 15px; /* Add padding to prevent content touching edges */
+        padding-right: 15px;
+        width: 100%; /* Ensure it takes full available width */
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+
+    #vision-section .section-headline {
+        font-size: 36px; /* Adjust font size for mobile */
+        white-space: normal; /* Allow headline to wrap */
+        word-wrap: break-word; /* Break long words if necessary */
+        text-align: center; /* Center wrapped text */
+        margin-bottom: 30px; /* Adjust spacing */
+    }
+
+    #vision-section .product-display video {
+        width: 100%; /* Make video responsive */
+        max-width: 100%; /* Ensure video doesn't overflow container */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 10px; /* Optional: add some rounding */
+    }
+
+     #vision-section .section-content {
+        max-width: 100%; /* Allow content to use full width */
+        padding: 0; /* Remove specific padding if parent handles it */
+    }
+
+    #vision-section .feature-description {
+        max-width: 100%; /* Allow text block to use full width */
+        padding: 0 10px; /* Add slight horizontal padding */
+        font-size: 16px; /* Adjust font size for readability */
+        text-align: left !important; /* Align text left for better readability on mobile */
+    }
+    /* End Vision Section Mobile Fixes */
+
+    .hero {
+        padding-top: 80px; /* Reduced from 150px for mobile */
+    }
+
+    .local-nav-links {
+        display: none;
+    }
+
+    h1 {
+        font-size: 32px; /* Reverted to 32px as requested */
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    h3 {
+        font-size: 17px;
+    }
+
+    .cta-links {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .specs-list {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-column {
+        flex: 1 0 100%;
+    }
+
+    /* Mobile font size and style for "What is Aeaea Society?" */
+    #aeaea_society .section-headline {
+        /* Base styles from .hero-main-title */
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 500;
+        font-size: 32px; /* Adjusted mobile size */
+        line-height: 0.9; /* Match hero title */
+        text-align: center;
+        letter-spacing: normal; /* Reset letter spacing */
+
+        /* CSS Variables for shimmer */
+        --base-color: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+        --shimmer-color: rgba(255, 255, 255, 0.8);
+        --shimmer-duration: 2s;
+        --shimmer-spread: 40px; /* Adjust as needed */
+
+        /* Base styling for shimmer */
+        position: relative;
+        z-index: 1;
+        margin: 0 auto 60px; /* Keep bottom margin */
+        padding: 0;
+
+        /* Text styling for shimmer */
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+
+        /* Shimmer effect */
+        background-image:
+            linear-gradient(
+                90deg,
+                transparent calc(50% - var(--shimmer-spread)),
+                var(--shimmer-color),
+                transparent calc(50% + var(--shimmer-spread))
+            ),
+            var(--base-color);
+        background-size: 250% 100%, 100% 100%;
+        background-position: 100% 0%, 0% 0%;
+        background-repeat: no-repeat;
+        animation: framer-shimmer var(--shimmer-duration) linear infinite;
+    }
+
+    /* Mobile glow effect for "What is Aeaea Society?" */
+    #aeaea_society .section-headline::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: blur(10px);
+        z-index: -1;
+        opacity: 0.85;
+        animation: glowKineticTight 3s infinite ease-in-out;
+        will-change: transform, filter, opacity;
+        display: block;
+        text-align: center;
+        pointer-events: none;
+        letter-spacing: normal; /* Match the original text */
+        line-height: 0.9; /* Match the original text */
+    }
+
+    #aeaea_society .section-headline::before {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: blur(18px);
+        z-index: -2;
+        opacity: 0.7;
+        animation: glowKineticWideTight 4s infinite ease-in-out;
+        will-change: transform, filter, opacity;
+        display: block;
+        text-align: center;
+        pointer-events: none;
+        letter-spacing: normal; /* Match the original text */
+        line-height: 0.9; /* Match the original text */
+    }
+
+    /* Mobile font size for Aeaea Society description */
+    #aeaea_society .feature-description {
+        font-size: 16px !important;
+    }
+}
+
+/* Enhanced Apple-specific animations and effects */
+.hero-image img, .feature-image img {
+    transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                filter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, filter, opacity;
+    transform-origin: center center;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+section:hover .hero-image img,
+section:hover .feature-image img {
+    transform: scale(1.02) translateZ(0);
+}
+
+/* Enhanced parallax effect */
+.hero {
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    perspective: 1000px;
+}
+
+.hero:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Removed background gradient overlay */
+    z-index: 1;
+    backdrop-filter: saturate(180%) blur(5px);
+    -webkit-backdrop-filter: saturate(180%) blur(5px);
+    transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Enhanced smooth scrolling */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+/* Enhanced fade-in animation for sections */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0) scale(0.98);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Added Keyframes for shimmer and glow animations */
+@keyframes framer-shimmer {
+  from {
+    background-position: 100% 0%, 0% 0%; /* Start shimmer from right */
+  }
+  to {
+    background-position: 0% 0%, 0% 0%; /* Move shimmer to left */
+  }
+}
+
+@keyframes glowKineticTight {
+    0% {
+        filter: blur(9px);
+        opacity: 0.8;
+        transform: translateX(-0.5px) translateY(0px);
+    }
+    25% {
+        filter: blur(10px);
+        opacity: 0.85;
+        transform: translateX(0px) translateY(-0.5px);
+    }
+    50% {
+        filter: blur(11px);
+        opacity: 0.9;
+        transform: translateX(0.5px) translateY(0px);
+    }
+    75% {
+        filter: blur(10px);
+        opacity: 0.85;
+        transform: translateX(0px) translateY(0.5px);
+    }
+    100% {
+        filter: blur(9px);
+        opacity: 0.8;
+        transform: translateX(-0.5px) translateY(0px);
+    }
+}
+
+@keyframes glowKineticWideTight {
+    0% {
+        filter: blur(16px);
+        opacity: 0.6;
+        transform: translateX(-1px) translateY(0px);
+    }
+    25% {
+        filter: blur(17px);
+        opacity: 0.65;
+        transform: translateX(0px) translateY(-1px);
+    }
+    50% {
+        filter: blur(18px);
+        opacity: 0.7;
+        transform: translateX(1px) translateY(0px);
+    }
+    75% {
+        filter: blur(17px);
+        opacity: 0.65;
+        transform: translateX(0px) translateY(1px);
+    }
+    100% {
+        filter: blur(16px);
+        opacity: 0.6;
+        transform: translateX(-1px) translateY(0px);
+    }
+}
+
+section {
+    opacity: 0;
+    animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-play-state: paused;
+    will-change: transform, opacity, filter;
+}
+
+section.visible {
+    animation-play-state: running;
+}
+
+/* Enhanced hover effects for buttons and links */
+.button, .buy-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: translateZ(0);
+}
+
+.button:before, .buy-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.button:hover, .buy-button:hover {
+    transform: scale(1.02) translateZ(0);
+}
+
+.button:hover:before, .buy-button:hover:before {
+    transform: translateX(100%);
+}
+
+/* Enhanced sticky header effect */
+header {
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, backdrop-filter, background-color;
+}
+
+header.scrolled {
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Enhanced pulse animation for buy button */
+@keyframes enhancedPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 113, 227, 0.6);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(0, 113, 227, 0);
+        transform: scale(1.02);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 113, 227, 0);
+        transform: scale(1);
+    }
+}
+
+.buy-button {
+    animation: enhancedPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Enhanced text animations */
+h1, h2, h3, .feature-description {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+section.visible h1,
+section.visible h2,
+section.visible h3,
+section.visible .feature-description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced spec items animation */
+.spec-item {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+section.visible .spec-item {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Enhanced image hover effects */
+.color-option img,
+.color-showcase-option img {
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, filter;
+}
+
+.color-option:hover img,
+.color-showcase-option:hover img {
+    transform: scale(1.1) translateZ(0);
+    filter: brightness(1.1);
+}
+
+/* Enhanced modal animations */
+.modal {
+    transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+}
+
+.modal-content {
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+/* Increase width and size of BUY button in hero section */
+.cta-links .buy-button {
+    padding: 8px 40px; /* Increased padding */
+    font-size: 17px; /* Larger font size */
+    background-color: transparent; /* Set background to transparent */
+    border: 1px solid #C6C6C6; /* Change border to 1px solid grey */
+    color: #fff; /* Set text color to white */
+    transition: background 0.3s, color 0.3s, border-color 0.3s; /* Update transition properties */
+}
+
+.cta-links .buy-button:hover {
+    background: linear-gradient(270deg, #26332D -2.25%, #11181D 97.75%); /* New gradient background on hover */
+    color: #fff; /* White text on hover */
+    border-color: #fff; /* Change border color on hover to white */
+}
+
+/* Style for the video container within the Humanoid Class section */
+#humanoid-class-section .humanoid-video-container {
+    position: relative; /* Needed for absolute positioning of the overlay */
+    max-width: 1429px; /* Match protagonist cards max-width */
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden; /* Optional: ensures gradient stays within bounds */
+}
+
+/* Style for the video itself */
+#humanoid-class-section .humanoid-video-container video {
+    width: 100%; /* Make video fill the container */
+    height: auto;
+    display: block; /* Ensure block behavior and remove extra space */
+    border-radius: 0px;
+}
+
+/* Gradient overlay for the video */
+#humanoid-class-section .humanoid-video-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%; /* Adjust height of the gradient as needed */
+    background: linear-gradient(2deg, #060606 2.63%, rgba(0, 0, 0, 0.00) 99.24%);
+    pointer-events: none; /* Allows interaction with video behind overlay */
+    z-index: 1; /* Ensure overlay is above the video */
+}
+
+/* Style for the video container within the Cybernetic Class section */
+#cybernetic\ class .cybernetic-video-container { /* Escaped space in ID */
+    position: relative; /* Needed for absolute positioning of the overlay */
+    max-width: 1429px; /* Match protagonist cards max-width */
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden; /* Optional: ensures gradient stays within bounds */
+    margin-top: 40px; /* Add some space above the video */
+    margin-bottom: 40px; /* Add some space below the video */
+}
+
+/* Style for the video itself */
+#cybernetic\ class .cybernetic-video-container video { /* Escaped space in ID */
+    width: 100%; /* Make video fill the container */
+    height: auto;
+    display: block; /* Ensure block behavior and remove extra space */
+    border-radius: 0px;
+}
+
+/* Gradient overlay for the video */
+#cybernetic\ class .cybernetic-video-container::after { /* Escaped space in ID */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%; /* Adjust height of the gradient as needed */
+    background: linear-gradient(2deg, #060606 2.63%, rgba(0, 0, 0, 0.00) 99.24%);
+    pointer-events: none; /* Allows interaction with video behind overlay */
+    z-index: 1; /* Ensure overlay is above the video */
+}
+
+
+/* Protagonist Cards Section */
+.protagonist-cards {
+    display: flex;
+    justify-content: center; /* Center cards horizontally */
+    gap: 20px; /* Space between cards */
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+    margin-top: 40px; /* Space above the cards */
+    padding: 0 20px; /* Add some padding on the sides */
+    max-width: 1429px; /* Match Figma width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.protagonist-card {
+    background-color: rgba(32, 32, 32, 0.6); /* Semi-transparent dark background */
+    backdrop-filter: blur(29px); /* Background blur effect */
+    -webkit-backdrop-filter: blur(29px); /* For Safari */
+    border-radius: 10px; /* Slightly rounded corners */
+    overflow: hidden; /* Ensure content stays within bounds */
+    width: calc(20% - 16px); /* Approximately 5 cards per row, accounting for gap */
+    min-width: 250px; /* Minimum width before wrapping */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.protagonist-card:hover {
+    transform: translateY(-5px);
+}
+
+.protagonist-card img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    object-fit: cover; /* Cover the area */
+    max-height: 350px; /* Limit image height if needed */
+}
+
+.protagonist-card .card-content {
+    padding: 15px;
+    text-align: left; /* Align text to the left */
+    flex-grow: 1; /* Allow content to fill space */
+}
+
+.protagonist-card h3 {
+    text-align: left; /* Explicitly set alignment for card titles */
+    font-size: 11.6px; /* Match Figma */
+    font-weight: 700;
+    color: #F5F5F5; /* Match Figma */
+    margin-bottom: 2px; /* Reduced space */
+    letter-spacing: 0.12em; /* Match Figma */
+    text-transform: uppercase; /* Match Figma */
+}
+
+.protagonist-card .japanese-name {
+    font-size: 12px; /* Match Figma */
+    font-weight: 400;
+    color: #FFFFFF; /* Match Figma */
+    margin-bottom: 10px; /* Space below Japanese name */
+    line-height: 1.25; /* Match Figma */
+}
+
+.protagonist-card p {
+    font-size: 12px; /* Match Figma */
+    font-weight: 400;
+    color: #FFFFFF; /* Match Figma */
+    margin-bottom: 8px; /* Space between paragraphs */
+    line-height: 1.25; /* Match Figma */
+}
+
+.protagonist-card p strong {
+    font-weight: 700; /* Make Persona/Role bold */
+}
+
+/* Birth of the Firstborn Section */
+.firstborn-title {
+    color: var(--Neutral-N2, #F5F5F5);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 73px;
+}
+
+.firstborn-text {
+    color: var(--Neutral-N2, #F5F5F5);
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 73px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.cta-headline {
+    background: linear-gradient(86deg, #E9C11F 2.31%, #FFB7F4 23.57%, #DBFF39 42.56%, #C2FFBE 77.12%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    margin-bottom: 20px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 73px;
+}
+
+.cta-subheadline {
+    background: linear-gradient(272deg, rgba(0, 128, 255, 0.88) 28.81%, rgba(189, 255, 204, 0.71) 54.64%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.cta-section .cta-links {
+    margin: 40px auto;
+}
+
+.cta-section .buy-button {
+    padding: 12px 40px;
+    font-size: 18px;
+    background-color: #BEFF68;
+    color: #000;
+    border: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.cta-section .buy-button:hover {
+    background-color: #D9FF45;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(190, 255, 104, 0.3);
+}
+
+/* Responsive adjustments for protagonist cards */
+@media (max-width: 1400px) {
+    .protagonist-card {
+        width: calc(25% - 15px); /* 4 cards per row */
+    }
+}
+
+@media (max-width: 1100px) {
+    .protagonist-card {
+        width: calc(33.33% - 14px); /* 3 cards per row */
+    }
+}
+
+@media (max-width: 800px) {
+    .protagonist-card {
+        width: calc(50% - 10px); /* 2 cards per row */
+    }
+}
+
+@media (max-width: 400px) {
+    .protagonist-card {
+        width: 100%; /* 1 card per row */
+        min-width: unset;
+    }
+    .protagonist-cards {
+        padding: 0 10px; /* Reduce side padding */
+    }
+    
+    /* Mobile styles for Birth of the Firstborn section */
+    .firstborn-text {
+        font-size: 24px;
+        line-height: 36px;
+    }
+    
+    /* Apply gradient styling to firstborn title on mobile, similar to h1 */
+    .firstborn-title {
+        font-size: 32px;
+        line-height: 48px;
+        background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        /* Add animation similar to other gradient headings */
+        background-size: 300% 100%;
+        animation: gradient-animation 5s linear infinite;
+    }
+}

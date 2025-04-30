@@ -222,17 +222,26 @@ function initNavigation() {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Get the target section based on link text
-            let targetId;
-            const linkText = this.textContent.trim().toLowerCase();
-            
-            if (linkText === 'whitepaper') {
-                targetId = 'feature-shape';
-            } else if (linkText === 'connect') {
-                targetId = 'collection-section';
-            }
-            
-            if (targetId) {
+        // Get the target section based on link text or href
+        let targetId;
+        const linkText = this.textContent.trim().toLowerCase();
+        const linkHref = this.getAttribute('href');
+        
+        // Check if this is a link to another page (like about.html)
+        if (linkHref && (linkHref.includes('.html') || linkHref.includes('.php'))) {
+            // Allow default behavior for links to other pages
+            window.location.href = linkHref;
+            return;
+        }
+        
+        // Handle internal page navigation
+        if (linkText === 'whitepaper') {
+            targetId = 'feature-shape';
+        } else if (linkText === 'connect') {
+            targetId = 'collection-section';
+        }
+        
+        if (targetId) {
                 const targetSection = document.getElementById(targetId) || document.querySelector(`.${targetId}`);
                 if (targetSection) {
                     // Smooth scroll to target
@@ -287,6 +296,12 @@ function toggleMobileMenu() {
 
 // Create mobile menu
 function createMobileMenu() {
+    // Check if mobile menu already exists
+    if (document.querySelector('.mobile-menu')) {
+        console.log('Mobile menu already exists, not creating a new one');
+        return;
+    }
+    
     // Create mobile menu element
     const mobileMenu = document.createElement('div');
     mobileMenu.className = 'mobile-menu';
@@ -325,10 +340,24 @@ function createMobileMenu() {
         mobileLink.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Get the target section based on link text
+            // Get the target section based on link text or href
             let targetId;
             const linkText = this.textContent.trim().toLowerCase();
+            const linkHref = this.getAttribute('href');
             
+            // Check if this is a link to another page (like about.html)
+            if (linkHref && (linkHref.includes('.html') || linkHref.includes('.php'))) {
+                // Close mobile menu
+                toggleMobileMenu();
+                
+                // Navigate to the other page
+                setTimeout(() => {
+                    window.location.href = linkHref;
+                }, 300);
+                return;
+            }
+            
+            // Handle internal page navigation
             if (linkText === 'whitepaper') {
                 targetId = 'feature-shape';
             } else if (linkText === 'connect') {

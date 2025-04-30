@@ -62,4 +62,11 @@
 
   /* Redundant collection/gallery/item rules removed as they are now handled in style.css */
 
+  /* Draconic class video mobile fix */
+  #chip .product-display video {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important; /* Or contain, depending on desired fit */
+    display: block; /* Ensure it behaves like a block element */
+  }
 }
