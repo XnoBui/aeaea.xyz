@@ -1545,6 +1545,37 @@ footer {
     #aeaea_society .feature-description {
         font-size: 16px !important;
     }
+
+    /* Humanoid Protagonist Card Carousel - Mobile */
+    #humanoid-class-section .protagonist-cards,
+    #cybernetic\ class .protagonist-cards, /* Added Cybernetic */
+    #chip .protagonist-cards /* Added Draconic (using #chip ID) */ {
+        display: flex;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        flex-wrap: nowrap; /* Prevent wrapping */
+        scroll-snap-type: x mandatory; /* Enable snap scrolling */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        padding-left: 20px; /* Add padding to the start */
+        padding-right: 20px; /* Add padding to the end */
+        margin-left: -20px; /* Counteract container padding if needed */
+        margin-right: -20px; /* Counteract container padding if needed */
+        justify-content: flex-start; /* Align cards to the start */
+    }
+
+    #humanoid-class-section .protagonist-card,
+    #cybernetic\ class .protagonist-card, /* Added Cybernetic */
+    #chip .protagonist-card /* Added Draconic (using #chip ID) */ {
+        flex: 0 0 80%; /* Make cards take up 80% of the container width, don't grow/shrink */
+        scroll-snap-align: start; /* Snap cards to the start */
+        margin-right: 15px; /* Add space between cards */
+        width: 80%; /* Explicit width */
+    }
+
+    #humanoid-class-section .protagonist-card:last-child,
+    #cybernetic\ class .protagonist-card:last-child, /* Added Cybernetic */
+    #chip .protagonist-card:last-child /* Added Draconic (using #chip ID) */ {
+        margin-right: 0; /* No margin for the last card */
+    }
 }
 
 /* Enhanced Apple-specific animations and effects */
