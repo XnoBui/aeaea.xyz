@@ -251,7 +251,8 @@ h2:not(.hero h2) {
     font-style: normal;
     font-weight: 700;
     line-height: 90%; /* 57.6px */
-    margin-bottom: 60px; /* Added margin for spacing */
+    margin-top: 48px; /* Added top margin for Apple-like spacing */
+    margin-bottom: 48px; /* Adjusted bottom margin for Apple-like spacing */
     /* text-shadow:
         0 0 5px rgba(255, 255, 255, 0.7), /* Inner sharp glow * /
         0 0 10px rgba(255, 255, 255, 0.5), /* Medium glow * /
@@ -452,9 +453,9 @@ main .feature-description {
     display: block; /* Ensure it behaves as a block element */
 }
 
-/* Added space between Aeaea Society image and text */
+/* Adjusted space between Aeaea Society heading and text */
 #aeaea_society .section-content {
-    margin-top: 80px;
+    margin-top: 0; /* Removed margin since the heading now has margin-bottom */
 }
 
 /* Style for h2 specifically within the hero section */
@@ -1470,7 +1471,7 @@ footer {
         /* Base styling for shimmer */
         position: relative;
         z-index: 1;
-        margin: 0 auto 60px; /* Keep bottom margin */
+        margin: 32px auto 40px; /* Apple-like spacing for mobile */
         padding: 0;
 
         /* Text styling for shimmer */
@@ -1885,6 +1886,25 @@ section.visible .spec-item {
     z-index: 1; /* Ensure overlay is above the video */
 }
 
+/* Style for the video container within the Celestial Class section (ID: battery) */
+#battery .product-display {
+    position: relative; /* Needed for potential future overlays */
+    max-width: 1429px; /* Optional: Match other sections if desired */
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden; /* Ensures video stays within bounds */
+    margin-top: 40px; /* Add some space above the video */
+    margin-bottom: 40px; /* Add some space below the video */
+}
+
+/* Style for the video itself within the Celestial Class section */
+#battery .product-display video {
+    width: 100%; /* Make video fill the container width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure block behavior and remove extra space */
+    object-fit: cover; /* Ensure video covers the container */
+    border-radius: 0px; /* Match other videos */
+}
 
 /* Protagonist Cards Section */
 .protagonist-cards {
