@@ -1989,16 +1989,24 @@ section.visible .spec-item {
     font-style: normal;
     font-weight: 700;
     line-height: 73px;
+    /* Apply gradient and animation */
+    background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    background-size: 300% 100%;
+    animation: gradient-animation 5s linear infinite;
 }
 
 .firstborn-text {
     color: var(--Neutral-N2, #F5F5F5);
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 48px;
+    font-size: 36px; /* Adjusted from 48px to match mobile ratio */
     font-style: normal;
     font-weight: 700;
-    line-height: 73px;
+    line-height: 1.5; /* Adjusted line-height for better readability */
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
@@ -2095,15 +2103,8 @@ section.visible .spec-item {
     
     /* Apply gradient styling to firstborn title on mobile, similar to h1 */
     .firstborn-title {
-        font-size: 32px;
-        line-height: 48px;
-        background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-        /* Add animation similar to other gradient headings */
-        background-size: 300% 100%;
-        animation: gradient-animation 5s linear infinite;
+        font-size: 32px; /* Mobile font size */
+        line-height: 48px; /* Mobile line height */
+        /* Gradient/animation properties moved to general rule */
     }
 }
