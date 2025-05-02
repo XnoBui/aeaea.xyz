@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="css/about-styles.css">
     <!-- Added styles from index.html -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/header-mobile-fix.css">
     <link rel="stylesheet" href="mobile-fix.css">
     <link rel="stylesheet" href="mobile-overlay.css">
     <link rel="stylesheet" href="mobile-video-fix.css">
     <link rel="stylesheet" href="ai-gene-video-fix.css">
-    <link rel="stylesheet" href="css/header-mobile-fix.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -59,15 +59,16 @@
         <section id="overview" class="hero">
             <div class="hero-background"> <!-- Added hero-background div -->
                 <video autoplay loop muted playsinline class="hero-background-video"> <!-- Added class and attributes -->
-                    <source src="videos/about-hero-background.mp4" type="video/mp4"> <!-- Changed src attribute to source tag -->
+                    <source src="videos/about-hero-background-mobile.mp4" type="video/mp4" media="(max-width: 768px)"> <!-- Mobile video source -->
+                    <source src="videos/about-hero-background.mp4" type="video/mp4"> <!-- Desktop video source -->
                 </video>
                 <div class="hero-bottom-gradient-overlay"></div> <!-- Added gradient overlay -->
             </div>
             <div class="container hero-container"> <!-- Added hero-container class for specific styling -->
                 <div class="hero-content"> <!-- Wrapper for bottom-aligned content -->
                     <h1 style="background: linear-gradient(90deg, #5061FA 0%, rgba(125, 45, 255, 0.86) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">SOMA is a live avatar NFT</h1>
-                    <h2>Your AI Twin. Full body. Full brain.</h2>
-                    <p class="price-display">Ready to co-exist with digital intelligence?</p>
+                    <h2 class="desktop-only">Your Twin. Full Body. Full Brain.</h2> <!-- Added H2 for desktop -->
+                    <p class="price-display mobile-only">Your Twin. Full Body. Full Brain.</p> <!-- Changed text and added mobile-only class -->
                     <div class="cta-links">
                         <a href="https://x.com/aeaea______" target="_blank" rel="noopener noreferrer" class="buy-button">Join WL</a>
                     </div>

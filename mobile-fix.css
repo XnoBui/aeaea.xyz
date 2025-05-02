@@ -321,4 +321,12 @@
     margin-left: auto; /* Center if needed */
     margin-right: auto;
   }
+
+  /* Show/hide elements based on screen size */
+  .desktop-only {
+    display: none !important; /* Hide desktop-only elements on mobile */
+  }
+  .mobile-only {
+    display: block !important; /* Show mobile-only elements on mobile */
+  }
 }

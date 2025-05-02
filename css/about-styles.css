@@ -1325,6 +1325,12 @@ footer {
     flex-wrap: wrap;
 }
 
+/* Default visibility for responsive elements */
+.mobile-only {
+    display: none; /* Hide mobile-only elements by default */
+}
+/* .desktop-only is displayed by default, hidden in mobile-fix.css */
+
 /* Responsive styles */
 @media (max-width: 1068px) {
     h1 {
@@ -1653,6 +1659,11 @@ footer {
     #cybernetic\ class .protagonist-card:last-child, /* Added Cybernetic */
     #chip .protagonist-card:last-child /* Added Draconic (using #chip ID) */ {
         margin-right: 0; /* No margin for the last card */
+    }
+
+    /* Hide desktop-only elements on mobile */
+    .desktop-only {
+        display: none !important; /* Ensure it's hidden */
     }
 }
 
@@ -2090,7 +2101,6 @@ section.visible .spec-item {
     font-weight: 700; /* Make Persona/Role bold */
 }
 
-/* Birth of the Firstborn Section */
 .firstborn-title {
     color: var(--Neutral-N2, #F5F5F5);
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
