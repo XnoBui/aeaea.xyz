@@ -57,15 +57,20 @@
 
     <main>
         <section id="overview" class="hero">
-            <div class="container">
-                <h1>SOMA is more than an NFT.</h1>
-                <h2>It’s a live avatar. Full body. Full brain.</h2>
-                <div class="hero-image">
-                    <video src="videos/Soma Logo.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <p class="price-display">Ready to co-exist with digital intelligence?</p>
-                <div class="cta-links">
-                    <a href="https://x.com/aeaea______" target="_blank" rel="noopener noreferrer" class="buy-button">Join WL</a>
+            <div class="hero-background"> <!-- Added hero-background div -->
+                <video autoplay loop muted playsinline class="hero-background-video"> <!-- Added class and attributes -->
+                    <source src="videos/about-hero-background.mp4" type="video/mp4"> <!-- Changed src attribute to source tag -->
+                </video>
+                <div class="hero-bottom-gradient-overlay"></div> <!-- Added gradient overlay -->
+            </div>
+            <div class="container hero-container"> <!-- Added hero-container class for specific styling -->
+                <div class="hero-content"> <!-- Wrapper for bottom-aligned content -->
+                    <h1 style="background: linear-gradient(90deg, #5061FA 0%, rgba(125, 45, 255, 0.86) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">SOMA is a live avatar NFT</h1>
+                    <h2>Your AI Twin. Full body. Full brain.</h2>
+                    <p class="price-display">Ready to co-exist with digital intelligence?</p>
+                    <div class="cta-links">
+                        <a href="https://x.com/aeaea______" target="_blank" rel="noopener noreferrer" class="buy-button">Join WL</a>
+                    </div>
                 </div>
             </div>
         </section>
