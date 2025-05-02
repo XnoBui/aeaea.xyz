@@ -1446,18 +1446,18 @@ footer {
         font-size: 32px; /* Mobile font size for "voyage of your life?" */
     }
 
-    /* About Hero Mobile Fix: Remove top padding and center content vertically */
+    /* About Hero Mobile Fix: Remove top padding and align content to bottom */
     .hero {
         padding-top: 0 !important; /* Remove padding that pushes video down */
-        align-items: center !important; /* Vertically center the container */
+        /* Removed align-items: center !important; to allow default flex-end */
     }
 
     /* About Hero Mobile Fix: Adjust padding */
     .hero .hero-container {
         padding-top: 80px; /* Keep top padding */
-        padding-bottom: 15vh; /* Increase bottom padding significantly (using vh for responsiveness) */
+        padding-bottom: 30px; /* Reduced bottom padding to move content lower */
     }
-    
+
     /* Vision Section Mobile Fixes */
     #vision-section .centered-content {
         padding-left: 15px; /* Add padding to prevent content touching edges */
@@ -2236,5 +2236,18 @@ section.visible .spec-item {
         font-size: 32px; /* Mobile font size */
         line-height: 48px; /* Mobile line height */
         /* Gradient/animation properties moved to general rule */
+    }
+
+    /* Mobile Hero Text Scaling & Wrapping */
+    .hero h1 {
+        font-size: 28px; /* Adjusted fixed size for small mobile */
+        /* Removed white-space: nowrap; to allow wrapping */
+        /* This overrides the general h1 font-size within this media query */
+    }
+
+    .hero h2 {
+        font-size: 22px; /* Adjusted fixed size for small mobile */
+        /* Removed white-space: nowrap; to allow wrapping */
+        /* This overrides the general h2 font-size within this media query */
     }
 }
