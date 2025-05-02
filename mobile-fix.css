@@ -1,8 +1,50 @@
 /* Mobile-specific styles */
 @media (max-width: 768px) {
-  /* Reduce hero padding on mobile for about.html */
+  /* Override main padding-top to allow hero background under header */
+  /* This assumes mobile-fix.css is loaded after header-mobile-fix.css */
+  /* WARNING: This might affect other pages if mobile-fix.css is used globally. */
+  main {
+      padding-top: 0 !important; /* Force remove padding */
+  }
+
+  /* Position hero section directly under header on mobile for about.html */
   #overview.hero { /* Targeting specifically the hero section in about.html */
-      padding-top: 80px !important; /* Reduced from 150px, added !important */
+      /* position: relative; /* REMOVED - No longer needed for fixed background */
+      padding-top: 0 !important; /* Removed top padding */
+      margin-top: 0 !important; /* Ensure no top margin, removing negative margin */
+      /* overflow: hidden; /* REMOVED - No longer needed for fixed background */
+      /* Ensure hero still takes up space */
+      min-height: 80vh; /* Reverted min-height */
+      display: flex; /* Use flex to align content */
+      align-items: flex-end; /* Align content to bottom */
+      justify-content: center; /* Center content horizontally */
+      /* position: relative; /* REMOVED - Interferes with negative margin */
+      /* z-index: 1; /* REMOVED - Interferes with negative margin */
+  }
+
+  /* Adjust hero container for bottom alignment */
+  #overview .hero-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* Align content to the bottom */
+      min-height: 80vh; /* Ensure container has height to allow bottom alignment, adjust as needed */
+      padding-bottom: 40px; /* Add some padding at the bottom */
+      /* position: relative; /* REMOVED - No longer needed */
+      /* z-index: 1; /* REMOVED - No longer needed */
+  }
+
+  /* Ensure hero content is above the background and takes available space */
+   #overview .hero-content {
+       /* position: relative; /* No longer needed here, handled by parent #overview.hero */
+       /* z-index: 1; /* No longer needed here, handled by parent #overview.hero */
+       width: 100%; /* Take full width */
+       text-align: center; /* Center text */
+   }
+
+  /* Reduce font size for h1 in about.html hero on mobile */
+  #overview .hero-content h1 {
+      font-size: 2.2rem !important; /* Smaller font size for h1 */
+      margin-bottom: 10px; /* Adjust spacing */
   }
 
   /* Fix h2 positioning, font size, color, and spacing in about.html hero */
@@ -16,6 +58,7 @@
       margin: 10px 0 20px 0 !important; /* Reduced top margin, kept bottom margin */
       text-align: center; /* Ensure text is centered */
       color: #9D9D9D !important; /* Set requested color */
+      font-size: 1.4rem !important; /* Smaller font size for h2 */
       /* Reset any potential text-shadow causing issues */
       text-shadow: none !important;
   }

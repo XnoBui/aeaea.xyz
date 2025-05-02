@@ -101,6 +101,18 @@ header {
     opacity: 1;
 }
 
+/* Hero video gradient overlay */
+.hero-bottom-gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Use 100% for responsiveness */
+    height: 292px;
+    background: linear-gradient(2deg, #252D58 2.63%, rgba(0, 0, 0, 0.00) 99.24%);
+    pointer-events: none; /* Prevent overlay from interfering with interactions */
+    z-index: 1; /* Ensure it's above the video but below content */
+}
+
 .search-icon, .bag-icon {
     display: flex;
     align-items: center;
@@ -180,11 +192,8 @@ h1 {
     font-size: 56px;
     font-weight: 600;
     margin-bottom: 0; /* Changed from 6px */
-    background: linear-gradient(90deg, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
+    color: var(--text-color); /* Set default text color */
+    /* Removed gradient background properties */
 }
 
 /* General h2 styles (excluding hero h2) */
@@ -471,29 +480,85 @@ main .feature-description {
     font-size: 48px; /* Keep original size */
     font-weight: 600; /* Keep original weight */
     color: var(--text-color); /* Ensure visibility */
+    /* Removed absolute positioning and top property */
+    /* left: 0; */
+    /* right: 0; */
+    /* width: 100%; */ /* Span the width of the relative parent (.hero-image) */
+    text-align: center;
+    /* z-index: 1; */ /* No longer needed on top of video this way */
+    margin: 0 auto 10px; /* Center block and add bottom margin */
+    font-size: 48px; /* Keep original size */
+    font-weight: 600; /* Keep original weight */
+    color: var(--text-color); /* Ensure visibility */
     text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.8); /* Restore text shadow */
+    position: relative; /* Ensure it's part of the normal flow */
 }
 
-/* Updated flex properties for hero container */
-.hero .container {
+/* Styles for the new hero layout */
+.hero {
+    position: relative; /* Needed for absolute positioning of video */
+    width: 100%; /* Ensure full width */
+    height: 100vh; /* Ensure it takes full viewport height */
+    display: flex; /* Use flexbox for alignment */
+    align-items: flex-end; /* Align container to the bottom */
+    justify-content: center; /* Center container horizontally */
+    padding: 0; /* Remove previous padding */
+    overflow: hidden; /* Hide video overflow */
+    background: #000; /* Fallback background */
+}
+
+.hero-background-video {
+    position: absolute; /* Match index.html style */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Match index.html style */
+    object-fit: cover; /* Match index.html style */
+    /* Removed fixed positioning properties: object-position, z-index, opacity, filter, transform */
+}
+
+.hero .hero-container { /* Target the specific container */
+    position: relative; /* Ensure it's above the video */
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px; /* Match general container width */
+    padding: 0 20px 60px; /* Add bottom padding */
+    text-align: center; /* Center content */
     display: flex;
     flex-direction: column;
-    align-items: center; /* Horizontal centering */
-    /* Removed justify-content: center */
-    height: 100%; /* Allow container to fill hero height */
-    width: 100%; /* Ensure container takes full width */
-    text-align: center; /* Center text within elements */
+    align-items: center; /* Center items horizontally */
 }
 
-.hero {
-    padding-top: 150px;
-    padding-bottom: 0;
-    background: #000;
-    min-height: 100vh;
-    display: flex; /* Re-added */
-    align-items: center; /* Re-added */
-    justify-content: center; /* Re-added */
+.hero-content {
+    /* This wrapper might not need specific styles if hero-container handles alignment */
+    width: 100%;
+    max-width: 800px; /* Limit content width */
 }
+
+/* Adjust hero text styles for the new layout */
+.hero h1 {
+    margin-bottom: 10px; /* Space below h1 */
+    position: relative; /* Ensure it's part of the normal flow */
+    /* Removed text-shadow */
+}
+
+.hero .price-display { /* Style the paragraph */
+    color: var(--text-color-secondary);
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.hero .cta-links {
+    margin-top: 10px; /* Adjust top margin */
+    margin-bottom: 0; /* Remove bottom margin as padding is on container */
+    position: relative;
+}
+
+/* Remove old .hero .container styles if they conflict */
+/* .hero .container { ... } */ /* Commented out or removed */
+
 
 .scroll-indicator {
     position: absolute;
@@ -1380,6 +1445,18 @@ footer {
     .voyage-text {
         font-size: 32px; /* Mobile font size for "voyage of your life?" */
     }
+
+    /* About Hero Mobile Fix: Remove top padding and center content vertically */
+    .hero {
+        padding-top: 0 !important; /* Remove padding that pushes video down */
+        align-items: center !important; /* Vertically center the container */
+    }
+
+    /* About Hero Mobile Fix: Adjust padding */
+    .hero .hero-container {
+        padding-top: 80px; /* Keep top padding */
+        padding-bottom: 15vh; /* Increase bottom padding significantly (using vh for responsiveness) */
+    }
     
     /* Vision Section Mobile Fixes */
     #vision-section .centered-content {
@@ -1417,9 +1494,10 @@ footer {
     }
     /* End Vision Section Mobile Fixes */
 
-    .hero {
-        padding-top: 80px; /* Reduced from 150px for mobile */
-    }
+    /* Removed redundant hero padding rule */
+    /* .hero {
+        padding-top: 80px; /* Reduced from 150px for mobile * /
+    } */
 
     .local-nav-links {
         display: none;
@@ -1597,9 +1675,9 @@ section:hover .feature-image img {
 /* Enhanced parallax effect */
 .hero {
     position: relative;
-    transform-style: preserve-3d;
-    will-change: transform;
-    perspective: 1000px;
+    /* transform-style: preserve-3d; */ /* Removed */
+    /* will-change: transform; */ /* Removed */
+    /* perspective: 1000px; */ /* Removed */
 }
 
 .hero:before {
@@ -1611,8 +1689,8 @@ section:hover .feature-image img {
     bottom: 0;
     /* Removed background gradient overlay */
     z-index: 1;
-    backdrop-filter: saturate(180%) blur(5px);
-    -webkit-backdrop-filter: saturate(180%) blur(5px);
+    /* backdrop-filter: saturate(180%) blur(5px); */ /* Removed */
+    /* -webkit-backdrop-filter: saturate(180%) blur(5px); */ /* Removed */
     transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -2125,6 +2203,27 @@ section.visible .spec-item {
     .protagonist-cards {
         padding: 0 10px; /* Reduce side padding */
     }
+
+    /* Mobile Hero Video Position Fix - COMMENTED OUT TO FIX LAYERING */
+    /*
+    .hero-background-video {
+        position: absolute; /* Position relative to .hero * /
+        top: 96px; /* Align below header (44px + 52px) * /
+        height: calc(100vh - 96px); /* Adjust height * /
+        z-index: 0; /* Ensure it's behind hero content but above default background * /
+    }
+    */
+
+    /* REMOVE Mobile Hero Video Position Fix */
+    /*
+    .hero-background-video {
+        position: absolute; /* Position relative to .hero * /
+        top: 96px; /* Align below header (44px + 52px) * /
+        height: calc(100vh - 96px); /* Adjust height * /
+        z-index: 0; /* Ensure it's behind hero content but above default background * /
+        /* Keep other properties like width, object-fit, etc. * /
+    }
+    */
     
     /* Mobile styles for Birth of the Firstborn section */
     .firstborn-text {
