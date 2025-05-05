@@ -58,7 +58,7 @@ html, body {
     width: 100%;
     height: 80px; /* Set explicit height */
     z-index: 100;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.1); /* Added light transparent background */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 }
@@ -148,7 +148,7 @@ html, body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 237px; /* Reverted height */
+    height: 400px; /* Changed height */
     background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%); /* Adjusted for 100% transparent at top */
     z-index: 1; /* Ensure it's above the video but below content */
 }
@@ -171,10 +171,18 @@ html, body {
     margin-bottom: 0; /* Ensure no extra margin at the bottom */
 }
 
+.hero-logo-container {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    gap: 20px; /* Add some space between items */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    justify-content: center; /* Center items horizontally */
+}
+
 .soma-logo-svg {
     width: 400px; /* Reverted to original size */
     height: auto;
-    margin-bottom: 10px;
+    margin-bottom: 5px; /* Reduced margin-bottom */
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -625,6 +633,7 @@ html, body {
     z-index: 1;
     max-width: 872px;
     margin-bottom: 30px; /* Reduced space below text from 60px */
+    margin-top: 30px; /* Added spacing below the Japanese subtitle */
 }
 
 .cta-title {
@@ -1281,7 +1290,7 @@ html, body {
         gap: 15px;
         position: absolute; /* Keep header absolute for alignment */
         /* Revert mobile header background to desktop style */
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(255, 255, 255, 0.1); /* Changed to light transparent */
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
     }
@@ -1561,4 +1570,43 @@ main .feature-description {
     max-width: 800px !important; /* Changed from 600px */
     margin: 0 auto 30px !important;
     letter-spacing: normal !important;
+}
+
+/* Enhanced pulse animation for buy button */
+@keyframes enhancedPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 113, 227, 0.6);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(0, 113, 227, 0);
+        transform: scale(1.02);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 113, 227, 0);
+        transform: scale(1);
+    }
+}
+
+.buy-button {
+    animation: enhancedPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Increase width and size of BUY button in hero section */
+.cta-links .buy-button {
+    padding: 8px 40px; /* Increased padding */
+    font-size: 17px; /* Larger font size */
+    background-color: transparent; /* Set background to transparent */
+    border: 1px solid #C6C6C6; /* Change border to 1px solid grey */
+    color: #fff; /* Set text color to white */
+    transition: background 0.3s, color 0.3s, border-color 0.3s; /* Update transition properties */
+    border-radius: 9999px; /* Add rounded corners for pill shape */
+    display: inline-block; /* Ensure padding and border-radius are applied correctly */
+    text-decoration: none; /* Remove underline */
+}
+
+.cta-links .buy-button:hover {
+    background: linear-gradient(270deg, #26332D -2.25%, #11181D 97.75%); /* New gradient background on hover */
+    color: #fff; /* White text on hover */
+    border-color: #fff; /* Change border color on hover to white */
 }

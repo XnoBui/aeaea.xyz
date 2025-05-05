@@ -25,7 +25,7 @@
         left: 0;
         width: 100%;
         z-index: 1000;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(255, 255, 255, 0.1); /* Changed to light transparent */
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
     }
