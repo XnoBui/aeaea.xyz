@@ -30,7 +30,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     color: var(--text-color);
     background-color: var(--background-color);
@@ -236,7 +236,7 @@ h2:not(.hero h2) {
     width: fit-content; /* Size block to content */
     margin-left: auto; /* Center block */
     margin-right: auto; /* Center block */
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Added */
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 48px; /* Changed from 64px */
     font-style: normal; /* Added */
     font-weight: 700; /* Updated */
@@ -255,7 +255,7 @@ h2:not(.hero h2) {
     text-fill-color: transparent; /* Fallback */
     display: inline-block; /* Ensure background clip works correctly */
     text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 64px; /* Set font size to 64px */
     font-style: normal;
     font-weight: 700;
@@ -332,7 +332,7 @@ h2:not(.hero h2) {
 h3 {
     color: var(--Neutral-N6, #8C8C8C);
     text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Added fallbacks */
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 24px; /* Updated as requested */
     font-style: normal;
     font-weight: 300;
@@ -1539,7 +1539,7 @@ footer {
     /* Mobile font size and style for "What is Aeaea Society?" */
     #aeaea_society .section-headline {
         /* Base styles from .hero-main-title */
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         font-weight: 500;
         font-size: 32px; /* Adjusted mobile size */
         line-height: 0.9; /* Match hero title */
@@ -1868,66 +1868,6 @@ header.scrolled {
     animation: enhancedPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Enhanced text animations */
-h1, h2, h3, .feature-description {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-    will-change: transform, opacity;
-}
-
-section.visible h1,
-section.visible h2,
-section.visible h3,
-section.visible .feature-description {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Enhanced spec items animation */
-.spec-item {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-    will-change: transform, opacity;
-}
-
-section.visible .spec-item {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-/* Enhanced image hover effects */
-.color-option img,
-.color-showcase-option img {
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    will-change: transform, filter;
-}
-
-.color-option:hover img,
-.color-showcase-option:hover img {
-    transform: scale(1.1) translateZ(0);
-    filter: brightness(1.1);
-}
-
-/* Enhanced modal animations */
-.modal {
-    transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-}
-
-.modal-content {
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-    transform: translateY(30px) scale(0.95);
-    opacity: 0;
-}
-
-.modal.active .modal-content {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-}
-
 /* Increase width and size of BUY button in hero section */
 .cta-links .buy-button {
     padding: 8px 40px; /* Increased padding */
@@ -2103,7 +2043,7 @@ section.visible .spec-item {
 
 .firstborn-title {
     color: var(--Neutral-N2, #F5F5F5);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
@@ -2121,7 +2061,7 @@ section.visible .spec-item {
 .firstborn-text {
     color: var(--Neutral-N2, #F5F5F5);
     text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 36px; /* Adjusted from 48px to match mobile ratio */
     font-style: normal;
     font-weight: 700;
@@ -2146,7 +2086,7 @@ section.visible .spec-item {
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
     margin-bottom: 20px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
@@ -2159,7 +2099,7 @@ section.visible .spec-item {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 32px;
     font-weight: 500;
     margin-bottom: 40px;

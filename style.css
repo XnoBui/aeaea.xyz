@@ -6,30 +6,13 @@
 }
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #000000;
     color: #FFFFFF;
     overflow-x: hidden; /* Apply to both html and body */
     line-height: 1.2;
 }
 
-/* Placeholder for Poxel Font */
-@font-face {
-  font-family: 'Poxel Font';
-  src: local('Courier New'), local('Courier'), monospace;
-}
-.poxel-font {
-    font-family: 'Poxel Font', 'Courier New', monospace;
-    font-weight: 400;
-    font-size: 14.86px;
-    line-height: 1.25;
-    text-align: center;
-    background: linear-gradient(to right, #BDD3CE 0%, #A3BEB8 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    letter-spacing: 0.05em;
-}
 
 /* Utility for gradient text */
 .gradient-text {
@@ -99,7 +82,7 @@ html, body {
     align-items: center;
     gap: 6px;
     padding: 8px 12px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 700;
     font-size: 14px;
     line-height: 1.15;
@@ -190,7 +173,7 @@ html, body {
 }
 
 .hero-subtitle-jp {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 40px;
     line-height: 0.9;
@@ -217,7 +200,7 @@ html, body {
 }
 
 .hero-main-title {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 64px;
     line-height: 0.9;
@@ -331,7 +314,7 @@ html, body {
 }
 
 .feature-point {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 18px;
     line-height: 1.15;
@@ -412,7 +395,7 @@ html, body {
 }
 
 .intro-title {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 64px;
     line-height: 1.1;
@@ -559,7 +542,7 @@ html, body {
 }
 
 .feature-title {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 40px;
     line-height: 0.9;
@@ -603,7 +586,7 @@ html, body {
 /* Override for feature descriptions within .feature-description-frame (Desktop) */
 .feature-description-frame .feature-description {
     color: var(--Neutral-N0, #FFF) !important; /* Ensure color override */
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Keep fallbacks */
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
@@ -637,7 +620,7 @@ html, body {
 }
 
 .cta-title {
-    font-family: "Helvetica Neue";
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 900;
     font-size: 64px;
     line-height: 125%;
@@ -868,7 +851,7 @@ html, body {
 }
 
 .cta-description {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
     font-size: 24px;
     line-height: 1.4;
@@ -1027,7 +1010,7 @@ html, body {
 .agent-card-title {
     color: #BFBFBF; /* var(--Solid-Colors-N5, #BFBFBF); */
     text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Added fallback fonts */
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -1040,7 +1023,7 @@ html, body {
     align-self: stretch;
     color: #8C8C8C; /* var(--Solid-Colors-N6-B, #8C8C8C); */
     text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Added fallback fonts */
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -1088,7 +1071,7 @@ html, body {
 
 /* Restore original text styles within collection-text-content */
 .collection-subtitle {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
     font-size: 24px;
     line-height: 1.5;
@@ -1121,7 +1104,7 @@ html, body {
 }
 
 .collection-soma-jp {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 30px; /* Restore original size */
     line-height: 0.9em;
@@ -1145,7 +1128,7 @@ html, body {
 
 .collection-title-first,
 .collection-title-second {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 700;
     text-align: center;
     background: linear-gradient(to right, #E9C11F 0%, #FFB7F4 27.68%, #DBFF39 52.4%, #C2FFBE 97.4%);
@@ -1169,7 +1152,7 @@ html, body {
 }
 
 .collection-info {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 700;
     font-size: 40px; /* Restore original size */
     line-height: 1.4em; /* Restore original line height */
