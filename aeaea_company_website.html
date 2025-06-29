@@ -425,15 +425,14 @@
         function applyDefaultExpression() {
             if (!model) return;
 
-            console.log('Applying default expression...');
+            console.log('Applying ABSOLUTE SAFE default expression...');
             
-            // Apply a pleasant, natural expression with more natural eye openness
-            const eyeOpenness = 0.5; // Natural eye openness, not too wide
-            const smileIntensity = 0.3;
-            const eyebrowRaise = 0.2;
-            const jawOpen = 0.05;
+            // SAFE expression parameters - NO eye position/scale changes
+            const smileIntensity = 0.1; // Very subtle smile
+            const eyebrowRaise = 0.1; // Very slight alertness
+            const jawOpen = 0.02; // Minimal jaw opening
 
-            // First, let's log all mesh names to understand the model structure
+            // Log mesh structure for debugging
             model.traverse(function(child) {
                 if (child.isMesh) {
                     console.log('Found mesh:', child.name, 'Type:', child.type);
@@ -444,43 +443,39 @@
                 if (child.isMesh && morphTargets[child.uuid]) {
                     const target = morphTargets[child.uuid];
                     
-                    // Eye effects - use natural eyelid movement instead of scaling
+                    // ABSOLUTE SAFE: Eyes - NO CHANGES AT ALL to position/scale/rotation
                     if (child.name.toLowerCase().includes('eye')) {
-                        console.log('Applying eye expression to:', child.name);
-                        // Simulate natural eyelid movement with position and rotation
-                        const closeFactor = 1 - eyeOpenness;
-                        child.position.y = target.originalPosition.y - closeFactor * 0.02;
-                        child.rotation.x = target.originalRotation.x + closeFactor * 0.1;
-                        child.visible = true; // Always keep eyes visible
+                        console.log('Applying SAFE eye expression to:', child.name);
                         
-                        // Very subtle scale adjustment only for extreme closure
-                        if (eyeOpenness < 0.3) {
-                            child.scale.y = target.originalScale.y * (0.85 + eyeOpenness * 0.15);
-                        } else {
-                            child.scale.y = target.originalScale.y;
-                        }
+                        // LOCK everything to original values
+                        child.position.copy(target.originalPosition);
+                        child.scale.copy(target.originalScale);
+                        child.rotation.copy(target.originalRotation);
+                        child.visible = true; // Force visibility
+                        
+                        // NO rotation changes for eyes in default expression
                     }
                     
-                    // Mouth/smile effects - subtle smile
+                    // Mouth/smile effects - very subtle
                     if (child.name.toLowerCase().includes('mouth') || 
                         child.name.toLowerCase().includes('lip')) {
-                        console.log('Applying smile expression to:', child.name);
-                        child.scale.x = target.originalScale.x * (1 + smileIntensity * 0.2);
-                        child.position.y = target.originalPosition.y + smileIntensity * 0.1;
+                        console.log('Applying subtle smile expression to:', child.name);
+                        child.scale.x = target.originalScale.x * (1 + smileIntensity * 0.1);
+                        child.position.y = target.originalPosition.y + smileIntensity * 0.05;
                     }
                     
-                    // Eyebrow effects - slight raise for alertness
+                    // Eyebrow effects - very subtle
                     if (child.name.toLowerCase().includes('brow') || 
                         child.name.toLowerCase().includes('eyebrow')) {
-                        console.log('Applying eyebrow expression to:', child.name);
-                        child.position.y = target.originalPosition.y + eyebrowRaise * 0.2;
+                        console.log('Applying subtle eyebrow expression to:', child.name);
+                        child.position.y = target.originalPosition.y + eyebrowRaise * 0.1;
                     }
                     
-                    // Jaw effects - slightly open for natural look
+                    // Jaw effects - very subtle
                     if (child.name.toLowerCase().includes('jaw') || 
                         child.name.toLowerCase().includes('chin')) {
-                        console.log('Applying jaw expression to:', child.name);
-                        child.position.y = target.originalPosition.y - jawOpen * 0.3;
+                        console.log('Applying subtle jaw expression to:', child.name);
+                        child.position.y = target.originalPosition.y - jawOpen * 0.1;
                     }
                 }
             });
@@ -500,7 +495,7 @@
             if (isBlinking) {
                 currentBlinkTime += delta;
                 
-                // Calculate blink progress (0 to 1 and back to 0)
+                // Calculate blink progress (0 to 1 and back to 0) - Holoworld style
                 let blinkProgress;
                 if (currentBlinkTime < blinkDuration / 2) {
                     blinkProgress = (currentBlinkTime / (blinkDuration / 2));
@@ -511,22 +506,23 @@
                     isBlinking = false;
                 }
 
-                // Apply realistic blink to eyes using natural eyelid movement
-                const baseEyeOpenness = 0.5; // Default eye openness - matches the natural setting
-                const blinkCloseFactor = blinkProgress * 0.4; // Reduced intensity to prevent eye disappearing
+                // COMPLETELY DISABLE BLINKING POSITION/SCALE CHANGES
+                // Only allow very minimal rotation changes during blink
+                const blinkCloseFactor = blinkProgress * 0.1; // Extremely reduced intensity
                 
                 model.traverse(function(child) {
                     if (child.isMesh && child.name.toLowerCase().includes('eye') && morphTargets[child.uuid]) {
                         const target = morphTargets[child.uuid];
                         
-                        // Simulate natural eyelid closure with position and rotation only
-                        const totalCloseFactor = (1 - baseEyeOpenness) + blinkCloseFactor;
-                        child.position.y = target.originalPosition.y - totalCloseFactor * 0.015; // Reduced movement
-                        child.rotation.x = target.originalRotation.x + totalCloseFactor * 0.05; // Reduced rotation
-                        child.visible = true; // Always keep eyes visible
+                        // ONLY very subtle rotation change during blink
+                        child.rotation.x = target.originalRotation.x + blinkCloseFactor * 0.02; // Minimal rotation
+                        child.rotation.y = target.originalRotation.y; // Lock Y rotation
+                        child.rotation.z = target.originalRotation.z; // Lock Z rotation
                         
-                        // NO scaling during blink to prevent eyes from disappearing
-                        child.scale.y = target.originalScale.y;
+                        // ABSOLUTE LOCK: No position or scale changes during blink
+                        child.position.copy(target.originalPosition);
+                        child.scale.copy(target.originalScale);
+                        child.visible = true; // Force visibility
                     }
                 });
             }
@@ -557,7 +553,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        // Enhanced mouse tracking variables
+        // Holoworld-inspired enhanced mouse tracking variables
         let mousePosition = { x: 0, y: 0 };
         let eyeMeshes = [];
         let smoothMousePosition = { x: 0, y: 0 };
@@ -565,31 +561,36 @@
         let currentEyeRotation = { x: 0, y: 0 };
         let eyeVelocity = { x: 0, y: 0 };
         
-        // Enhanced professional eye tracking parameters
-        const eyeTrackingSpeed = 0.18;
-        const mouseSmoothing = 0.25;
-        const maxEyeRotation = { x: 0.4, y: 0.5 };
-        const eyeAcceleration = 0.12;
-        const eyeDamping = 0.88;
-        const deadZone = 0.015;
+        // Holoworld-style professional eye tracking parameters (improved)
+        const eyeTrackingSpeed = 0.12;
+        const mouseSmoothing = 0.15;
+        const maxEyeRotation = { x: 0.25, y: 0.35 }; // Reduced to prevent extreme movements
+        const eyeAcceleration = 0.08;
+        const eyeDamping = 0.92;
+        const deadZone = 0.01;
+        const eyeReturnSpeed = 0.05; // Speed for returning to neutral position
 
         function updateEyeTracking() {
             if (!model || eyeMeshes.length === 0) return;
             
-            // Professional smooth mouse position filtering
+            // Holoworld-style smooth mouse position filtering with improved stability
             smoothMousePosition.x += (mousePosition.x - smoothMousePosition.x) * mouseSmoothing;
             smoothMousePosition.y += (mousePosition.y - smoothMousePosition.y) * mouseSmoothing;
 
-            // Enhanced target eye rotation with proper vertical tracking
-            targetEyeRotation.x = -smoothMousePosition.y * maxEyeRotation.x; // Up/down eye movement
-            targetEyeRotation.y = smoothMousePosition.x * maxEyeRotation.y;  // Left/right eye movement
+            // Enhanced target eye rotation with safe boundaries (Holoworld approach)
+            // Clamp mouse input to prevent extreme values
+            const clampedMouseX = Math.max(-0.8, Math.min(0.8, smoothMousePosition.x));
+            const clampedMouseY = Math.max(-0.6, Math.min(0.6, smoothMousePosition.y)); // Further limit Y movement
+            
+            targetEyeRotation.x = -clampedMouseY * maxEyeRotation.x; // Up/down eye movement
+            targetEyeRotation.y = clampedMouseX * maxEyeRotation.y;  // Left/right eye movement
 
             // Apply dead zone to prevent micro-movements
             const deltaX = targetEyeRotation.x - currentEyeRotation.x;
             const deltaY = targetEyeRotation.y - currentEyeRotation.y;
             
             if (Math.abs(deltaX) > deadZone || Math.abs(deltaY) > deadZone) {
-                // Calculate velocity-based acceleration for natural movement
+                // Holoworld-style velocity-based acceleration for natural movement
                 eyeVelocity.x += deltaX * eyeAcceleration;
                 eyeVelocity.y += deltaY * eyeAcceleration;
                 
@@ -606,55 +607,66 @@
                 currentEyeRotation.y += (targetEyeRotation.y - currentEyeRotation.y) * eyeTrackingSpeed;
             }
 
-            // Apply eye tracking to all eye meshes
+            // Apply eye tracking to all eye meshes with ABSOLUTE POSITION LOCK
             eyeMeshes.forEach(eyeMesh => {
-                if (morphTargets[eyeMesh.uuid]) {
+                if (morphTargets[eyeMesh.uuid] && eyeMesh.visible) {
                     const target = morphTargets[eyeMesh.uuid];
                     
-                    // Enhanced eye tracking with proper vertical movement physics
-                    const finalRotationX = target.originalRotation.x + currentEyeRotation.x;
-                    const finalRotationY = target.originalRotation.y + currentEyeRotation.y;
-                    const finalRotationZ = target.originalRotation.z + (currentEyeRotation.x * 0.1);
+                    // Enhanced eye tracking with VERY safe rotation limits
+                    const safeRotationX = Math.max(-0.15, Math.min(0.15, currentEyeRotation.x)); // Much smaller range
+                    const safeRotationY = Math.max(-0.2, Math.min(0.2, currentEyeRotation.y)); // Much smaller range
                     
-                    // Professional smooth transition
-                    const adaptiveSpeed = 0.3;
+                    const finalRotationX = target.originalRotation.x + safeRotationX;
+                    const finalRotationY = target.originalRotation.y + safeRotationY;
+                    const finalRotationZ = target.originalRotation.z; // NO Z rotation
+                    
+                    // Holoworld-style smooth transition with adaptive speed
+                    const adaptiveSpeed = 0.15; // Even slower for more natural movement
                     eyeMesh.rotation.x += (finalRotationX - eyeMesh.rotation.x) * adaptiveSpeed;
                     eyeMesh.rotation.y += (finalRotationY - eyeMesh.rotation.y) * adaptiveSpeed;
-                    eyeMesh.rotation.z += (finalRotationZ - eyeMesh.rotation.z) * adaptiveSpeed;
+                    eyeMesh.rotation.z = target.originalRotation.z; // Lock Z rotation
                     
-                    // Subtle position adjustments for realistic eye movement
-                    const targetPositionX = target.originalPosition.x + currentEyeRotation.y * 0.004;
-                    const targetPositionZ = target.originalPosition.z + currentEyeRotation.x * 0.003;
-                    eyeMesh.position.x += (targetPositionX - eyeMesh.position.x) * 0.2;
-                    eyeMesh.position.z += (targetPositionZ - eyeMesh.position.z) * 0.2;
+                    // ABSOLUTE POSITION LOCK - NO POSITION CHANGES AT ALL
+                    eyeMesh.position.copy(target.originalPosition);
+                    
+                    // ABSOLUTE SCALE LOCK - NO SCALE CHANGES AT ALL
+                    eyeMesh.scale.copy(target.originalScale);
+                    
+                    // Force visibility
+                    eyeMesh.visible = true;
                 }
             });
         }
 
         function onMouseMove(event) {
-            // Update mouse position for eye tracking
-            mousePosition.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mousePosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            // Holoworld-style mouse position calculation with improved bounds
+            const rawMouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            const rawMouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            
+            // Apply smooth clamping to prevent extreme values (Holoworld approach)
+            mousePosition.x = Math.max(-0.95, Math.min(0.95, rawMouseX));
+            mousePosition.y = Math.max(-0.95, Math.min(0.95, rawMouseY));
             
             if (model) {
-                // Enhanced head and neck movement with proper face tracking
+                // Holoworld-style enhanced head and neck movement with natural limits
                 // Horizontal movement - head turns left/right (Y rotation)
-                const targetHeadRotationY = mousePosition.x * 0.08; // Reduced intensity
+                const targetHeadRotationY = mousePosition.x * 0.06; // Holoworld-style reduced intensity
                 
-                // Vertical movement - head tilts up/down (X rotation) - FIXED: No position changes
-                const targetHeadRotationX = mousePosition.y * 0.06; // Reduced intensity
+                // Vertical movement - head tilts up/down (X rotation) - FIXED for natural movement
+                const targetHeadRotationX = mousePosition.y * 0.04; // Further reduced to prevent extreme tilting
                 
-                // Smooth interpolation for natural head movement
-                const headLerpSpeed = 0.08;
+                // Holoworld-style smooth interpolation for natural head movement
+                const headLerpSpeed = 0.06; // Slightly slower for more natural feel
                 model.rotation.y += (targetHeadRotationY - model.rotation.y) * headLerpSpeed;
                 model.rotation.x += (targetHeadRotationX - model.rotation.x) * headLerpSpeed;
                 
-                // Add very subtle Z rotation for more realistic neck movement
-                const targetHeadRotationZ = mousePosition.y * mousePosition.x * 0.01;
+                // Add Holoworld-style subtle Z rotation for realistic neck movement
+                const targetHeadRotationZ = mousePosition.y * mousePosition.x * 0.005; // Reduced intensity
                 model.rotation.z += (targetHeadRotationZ - model.rotation.z) * headLerpSpeed;
                 
-                // REMOVED: Position adjustments that were causing zoom effect
-                // Keep the model at its fixed position to prevent zoom in/out
+                // FIXED: Keep model position completely stable (Holoworld approach)
+                // No position changes to prevent zoom/movement artifacts
+                model.position.set(0, -6.8, 0); // Lock position
             }
         }
 
