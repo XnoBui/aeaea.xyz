@@ -272,13 +272,13 @@
         let currentEyeRotation = { x: 0, y: 0 };
         let eyeVelocity = { x: 0, y: 0 };
         
-        // Professional eye tracking parameters
-        const eyeTrackingSpeed = 0.15; // Smooth interpolation speed
-        const mouseSmoothing = 0.2; // Mouse position smoothing
-        const maxEyeRotation = { x: 0.35, y: 0.45 }; // Natural eye movement range
-        const eyeAcceleration = 0.08; // Eye acceleration factor
-        const eyeDamping = 0.92; // Velocity damping for natural deceleration
-        const deadZone = 0.02; // Small dead zone to prevent micro-movements
+        // Enhanced professional eye tracking parameters
+        const eyeTrackingSpeed = 0.18; // Slightly faster for more responsive tracking
+        const mouseSmoothing = 0.25; // Improved mouse position smoothing
+        const maxEyeRotation = { x: 0.4, y: 0.5 }; // Increased range for better tracking
+        const eyeAcceleration = 0.12; // Increased acceleration for more natural movement
+        const eyeDamping = 0.88; // Adjusted damping for smoother deceleration
+        const deadZone = 0.015; // Reduced dead zone for more sensitive tracking
 
         // Expression presets - adjusted for more natural eye openness
         const expressions = {
@@ -766,27 +766,25 @@
             mousePosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
             
             if (model) {
-                // Enhanced head and neck movement with proper vertical tracking
+                // Enhanced head and neck movement with proper face tracking
                 // Horizontal movement - head turns left/right (Y rotation)
-                const targetHeadRotationY = mousePosition.x * 0.12;
+                const targetHeadRotationY = mousePosition.x * 0.08; // Reduced intensity
                 
-                // Vertical movement - head tilts up/down (X rotation) with realistic neck physics
-                const targetHeadRotationX = mousePosition.y * 0.08;
+                // Vertical movement - head tilts up/down (X rotation) - FIXED: No position changes
+                const targetHeadRotationX = mousePosition.y * 0.06; // Reduced intensity
                 
                 // Smooth interpolation for natural head movement
-                const headLerpSpeed = 0.1;
+                const headLerpSpeed = 0.08; // Slightly slower for smoother movement
                 model.rotation.y += (targetHeadRotationY - model.rotation.y) * headLerpSpeed;
                 model.rotation.x += (targetHeadRotationX - model.rotation.x) * headLerpSpeed;
                 
-                // Add subtle Z rotation for more realistic neck movement when looking up/down
-                const targetHeadRotationZ = mousePosition.y * mousePosition.x * 0.02; // Cross-axis influence
+                // Add very subtle Z rotation for more realistic neck movement
+                const targetHeadRotationZ = mousePosition.y * mousePosition.x * 0.01; // Reduced cross-axis influence
                 model.rotation.z += (targetHeadRotationZ - model.rotation.z) * headLerpSpeed;
                 
-                // Subtle head position adjustments for realistic neck physics
-                const targetPositionY = -6.8 + mousePosition.y * 0.05; // Slight vertical head movement
-                const targetPositionX = mousePosition.x * 0.03; // Slight horizontal head movement
-                model.position.y += (targetPositionY - model.position.y) * headLerpSpeed * 0.5;
-                model.position.x += (targetPositionX - model.position.x) * headLerpSpeed * 0.5;
+                // REMOVED: Position adjustments that were causing zoom effect
+                // Keep the model at its fixed position to prevent zoom in/out
+                // The face tracking should only affect rotation, not position or scale
             }
         }
 

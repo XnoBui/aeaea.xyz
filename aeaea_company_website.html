@@ -349,6 +349,12 @@
                         child.name.toLowerCase().includes('mouth') ||
                         child.name.toLowerCase().includes('brow')) {
                         
+                        // Store eye meshes for tracking
+                        if (child.name.toLowerCase().includes('eye')) {
+                            eyeMeshes.push(child);
+                            console.log('Found eye mesh for tracking:', child.name);
+                        }
+                        
                         // Create artificial morph targets for facial expressions
                         setupArtificialMorphTargets(child);
                     }
@@ -539,6 +545,9 @@
             // Handle natural blinking
             handleBlinking(delta);
             
+            // Update eye tracking
+            updateEyeTracking();
+            
             renderer.render(scene, camera);
         }
 
@@ -548,13 +557,104 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        function onMouseMove(event) {
-            if (model) {
-                const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-                const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        // Enhanced mouse tracking variables
+        let mousePosition = { x: 0, y: 0 };
+        let eyeMeshes = [];
+        let smoothMousePosition = { x: 0, y: 0 };
+        let targetEyeRotation = { x: 0, y: 0 };
+        let currentEyeRotation = { x: 0, y: 0 };
+        let eyeVelocity = { x: 0, y: 0 };
+        
+        // Enhanced professional eye tracking parameters
+        const eyeTrackingSpeed = 0.18;
+        const mouseSmoothing = 0.25;
+        const maxEyeRotation = { x: 0.4, y: 0.5 };
+        const eyeAcceleration = 0.12;
+        const eyeDamping = 0.88;
+        const deadZone = 0.015;
+
+        function updateEyeTracking() {
+            if (!model || eyeMeshes.length === 0) return;
+            
+            // Professional smooth mouse position filtering
+            smoothMousePosition.x += (mousePosition.x - smoothMousePosition.x) * mouseSmoothing;
+            smoothMousePosition.y += (mousePosition.y - smoothMousePosition.y) * mouseSmoothing;
+
+            // Enhanced target eye rotation with proper vertical tracking
+            targetEyeRotation.x = -smoothMousePosition.y * maxEyeRotation.x; // Up/down eye movement
+            targetEyeRotation.y = smoothMousePosition.x * maxEyeRotation.y;  // Left/right eye movement
+
+            // Apply dead zone to prevent micro-movements
+            const deltaX = targetEyeRotation.x - currentEyeRotation.x;
+            const deltaY = targetEyeRotation.y - currentEyeRotation.y;
+            
+            if (Math.abs(deltaX) > deadZone || Math.abs(deltaY) > deadZone) {
+                // Calculate velocity-based acceleration for natural movement
+                eyeVelocity.x += deltaX * eyeAcceleration;
+                eyeVelocity.y += deltaY * eyeAcceleration;
                 
-                model.rotation.y = mouseX * 0.3;
-                model.rotation.x = mouseY * 0.1;
+                // Apply damping to velocity for smooth deceleration
+                eyeVelocity.x *= eyeDamping;
+                eyeVelocity.y *= eyeDamping;
+                
+                // Update current eye rotation with velocity
+                currentEyeRotation.x += eyeVelocity.x;
+                currentEyeRotation.y += eyeVelocity.y;
+                
+                // Smooth interpolation towards target for final precision
+                currentEyeRotation.x += (targetEyeRotation.x - currentEyeRotation.x) * eyeTrackingSpeed;
+                currentEyeRotation.y += (targetEyeRotation.y - currentEyeRotation.y) * eyeTrackingSpeed;
+            }
+
+            // Apply eye tracking to all eye meshes
+            eyeMeshes.forEach(eyeMesh => {
+                if (morphTargets[eyeMesh.uuid]) {
+                    const target = morphTargets[eyeMesh.uuid];
+                    
+                    // Enhanced eye tracking with proper vertical movement physics
+                    const finalRotationX = target.originalRotation.x + currentEyeRotation.x;
+                    const finalRotationY = target.originalRotation.y + currentEyeRotation.y;
+                    const finalRotationZ = target.originalRotation.z + (currentEyeRotation.x * 0.1);
+                    
+                    // Professional smooth transition
+                    const adaptiveSpeed = 0.3;
+                    eyeMesh.rotation.x += (finalRotationX - eyeMesh.rotation.x) * adaptiveSpeed;
+                    eyeMesh.rotation.y += (finalRotationY - eyeMesh.rotation.y) * adaptiveSpeed;
+                    eyeMesh.rotation.z += (finalRotationZ - eyeMesh.rotation.z) * adaptiveSpeed;
+                    
+                    // Subtle position adjustments for realistic eye movement
+                    const targetPositionX = target.originalPosition.x + currentEyeRotation.y * 0.004;
+                    const targetPositionZ = target.originalPosition.z + currentEyeRotation.x * 0.003;
+                    eyeMesh.position.x += (targetPositionX - eyeMesh.position.x) * 0.2;
+                    eyeMesh.position.z += (targetPositionZ - eyeMesh.position.z) * 0.2;
+                }
+            });
+        }
+
+        function onMouseMove(event) {
+            // Update mouse position for eye tracking
+            mousePosition.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mousePosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            
+            if (model) {
+                // Enhanced head and neck movement with proper face tracking
+                // Horizontal movement - head turns left/right (Y rotation)
+                const targetHeadRotationY = mousePosition.x * 0.08; // Reduced intensity
+                
+                // Vertical movement - head tilts up/down (X rotation) - FIXED: No position changes
+                const targetHeadRotationX = mousePosition.y * 0.06; // Reduced intensity
+                
+                // Smooth interpolation for natural head movement
+                const headLerpSpeed = 0.08;
+                model.rotation.y += (targetHeadRotationY - model.rotation.y) * headLerpSpeed;
+                model.rotation.x += (targetHeadRotationX - model.rotation.x) * headLerpSpeed;
+                
+                // Add very subtle Z rotation for more realistic neck movement
+                const targetHeadRotationZ = mousePosition.y * mousePosition.x * 0.01;
+                model.rotation.z += (targetHeadRotationZ - model.rotation.z) * headLerpSpeed;
+                
+                // REMOVED: Position adjustments that were causing zoom effect
+                // Keep the model at its fixed position to prevent zoom in/out
             }
         }
 
