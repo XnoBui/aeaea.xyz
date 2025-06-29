@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEAEA - Digital Fashion & Innovation Studio</title>
+    <title>SOMA Model - Enhanced Facial Expressions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/aeaea_company_website.css">
     <script type="importmap">
         {
             "imports": {
@@ -16,217 +15,237 @@
             }
         }
     </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        #container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .controls-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            z-index: 100;
+            min-width: 280px;
+        }
+
+        .controls-panel h3 {
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #333;
+            outline: none;
+            -webkit-appearance: none;
+            margin-bottom: 10px;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+            border: 2px solid #fff;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+            border: 2px solid #fff;
+        }
+
+        .expression-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .expression-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .expression-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .expression-btn.active {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        .info-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            z-index: 100;
+            max-width: 300px;
+        }
+
+        .info-panel h4 {
+            color: #4CAF50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .info-panel p {
+            color: #ccc;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #333;
+            border-top: 3px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #ccc;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">
-            <a href="#"><img src="images/aelogo_1.png" alt="AEAEA Logo"></a>
-        </div>
-        <div class="nav-links">
-            <a href="#services">Services</a>
-            <a href="#soma">Digital Humans</a>
-            <a href="#fashion">Digital Fashion</a>
-            <a href="#ar">AR</a>
-            <a href="#metaverse">Metaverse</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero">
-        <div id="container"></div>
-        <div class="hero-content">
-            <h1>Digital Innovation Studio</h1>
-            <p>We are at the forefront of digital innovation, creating cutting-edge digital humans, virtual fashion, immersive AR experiences, and metaverse spaces</p>
-        </div>
-        <div class="scroll-indicator">↓</div>
-    </section>
-
-    <!-- Services Overview -->
-    <section id="services" class="services-overview">
-        <div class="section-header">
-            <h2>What We Do</h2>
-            <p>We offer four specialized services that are shaping the digital future.</p>
-        </div>
-        
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-number">01</div>
-                <h3>Digital Humans</h3>
-                <p>SOMA - Professional digital humans for campaigns, content, and partnerships. Luna, Riven, and more.</p>
-                <a href="#soma" class="service-link">Learn more →</a>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-number">02</div>
-                <h3>Digital Fashion</h3>
-                <p>Virtual clothing and accessories. From concept to 3D modeling. For games, metaverse, and social media.</p>
-                <a href="#fashion" class="service-link">Learn more →</a>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-number">03</div>
-                <h3>AR Experiences</h3>
-                <p>Augmented reality filters, try-ons, and interactive experiences. Instagram, Snapchat, and custom apps.</p>
-                <a href="#ar" class="service-link">Learn more →</a>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-number">04</div>
-                <h3>Metaverse Spaces</h3>
-                <p>Virtual worlds, showrooms, and event spaces. Spatial design for Decentraland, Roblox, and custom platforms.</p>
-                <a href="#metaverse" class="service-link">Learn more →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- SOMA Digital Humans -->
-    <section id="soma" class="service-detail">
-        <div class="service-content">
-            <div class="service-info">
-                <h3>SOMA Digital Humans</h3>
-                <p>Our digital humans work like real talent. They create content, engage audiences, and represent brands. Each has their own personality, style, and growing fanbase.</p>
-                <ul class="service-features">
-                    <li>5 established digital humans with real followers</li>
-                    <li>Fashion campaigns and brand partnerships</li>
-                    <li>Music creation and performances</li>
-                    <li>24/7 availability, no geographic limits</li>
-                    <li>AI-powered conversations and content</li>
-                </ul>
-                <a href="https://soma.ai" class="service-link">Visit SOMA →</a>
-            </div>
-            <div class="service-visual">SOMA</div>
-        </div>
-    </section>
-
-    <!-- Digital Fashion -->
-    <section id="fashion" class="service-detail">
-        <div class="service-content">
-            <div class="service-info">
-                <h3>Digital Fashion</h3>
-                <p>We design and create virtual clothing that exists purely in digital spaces. From haute couture to streetwear, our pieces can be worn in photos, videos, games, and virtual worlds.</p>
-                <ul class="service-features">
-                    <li>3D garment design and modeling</li>
-                    <li>Virtual try-on technology</li>
-                    <li>NFT fashion collections</li>
-                    <li>Game-ready wearables</li>
-                    <li>Social media fashion filters</li>
-                </ul>
-                <a href="#contact" class="service-link">Start a project →</a>
-            </div>
-            <div class="service-visual">FASHION</div>
-        </div>
-    </section>
-
-    <!-- AR Experiences -->
-    <section id="ar" class="service-detail">
-        <div class="service-content">
-            <div class="service-info">
-                <h3>AR Experiences</h3>
-                <p>Augmented reality that bridges physical and digital. We create filters, effects, and interactive experiences that transform how people engage with brands and content.</p>
-                <ul class="service-features">
-                    <li>Instagram and Snapchat filters</li>
-                    <li>Virtual try-on for products</li>
-                    <li>Interactive AR campaigns</li>
-                    <li>WebAR experiences</li>
-                    <li>Custom AR applications</li>
-                </ul>
-                <a href="#contact" class="service-link">Create AR experience →</a>
-            </div>
-            <div class="service-visual">AR</div>
-        </div>
-    </section>
-
-    <!-- Metaverse Spaces -->
-    <section id="metaverse" class="service-detail">
-        <div class="service-content">
-            <div class="service-info">
-                <h3>Metaverse Spaces</h3>
-                <p>Virtual environments where people gather, shop, and experience. We design and build spaces that feel alive, from intimate showrooms to massive event venues.</p>
-                <ul class="service-features">
-                    <li>Virtual showrooms and galleries</li>
-                    <li>Event spaces and concert venues</li>
-                    <li>Roblox and Decentraland builds</li>
-                    <li>Custom virtual worlds</li>
-                    <li>Spatial UX design</li>
-                </ul>
-                <a href="#contact" class="service-link">Build your space →</a>
-            </div>
-            <div class="service-visual">META</div>
-        </div>
-    </section>
-
-    <!-- Showcase -->
-    <section class="showcase-section">
-        <div class="section-header">
-            <h2>Selected Work</h2>
-        </div>
-        <div class="showcase-grid">
-            <div class="showcase-item">📸</div>
-            <div class="showcase-item">👗</div>
-            <div class="showcase-item">🎭</div>
-            <div class="showcase-item">🌐</div>
-            <div class="showcase-item">✨</div>
-            <div class="showcase-item">🎵</div>
-            <div class="showcase-item">🏛️</div>
-            <div class="showcase-item">👁️</div>
-        </div>
-    </section>
-
-    <!-- About -->
-    <section class="about-section">
-        <h2>About AEAEA</h2>
-        <p>We are a digital innovation studio at the intersection of fashion, technology, and human expression.</p>
-        <p>After years of R&D, we're excited to share our vision of digital humanity through practical applications.</p>
-        
-        <div class="team-info">
-            <h3>YGILABS</h3>
-            <p>Founded by a team with backgrounds in fashion design, interior design, and technology. We believe the future is both digital and deeply human.</p>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="contact-section">
-        <div class="contact-content">
-            <h2>Start a Project</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h4>General Inquiries</h4>
-                    <p><a href="mailto:hello@aeaea.xyz">hello@aeaea.xyz</a></p>
-                </div>
-                <div class="contact-item">
-                    <h4>SOMA Bookings</h4>
-                    <p><a href="mailto:soma@aeaea.xyz">soma@aeaea.xyz</a></p>
-                </div>
-            </div>
-            <p style="color: #666;">Contact us for project inquiries</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 AEAEA by YGILABS. Creating the digital future.</p>
-    </footer>
-
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <a href="#services" class="bottom-nav-link">
-            <span>Services</span>
-        </a>
-        <a href="#soma" class="bottom-nav-link">
-            <span>Digital Humans</span>
-        </a>
-        <a href="#fashion" class="bottom-nav-link">
-            <span>Digital Fashion</span>
-        </a>
-        <a href="#ar" class="bottom-nav-link">
-            <span>AR</span>
-        </a>
-        <a href="#contact" class="bottom-nav-link">
-            <span>Contact</span>
-        </a>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <div class="loading-text">Loading SOMA Model...</div>
     </div>
+
+    <div id="container"></div>
+
+    <div class="controls-panel">
+        <h3>Facial Expression Controls</h3>
+        
+        <div class="control-group">
+            <label>Eye Openness</label>
+            <input type="range" class="slider" id="eyeOpenness" min="0" max="1" step="0.01" value="0.7">
+        </div>
+
+        <div class="control-group">
+            <label>Smile Intensity</label>
+            <input type="range" class="slider" id="smileIntensity" min="0" max="1" step="0.01" value="0.3">
+        </div>
+
+        <div class="control-group">
+            <label>Eyebrow Raise</label>
+            <input type="range" class="slider" id="eyebrowRaise" min="0" max="1" step="0.01" value="0.2">
+        </div>
+
+        <div class="control-group">
+            <label>Jaw Open</label>
+            <input type="range" class="slider" id="jawOpen" min="0" max="1" step="0.01" value="0.1">
+        </div>
+
+        <div class="expression-buttons">
+            <button class="expression-btn" onclick="setExpression('neutral')">Neutral</button>
+            <button class="expression-btn" onclick="setExpression('happy')">Happy</button>
+            <button class="expression-btn" onclick="setExpression('surprised')">Surprised</button>
+            <button class="expression-btn" onclick="setExpression('focused')">Focused</button>
+            <button class="expression-btn" onclick="setExpression('thoughtful')">Thoughtful</button>
+            <button class="expression-btn" onclick="setExpression('confident')">Confident</button>
+        </div>
+
+        <div class="control-group" style="margin-top: 20px;">
+            <label>
+                <input type="checkbox" id="autoBlinking" checked> Auto Blinking
+            </label>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <h4>SOMA Enhanced</h4>
+        <p>Interactive facial expressions with natural eye movements and realistic blinking. Use the controls to adjust facial features and create lifelike expressions.</p>
+    </div>
+
     <script type="module">
         import * as THREE from 'three';
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -234,10 +253,20 @@
         let scene, camera, renderer, model, mixer, clock;
         let morphTargets = {};
         let blinkTimer = 0;
-        let nextBlinkTime = Math.random() * 3 + 2;
+        let nextBlinkTime = Math.random() * 3 + 2; // Random blink between 2-5 seconds
         let isBlinking = false;
         let blinkDuration = 0.15;
         let currentBlinkTime = 0;
+
+        // Expression presets
+        const expressions = {
+            neutral: { eyeOpenness: 0.7, smileIntensity: 0.1, eyebrowRaise: 0.2, jawOpen: 0.05 },
+            happy: { eyeOpenness: 0.6, smileIntensity: 0.8, eyebrowRaise: 0.3, jawOpen: 0.1 },
+            surprised: { eyeOpenness: 1.0, smileIntensity: 0.0, eyebrowRaise: 0.9, jawOpen: 0.4 },
+            focused: { eyeOpenness: 0.5, smileIntensity: 0.0, eyebrowRaise: 0.1, jawOpen: 0.0 },
+            thoughtful: { eyeOpenness: 0.4, smileIntensity: 0.2, eyebrowRaise: 0.4, jawOpen: 0.0 },
+            confident: { eyeOpenness: 0.8, smileIntensity: 0.4, eyebrowRaise: 0.5, jawOpen: 0.0 }
+        };
 
         function init() {
             console.log('Initializing enhanced SOMA model viewer...');
@@ -275,6 +304,7 @@
             function tryLoadModel() {
                 if (currentPathIndex >= possiblePaths.length) {
                     console.error('Could not load SOMA model from any path');
+                    document.getElementById('loadingScreen').innerHTML = '<div class="loading-text">Model not found. Please ensure SOMA MODEL ANIMATION TEST.glb is in the project directory.</div>';
                     return;
                 }
                 
@@ -291,7 +321,7 @@
                         model.position.set(0, -6.8, 0);
                         model.scale.set(7, 5, 7);
                         
-                        // Setup enhanced model features
+                        // Setup morphing and materials
                         setupModelEnhancements(model);
                         
                         scene.add(model);
@@ -305,13 +335,15 @@
                             });
                         }
 
-                        // Apply default pleasant expression
-                        setTimeout(() => {
-                            applyDefaultExpression();
-                        }, 100);
+                        // Hide loading screen
+                        document.getElementById('loadingScreen').classList.add('hidden');
+                        
+                        // Setup controls
+                        setupControls();
                     },
                     function(progress) {
-                        console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
+                        const percent = Math.round((progress.loaded / progress.total * 100));
+                        document.querySelector('.loading-text').textContent = `Loading SOMA Model... ${percent}%`;
                     },
                     function (error) {
                         console.error(`Error loading model from ${currentPath}:`, error);
@@ -345,12 +377,12 @@
                     // Look for facial meshes and setup morphing
                     if (child.name.toLowerCase().includes('face') || 
                         child.name.toLowerCase().includes('head') ||
-                        child.name.toLowerCase().includes('eye') ||
-                        child.name.toLowerCase().includes('mouth') ||
-                        child.name.toLowerCase().includes('brow')) {
+                        child.name.toLowerCase().includes('eye')) {
                         
                         // Create artificial morph targets for facial expressions
-                        setupArtificialMorphTargets(child);
+                        if (child.geometry && !child.morphTargetInfluences) {
+                            setupArtificialMorphTargets(child);
+                        }
                     }
                     
                     // Enhance materials
@@ -377,6 +409,8 @@
         }
 
         function setupArtificialMorphTargets(mesh) {
+            // Since the model might not have built-in morph targets,
+            // we'll create artificial ones by manipulating the mesh transform
             morphTargets[mesh.uuid] = {
                 mesh: mesh,
                 originalScale: mesh.scale.clone(),
@@ -416,55 +450,59 @@
             scene.add(faceLight.target);
         }
 
-        function applyDefaultExpression() {
-            if (!model) return;
-
-            console.log('Applying default expression...');
-            
-            // Apply a pleasant, natural expression
-            const eyeOpenness = 0.8; // More open eyes for natural look
-            const smileIntensity = 0.3;
-            const eyebrowRaise = 0.2;
-            const jawOpen = 0.05;
-
-            // First, let's log all mesh names to understand the model structure
-            model.traverse(function(child) {
-                if (child.isMesh) {
-                    console.log('Found mesh:', child.name, 'Type:', child.type);
+        function setupControls() {
+            // Setup slider controls
+            const sliders = ['eyeOpenness', 'smileIntensity', 'eyebrowRaise', 'jawOpen'];
+            sliders.forEach(sliderId => {
+                const slider = document.getElementById(sliderId);
+                if (slider) {
+                    slider.addEventListener('input', updateFacialExpression);
                 }
             });
+        }
 
+        function updateFacialExpression() {
+            if (!model) return;
+
+            const eyeOpenness = parseFloat(document.getElementById('eyeOpenness').value);
+            const smileIntensity = parseFloat(document.getElementById('smileIntensity').value);
+            const eyebrowRaise = parseFloat(document.getElementById('eyebrowRaise').value);
+            const jawOpen = parseFloat(document.getElementById('jawOpen').value);
+
+            console.log('Updating facial expression:', { eyeOpenness, smileIntensity, eyebrowRaise, jawOpen });
+
+            // Apply artificial morphing effects
             model.traverse(function(child) {
                 if (child.isMesh && morphTargets[child.uuid]) {
                     const target = morphTargets[child.uuid];
                     
-                    // Eye effects - be more conservative to prevent disappearing eyes
+                    // Eye effects - be more conservative with scaling to avoid disappearing eyes
                     if (child.name.toLowerCase().includes('eye')) {
-                        console.log('Applying eye expression to:', child.name);
-                        // Use more conservative scaling - minimum 60% to prevent disappearing
-                        child.scale.y = target.originalScale.y * Math.max(0.6, 0.6 + eyeOpenness * 0.4);
+                        console.log('Found eye mesh:', child.name);
+                        // Use more conservative scaling - minimum 50% to prevent disappearing
+                        child.scale.y = target.originalScale.y * Math.max(0.5, 0.5 + eyeOpenness * 0.5);
                         child.visible = true; // Ensure eyes remain visible
                     }
                     
-                    // Mouth/smile effects - subtle smile
+                    // Mouth/smile effects
                     if (child.name.toLowerCase().includes('mouth') || 
                         child.name.toLowerCase().includes('lip')) {
-                        console.log('Applying smile expression to:', child.name);
+                        console.log('Found mouth mesh:', child.name);
                         child.scale.x = target.originalScale.x * (1 + smileIntensity * 0.2);
                         child.position.y = target.originalPosition.y + smileIntensity * 0.1;
                     }
                     
-                    // Eyebrow effects - slight raise for alertness
+                    // Eyebrow effects
                     if (child.name.toLowerCase().includes('brow') || 
                         child.name.toLowerCase().includes('eyebrow')) {
-                        console.log('Applying eyebrow expression to:', child.name);
+                        console.log('Found eyebrow mesh:', child.name);
                         child.position.y = target.originalPosition.y + eyebrowRaise * 0.2;
                     }
                     
-                    // Jaw effects - slightly open for natural look
+                    // Jaw effects
                     if (child.name.toLowerCase().includes('jaw') || 
                         child.name.toLowerCase().includes('chin')) {
-                        console.log('Applying jaw expression to:', child.name);
+                        console.log('Found jaw mesh:', child.name);
                         child.position.y = target.originalPosition.y - jawOpen * 0.3;
                     }
                 }
@@ -472,6 +510,9 @@
         }
 
         function handleBlinking(delta) {
+            const autoBlinking = document.getElementById('autoBlinking').checked;
+            if (!autoBlinking) return;
+
             blinkTimer += delta;
 
             if (!isBlinking && blinkTimer >= nextBlinkTime) {
@@ -496,16 +537,14 @@
                     isBlinking = false;
                 }
 
-                // Apply blink to eyes with conservative scaling
-                const baseEyeOpenness = 0.8; // Default eye openness
-                const blinkEyeOpenness = baseEyeOpenness * (1 - blinkProgress * 0.7); // Less aggressive blinking
+                // Apply blink to eyes
+                const baseEyeOpenness = parseFloat(document.getElementById('eyeOpenness').value);
+                const blinkEyeOpenness = baseEyeOpenness * (1 - blinkProgress * 0.9);
                 
                 model.traverse(function(child) {
                     if (child.isMesh && child.name.toLowerCase().includes('eye') && morphTargets[child.uuid]) {
                         const target = morphTargets[child.uuid];
-                        // Use conservative scaling to prevent eyes from disappearing
-                        child.scale.y = target.originalScale.y * Math.max(0.6, 0.6 + blinkEyeOpenness * 0.4);
-                        child.visible = true; // Ensure eyes remain visible
+                        child.scale.y = target.originalScale.y * (0.3 + blinkEyeOpenness * 0.7);
                     }
                 });
             }
@@ -521,11 +560,34 @@
                 mixer.update(delta);
             }
             
-            // Handle natural blinking
+            // Handle blinking
             handleBlinking(delta);
             
             renderer.render(scene, camera);
         }
+
+        // Global functions for expression buttons
+        window.setExpression = function(expressionName) {
+            const expression = expressions[expressionName];
+            if (!expression) return;
+
+            // Update sliders
+            Object.keys(expression).forEach(key => {
+                const slider = document.getElementById(key);
+                if (slider) {
+                    slider.value = expression[key];
+                }
+            });
+
+            // Update the model
+            updateFacialExpression();
+
+            // Update button states
+            document.querySelectorAll('.expression-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        };
 
         function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
