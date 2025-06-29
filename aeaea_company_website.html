@@ -238,6 +238,29 @@
         let isBlinking = false;
         let blinkDuration = 0.3; // Slower, more natural blink duration
         let currentBlinkTime = 0;
+        let idleTime = 0; // For subtle idle animation
+        
+        // Enhanced animation variables
+        let microMovementTime = 0;
+        let saccadeTimer = 0;
+        let nextSaccadeTime = Math.random() * 2 + 1;
+        let currentSaccade = { x: 0, y: 0 };
+        let targetSaccade = { x: 0, y: 0 };
+        let saccadeProgress = 1;
+        let breathingPhase = 0;
+        let breathingIntensity = 1;
+        let postureShiftTimer = 0;
+        let nextPostureShift = Math.random() * 10 + 5;
+        let currentPosture = { x: 0, y: 0, z: 0 };
+        let targetPosture = { x: 0, y: 0, z: 0 };
+        let postureProgress = 1;
+        let blinkType = 'normal'; // normal, quick, slow, double
+        let facialTwitchTimer = 0;
+        let nextFacialTwitch = Math.random() * 5 + 3;
+        let headNodTimer = 0;
+        let nextHeadNod = Math.random() * 15 + 10;
+        let isNodding = false;
+        let nodProgress = 0;
 
         function init() {
             console.log('Initializing enhanced SOMA model viewer...');
@@ -326,9 +349,11 @@
             // Enhanced lighting setup for facial features
             setupLighting();
 
-            // Position camera
+            // Position camera - fixed to prevent any zoom effect
             camera.position.set(0, 1.2, 2.5);
             camera.lookAt(0, 1.2, 0);
+            camera.fov = 35; // Lock FOV
+            camera.updateProjectionMatrix();
 
             // Animation clock
             clock = new THREE.Clock();
@@ -425,57 +450,84 @@
         function applyDefaultExpression() {
             if (!model) return;
 
-            console.log('Applying ABSOLUTE SAFE default expression...');
+            console.log('Applying working default expression...');
             
-            // SAFE expression parameters - NO eye position/scale changes
-            const smileIntensity = 0.1; // Very subtle smile
-            const eyebrowRaise = 0.1; // Very slight alertness
-            const jawOpen = 0.02; // Minimal jaw opening
-
-            // Log mesh structure for debugging
-            model.traverse(function(child) {
-                if (child.isMesh) {
-                    console.log('Found mesh:', child.name, 'Type:', child.type);
-                }
-            });
+            // Working expression parameters from soma-expression-viewer.html
+            const eyeOpenness = 0.2; // Much smaller eye openness - more closed eyelids
+            const smileIntensity = 0.1; // Subtle smile
+            const eyebrowRaise = 0.2; // Slight alertness
+            const jawOpen = 0.05; // Minimal jaw opening
 
             model.traverse(function(child) {
                 if (child.isMesh && morphTargets[child.uuid]) {
                     const target = morphTargets[child.uuid];
                     
-                    // ABSOLUTE SAFE: Eyes - NO CHANGES AT ALL to position/scale/rotation
+                    // Eye effects - working implementation from soma-expression-viewer
                     if (child.name.toLowerCase().includes('eye')) {
-                        console.log('Applying SAFE eye expression to:', child.name);
+                        console.log('Applying working eye expression to:', child.name);
                         
-                        // LOCK everything to original values
-                        child.position.copy(target.originalPosition);
-                        child.scale.copy(target.originalScale);
-                        child.rotation.copy(target.originalRotation);
-                        child.visible = true; // Force visibility
+                        // Use the working approach from soma-expression-viewer
+                        const closeFactor = 1 - eyeOpenness;
+                        child.position.y = target.originalPosition.y - closeFactor * 0.02;
+                        child.rotation.x = target.originalRotation.x + closeFactor * 0.1;
+                        child.visible = true; // Always keep eyes visible
                         
-                        // NO rotation changes for eyes in default expression
+                        // Very subtle scale adjustment only for extreme closure
+                        if (eyeOpenness < 0.3) {
+                            child.scale.y = target.originalScale.y * (0.85 + eyeOpenness * 0.15);
+                        } else {
+                            child.scale.y = target.originalScale.y;
+                        }
+                        
+                        // Ensure other properties are set
+                        child.position.x = target.originalPosition.x;
+                        child.position.z = target.originalPosition.z;
+                        child.rotation.y = target.originalRotation.y;
+                        child.rotation.z = target.originalRotation.z;
+                        child.scale.x = target.originalScale.x;
+                        child.scale.z = target.originalScale.z;
                     }
                     
-                    // Mouth/smile effects - very subtle
-                    if (child.name.toLowerCase().includes('mouth') || 
+                    // Mouth/smile effects
+                    else if (child.name.toLowerCase().includes('mouth') || 
                         child.name.toLowerCase().includes('lip')) {
-                        console.log('Applying subtle smile expression to:', child.name);
-                        child.scale.x = target.originalScale.x * (1 + smileIntensity * 0.1);
-                        child.position.y = target.originalPosition.y + smileIntensity * 0.05;
+                        console.log('Applying smile expression to:', child.name);
+                        child.position.copy(target.originalPosition);
+                        child.rotation.copy(target.originalRotation);
+                        child.scale.copy(target.originalScale);
+                        child.scale.x = target.originalScale.x * (1 + smileIntensity * 0.2);
+                        child.position.y = target.originalPosition.y + smileIntensity * 0.1;
+                        child.visible = true;
                     }
                     
-                    // Eyebrow effects - very subtle
-                    if (child.name.toLowerCase().includes('brow') || 
+                    // Eyebrow effects
+                    else if (child.name.toLowerCase().includes('brow') || 
                         child.name.toLowerCase().includes('eyebrow')) {
-                        console.log('Applying subtle eyebrow expression to:', child.name);
-                        child.position.y = target.originalPosition.y + eyebrowRaise * 0.1;
+                        console.log('Applying eyebrow expression to:', child.name);
+                        child.position.copy(target.originalPosition);
+                        child.rotation.copy(target.originalRotation);
+                        child.scale.copy(target.originalScale);
+                        child.position.y = target.originalPosition.y + eyebrowRaise * 0.2;
+                        child.visible = true;
                     }
                     
-                    // Jaw effects - very subtle
-                    if (child.name.toLowerCase().includes('jaw') || 
+                    // Jaw effects
+                    else if (child.name.toLowerCase().includes('jaw') || 
                         child.name.toLowerCase().includes('chin')) {
-                        console.log('Applying subtle jaw expression to:', child.name);
-                        child.position.y = target.originalPosition.y - jawOpen * 0.1;
+                        console.log('Applying jaw expression to:', child.name);
+                        child.position.copy(target.originalPosition);
+                        child.rotation.copy(target.originalRotation);
+                        child.scale.copy(target.originalScale);
+                        child.position.y = target.originalPosition.y - jawOpen * 0.3;
+                        child.visible = true;
+                    }
+                    
+                    // All other meshes - baseline
+                    else {
+                        child.position.copy(target.originalPosition);
+                        child.rotation.copy(target.originalRotation);
+                        child.scale.copy(target.originalScale);
+                        child.visible = true;
                     }
                 }
             });
@@ -485,46 +537,102 @@
             blinkTimer += delta;
 
             if (!isBlinking && blinkTimer >= nextBlinkTime) {
-                // Start blink
+                // Start blink with natural timing variation
                 isBlinking = true;
                 currentBlinkTime = 0;
                 blinkTimer = 0;
-                nextBlinkTime = Math.random() * 4 + 2; // Next blink in 2-6 seconds
+                
+                // Vary blink types for more natural behavior
+                const blinkRandom = Math.random();
+                if (blinkRandom < 0.7) {
+                    blinkType = 'normal';
+                    blinkDuration = 0.3;
+                    nextBlinkTime = Math.random() * 3 + 2.5;
+                } else if (blinkRandom < 0.85) {
+                    blinkType = 'quick';
+                    blinkDuration = 0.15;
+                    nextBlinkTime = Math.random() * 2 + 1.5;
+                } else if (blinkRandom < 0.95) {
+                    blinkType = 'slow';
+                    blinkDuration = 0.5;
+                    nextBlinkTime = Math.random() * 4 + 3;
+                } else {
+                    blinkType = 'double';
+                    blinkDuration = 0.6; // Two quick blinks
+                    nextBlinkTime = Math.random() * 5 + 4;
+                }
             }
 
             if (isBlinking) {
                 currentBlinkTime += delta;
                 
-                // Calculate blink progress (0 to 1 and back to 0) - Holoworld style
                 let blinkProgress;
-                if (currentBlinkTime < blinkDuration / 2) {
-                    blinkProgress = (currentBlinkTime / (blinkDuration / 2));
-                } else if (currentBlinkTime < blinkDuration) {
-                    blinkProgress = 1 - ((currentBlinkTime - blinkDuration / 2) / (blinkDuration / 2));
+                
+                if (blinkType === 'double') {
+                    // Double blink pattern
+                    if (currentBlinkTime < 0.15) {
+                        blinkProgress = currentBlinkTime / 0.15;
+                    } else if (currentBlinkTime < 0.25) {
+                        blinkProgress = 1 - (currentBlinkTime - 0.15) / 0.1;
+                    } else if (currentBlinkTime < 0.35) {
+                        blinkProgress = 0;
+                    } else if (currentBlinkTime < 0.5) {
+                        blinkProgress = (currentBlinkTime - 0.35) / 0.15;
+                    } else if (currentBlinkTime < 0.6) {
+                        blinkProgress = 1 - (currentBlinkTime - 0.5) / 0.1;
+                    } else {
+                        blinkProgress = 0;
+                        isBlinking = false;
+                    }
                 } else {
-                    blinkProgress = 0;
-                    isBlinking = false;
+                    // Normal, quick, or slow blink
+                    const halfDuration = blinkDuration / 2;
+                    
+                    if (currentBlinkTime < halfDuration) {
+                        const t = currentBlinkTime / halfDuration;
+                        blinkProgress = t * t * (3 - 2 * t);
+                    } else if (currentBlinkTime < blinkDuration) {
+                        const t = (currentBlinkTime - halfDuration) / halfDuration;
+                        blinkProgress = 1 - (t * t * (3 - 2 * t));
+                    } else {
+                        blinkProgress = 0;
+                        isBlinking = false;
+                    }
                 }
 
-                // COMPLETELY DISABLE BLINKING POSITION/SCALE CHANGES
-                // Only allow very minimal rotation changes during blink
-                const blinkCloseFactor = blinkProgress * 0.1; // Extremely reduced intensity
+                // Apply professional blink with working approach from soma-expression-viewer
+                const baseEyeOpenness = 0.2;
+                const blinkCloseFactor = blinkProgress * 0.3;
                 
+                window.currentBlinkFactor = blinkCloseFactor;
+                
+                // Apply blink to eye meshes
                 model.traverse(function(child) {
                     if (child.isMesh && child.name.toLowerCase().includes('eye') && morphTargets[child.uuid]) {
                         const target = morphTargets[child.uuid];
                         
-                        // ONLY very subtle rotation change during blink
-                        child.rotation.x = target.originalRotation.x + blinkCloseFactor * 0.02; // Minimal rotation
-                        child.rotation.y = target.originalRotation.y; // Lock Y rotation
-                        child.rotation.z = target.originalRotation.z; // Lock Z rotation
+                        const totalCloseFactor = (1 - baseEyeOpenness) + blinkCloseFactor;
+                        child.position.y = target.originalPosition.y - totalCloseFactor * 0.02;
+                        child.rotation.x = target.originalRotation.x + totalCloseFactor * 0.1;
+                        child.visible = true;
                         
-                        // ABSOLUTE LOCK: No position or scale changes during blink
-                        child.position.copy(target.originalPosition);
-                        child.scale.copy(target.originalScale);
-                        child.visible = true; // Force visibility
+                        if (totalCloseFactor > 0.7) {
+                            child.scale.y = target.originalScale.y * (0.85 + (1 - totalCloseFactor) * 0.15);
+                        } else {
+                            child.scale.y = target.originalScale.y;
+                        }
+                        
+                        child.position.x = target.originalPosition.x;
+                        child.position.z = target.originalPosition.z;
+                        child.rotation.y = target.originalRotation.y;
+                        child.rotation.z = target.originalRotation.z;
+                        child.scale.x = target.originalScale.x;
+                        child.scale.z = target.originalScale.z;
                     }
                 });
+            } else {
+                window.currentBlinkFactor = 0;
+                applyDefaultExpression();
             }
         }
 
@@ -541,10 +649,164 @@
             // Handle natural blinking
             handleBlinking(delta);
             
-            // Update eye tracking
-            updateEyeTracking();
+            // Update eye tracking with saccades
+            if (!isBlinking) {
+                updateEyeTracking();
+                handleSaccades(delta);
+            }
+            
+            // Update all animation timers
+            idleTime += delta;
+            microMovementTime += delta;
+            
+            if (model) {
+                // Enhanced breathing with variation
+                breathingPhase += delta * (1.8 + Math.sin(idleTime * 0.3) * 0.4);
+                breathingIntensity = 1 + Math.sin(idleTime * 0.1) * 0.3;
+                const breathScale = 1 + Math.sin(breathingPhase) * 0.008 * breathingIntensity;
+                const chestExpansion = 1 + Math.sin(breathingPhase) * 0.003;
+                
+                // Apply breathing with slight chest emphasis
+                model.scale.set(
+                    7 * breathScale * chestExpansion, 
+                    5 * breathScale, 
+                    7 * breathScale * chestExpansion
+                );
+                
+                // Micro-movements - subtle constant motion
+                const microX = Math.sin(microMovementTime * 3.7) * 0.002;
+                const microY = Math.sin(microMovementTime * 4.3) * 0.001;
+                const microZ = Math.sin(microMovementTime * 2.9) * 0.001;
+                
+                // Posture shifts
+                handlePostureShifts(delta);
+                
+                // Head nods and tilts
+                handleHeadNods(delta);
+                
+                // Combine all rotations
+                model.rotation.x = currentHeadRotation.x + microX + currentPosture.x;
+                model.rotation.y = currentHeadRotation.y + microY + currentPosture.y;
+                model.rotation.z = currentHeadRotation.z + microZ + currentPosture.z;
+                
+                // Subtle position adjustments for weight shifting
+                const weightShiftX = Math.sin(idleTime * 0.3) * 0.02;
+                const weightShiftZ = Math.sin(idleTime * 0.4) * 0.01;
+                model.position.set(weightShiftX, -6.8, weightShiftZ);
+                
+                // Handle facial twitches
+                handleFacialTwitches(delta);
+            }
             
             renderer.render(scene, camera);
+        }
+        
+        // Handle saccadic eye movements
+        function handleSaccades(delta) {
+            saccadeTimer += delta;
+            
+            if (saccadeProgress >= 1 && saccadeTimer >= nextSaccadeTime) {
+                // Generate new saccade target
+                targetSaccade.x = (Math.random() - 0.5) * 0.15;
+                targetSaccade.y = (Math.random() - 0.5) * 0.1;
+                saccadeProgress = 0;
+                saccadeTimer = 0;
+                nextSaccadeTime = Math.random() * 2 + 0.5;
+            }
+            
+            if (saccadeProgress < 1) {
+                // Quick saccade movement
+                saccadeProgress = Math.min(1, saccadeProgress + delta * 8);
+                const t = saccadeProgress;
+                currentSaccade.x = lerp(currentSaccade.x, targetSaccade.x, t);
+                currentSaccade.y = lerp(currentSaccade.y, targetSaccade.y, t);
+            }
+        }
+        
+        // Handle posture shifts
+        function handlePostureShifts(delta) {
+            postureShiftTimer += delta;
+            
+            if (postureProgress >= 1 && postureShiftTimer >= nextPostureShift) {
+                // Generate subtle posture adjustment
+                targetPosture.x = (Math.random() - 0.5) * 0.02;
+                targetPosture.y = (Math.random() - 0.5) * 0.03;
+                targetPosture.z = (Math.random() - 0.5) * 0.01;
+                postureProgress = 0;
+                postureShiftTimer = 0;
+                nextPostureShift = Math.random() * 15 + 10;
+            }
+            
+            if (postureProgress < 1) {
+                // Slow posture transition
+                postureProgress = Math.min(1, postureProgress + delta * 0.3);
+                const t = postureProgress * postureProgress * (3 - 2 * postureProgress);
+                currentPosture.x = lerp(currentPosture.x, targetPosture.x, t);
+                currentPosture.y = lerp(currentPosture.y, targetPosture.y, t);
+                currentPosture.z = lerp(currentPosture.z, targetPosture.z, t);
+            }
+        }
+        
+        // Handle head nods
+        function handleHeadNods(delta) {
+            headNodTimer += delta;
+            
+            if (!isNodding && headNodTimer >= nextHeadNod) {
+                isNodding = true;
+                nodProgress = 0;
+                headNodTimer = 0;
+                nextHeadNod = Math.random() * 20 + 15;
+            }
+            
+            if (isNodding) {
+                nodProgress += delta * 2;
+                if (nodProgress < 1) {
+                    // Subtle nod animation
+                    const nodAmount = Math.sin(nodProgress * Math.PI) * 0.03;
+                    currentPosture.x += nodAmount;
+                } else {
+                    isNodding = false;
+                }
+            }
+        }
+        
+        // Handle facial twitches
+        function handleFacialTwitches(delta) {
+            facialTwitchTimer += delta;
+            
+            if (facialTwitchTimer >= nextFacialTwitch) {
+                facialTwitchTimer = 0;
+                nextFacialTwitch = Math.random() * 8 + 5;
+                
+                // Apply subtle facial muscle movements
+                model.traverse(function(child) {
+                    if (child.isMesh && morphTargets[child.uuid]) {
+                        const target = morphTargets[child.uuid];
+                        
+                        // Subtle eyebrow twitch
+                        if (child.name.toLowerCase().includes('brow')) {
+                            const twitchAmount = (Math.random() - 0.5) * 0.01;
+                            child.position.y = target.originalPosition.y + twitchAmount;
+                            
+                            // Reset after a short time
+                            setTimeout(() => {
+                                child.position.y = target.originalPosition.y;
+                            }, 200);
+                        }
+                        
+                        // Subtle mouth corner movement
+                        if (child.name.toLowerCase().includes('mouth') || 
+                            child.name.toLowerCase().includes('lip')) {
+                            const twitchX = (Math.random() - 0.5) * 0.005;
+                            child.position.x = target.originalPosition.x + twitchX;
+                            
+                            setTimeout(() => {
+                                child.position.x = target.originalPosition.x;
+                            }, 300);
+                        }
+                    }
+                });
+            }
         }
 
         function onWindowResize() {
@@ -553,125 +815,123 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        // Holoworld-inspired enhanced mouse tracking variables
+        // Optimized mouse tracking variables (Holoworld best practices)
         let mousePosition = { x: 0, y: 0 };
         let eyeMeshes = [];
-        let smoothMousePosition = { x: 0, y: 0 };
+        let targetMousePosition = { x: 0, y: 0 };
+        let currentMousePosition = { x: 0, y: 0 };
+        let targetHeadRotation = { x: 0, y: 0, z: 0 };
+        let currentHeadRotation = { x: 0, y: 0, z: 0 };
         let targetEyeRotation = { x: 0, y: 0 };
         let currentEyeRotation = { x: 0, y: 0 };
-        let eyeVelocity = { x: 0, y: 0 };
         
-        // Holoworld-style professional eye tracking parameters (improved)
-        const eyeTrackingSpeed = 0.12;
-        const mouseSmoothing = 0.15;
-        const maxEyeRotation = { x: 0.25, y: 0.35 }; // Reduced to prevent extreme movements
-        const eyeAcceleration = 0.08;
-        const eyeDamping = 0.92;
-        const deadZone = 0.01;
-        const eyeReturnSpeed = 0.05; // Speed for returning to neutral position
+        // Natural movement parameters (refined for realistic behavior)
+        const mouseSmoothingFactor = 0.08; // Slower for more natural movement
+        const headRotationSpeed = 0.05; // Much slower, more realistic head movement
+        const eyeTrackingSpeed = 0.15; // Natural eye speed
+        const maxHeadRotation = { x: 0.15, y: 0.25, z: 0.05 }; // Increased range for visibility
+        const maxEyeRotation = { x: 0.15, y: 0.25 }; // Natural eye movement range
+        const mouseInfluence = 0.7; // Reduce mouse influence for subtler movement
 
         function updateEyeTracking() {
             if (!model || eyeMeshes.length === 0) return;
             
-            // Holoworld-style smooth mouse position filtering with improved stability
-            smoothMousePosition.x += (mousePosition.x - smoothMousePosition.x) * mouseSmoothing;
-            smoothMousePosition.y += (mousePosition.y - smoothMousePosition.y) * mouseSmoothing;
-
-            // Enhanced target eye rotation with safe boundaries (Holoworld approach)
-            // Clamp mouse input to prevent extreme values
-            const clampedMouseX = Math.max(-0.8, Math.min(0.8, smoothMousePosition.x));
-            const clampedMouseY = Math.max(-0.6, Math.min(0.6, smoothMousePosition.y)); // Further limit Y movement
+            // Smooth mouse position with natural lag
+            currentMousePosition.x = lerp(currentMousePosition.x, targetMousePosition.x, mouseSmoothingFactor);
+            currentMousePosition.y = lerp(currentMousePosition.y, targetMousePosition.y, mouseSmoothingFactor);
             
-            targetEyeRotation.x = -clampedMouseY * maxEyeRotation.x; // Up/down eye movement
-            targetEyeRotation.y = clampedMouseX * maxEyeRotation.y;  // Left/right eye movement
-
-            // Apply dead zone to prevent micro-movements
-            const deltaX = targetEyeRotation.x - currentEyeRotation.x;
-            const deltaY = targetEyeRotation.y - currentEyeRotation.y;
+            // Apply easing curve for more natural eye movement
+            const eyeEasedX = Math.sign(currentMousePosition.x) * Math.pow(Math.abs(currentMousePosition.x), 1.2);
+            const eyeEasedY = Math.sign(currentMousePosition.y) * Math.pow(Math.abs(currentMousePosition.y), 1.2);
             
-            if (Math.abs(deltaX) > deadZone || Math.abs(deltaY) > deadZone) {
-                // Holoworld-style velocity-based acceleration for natural movement
-                eyeVelocity.x += deltaX * eyeAcceleration;
-                eyeVelocity.y += deltaY * eyeAcceleration;
-                
-                // Apply damping to velocity for smooth deceleration
-                eyeVelocity.x *= eyeDamping;
-                eyeVelocity.y *= eyeDamping;
-                
-                // Update current eye rotation with velocity
-                currentEyeRotation.x += eyeVelocity.x;
-                currentEyeRotation.y += eyeVelocity.y;
-                
-                // Smooth interpolation towards target for final precision
-                currentEyeRotation.x += (targetEyeRotation.x - currentEyeRotation.x) * eyeTrackingSpeed;
-                currentEyeRotation.y += (targetEyeRotation.y - currentEyeRotation.y) * eyeTrackingSpeed;
-            }
-
-            // Apply eye tracking to all eye meshes with ABSOLUTE POSITION LOCK
-            eyeMeshes.forEach(eyeMesh => {
+            // Calculate target eye rotation with natural limits
+            targetEyeRotation.x = -eyeEasedY * maxEyeRotation.x * 0.8;
+            targetEyeRotation.y = eyeEasedX * maxEyeRotation.y;
+            
+            // Add saccade offset
+            const finalEyeRotationX = targetEyeRotation.x + currentSaccade.x;
+            const finalEyeRotationY = targetEyeRotation.y + currentSaccade.y;
+            
+            // Smooth eye rotation interpolation with natural speed
+            currentEyeRotation.x = lerp(currentEyeRotation.x, finalEyeRotationX, eyeTrackingSpeed);
+            currentEyeRotation.y = lerp(currentEyeRotation.y, finalEyeRotationY, eyeTrackingSpeed);
+            
+            // Apply eye tracking to all eye meshes
+            eyeMeshes.forEach((eyeMesh, index) => {
                 if (morphTargets[eyeMesh.uuid] && eyeMesh.visible) {
                     const target = morphTargets[eyeMesh.uuid];
                     
-                    // Enhanced eye tracking with VERY safe rotation limits
-                    const safeRotationX = Math.max(-0.15, Math.min(0.15, currentEyeRotation.x)); // Much smaller range
-                    const safeRotationY = Math.max(-0.2, Math.min(0.2, currentEyeRotation.y)); // Much smaller range
+                    // Add slight eye independence for more natural look
+                    const eyeOffset = index === 0 ? 0.02 : -0.02;
                     
-                    const finalRotationX = target.originalRotation.x + safeRotationX;
-                    const finalRotationY = target.originalRotation.y + safeRotationY;
-                    const finalRotationZ = target.originalRotation.z; // NO Z rotation
+                    // Apply eye rotation with micro-movements
+                    const microEyeX = Math.sin(microMovementTime * 5.3 + index) * 0.005;
+                    const microEyeY = Math.sin(microMovementTime * 4.7 + index) * 0.003;
                     
-                    // Holoworld-style smooth transition with adaptive speed
-                    const adaptiveSpeed = 0.15; // Even slower for more natural movement
-                    eyeMesh.rotation.x += (finalRotationX - eyeMesh.rotation.x) * adaptiveSpeed;
-                    eyeMesh.rotation.y += (finalRotationY - eyeMesh.rotation.y) * adaptiveSpeed;
-                    eyeMesh.rotation.z = target.originalRotation.z; // Lock Z rotation
+                    eyeMesh.rotation.x = target.originalRotation.x + currentEyeRotation.x + microEyeX;
+                    eyeMesh.rotation.y = target.originalRotation.y + currentEyeRotation.y + microEyeY + eyeOffset;
+                    eyeMesh.rotation.z = target.originalRotation.z;
                     
-                    // ABSOLUTE POSITION LOCK - NO POSITION CHANGES AT ALL
-                    eyeMesh.position.copy(target.originalPosition);
+                    // Subtle eye position drift
+                    const driftX = Math.sin(idleTime * 0.7 + index) * 0.0005;
+                    const driftY = Math.sin(idleTime * 0.9 + index) * 0.0003;
                     
-                    // ABSOLUTE SCALE LOCK - NO SCALE CHANGES AT ALL
+                    eyeMesh.position.x = target.originalPosition.x + driftX;
+                    eyeMesh.position.y = target.originalPosition.y + driftY;
+                    eyeMesh.position.z = target.originalPosition.z;
+                    
                     eyeMesh.scale.copy(target.originalScale);
-                    
-                    // Force visibility
                     eyeMesh.visible = true;
                 }
             });
         }
+        
+        // Linear interpolation helper function (from Holoworld)
+        function lerp(start, end, factor) {
+            return start + (end - start) * factor;
+        }
 
         function onMouseMove(event) {
-            // Holoworld-style mouse position calculation with improved bounds
-            const rawMouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const rawMouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            // Calculate normalized mouse position (-1 to 1)
+            const rawX = (event.clientX / window.innerWidth) * 2 - 1;
+            const rawY = -(event.clientY / window.innerHeight) * 2 + 1;
             
-            // Apply smooth clamping to prevent extreme values (Holoworld approach)
-            mousePosition.x = Math.max(-0.95, Math.min(0.95, rawMouseX));
-            mousePosition.y = Math.max(-0.95, Math.min(0.95, rawMouseY));
+            // Apply mouse influence for subtler movement
+            mousePosition.x = rawX * mouseInfluence;
+            mousePosition.y = rawY * mouseInfluence;
+            
+            // Update target mouse position with smooth clamping
+            targetMousePosition.x = Math.max(-1, Math.min(1, mousePosition.x));
+            targetMousePosition.y = Math.max(-1, Math.min(1, mousePosition.y));
             
             if (model) {
-                // Holoworld-style enhanced head and neck movement with natural limits
-                // Horizontal movement - head turns left/right (Y rotation)
-                const targetHeadRotationY = mousePosition.x * 0.06; // Holoworld-style reduced intensity
+                // Calculate target head rotation with easing curve for natural movement
+                // Apply non-linear transformation for more natural feel
+                const easedX = Math.sign(targetMousePosition.x) * Math.pow(Math.abs(targetMousePosition.x), 1.5);
+                const easedY = Math.sign(targetMousePosition.y) * Math.pow(Math.abs(targetMousePosition.y), 1.5);
                 
-                // Vertical movement - head tilts up/down (X rotation) - FIXED for natural movement
-                const targetHeadRotationX = mousePosition.y * 0.04; // Further reduced to prevent extreme tilting
+                targetHeadRotation.y = easedX * maxHeadRotation.y;
+                targetHeadRotation.x = easedY * maxHeadRotation.x * 0.7; // Reduce vertical movement
+                targetHeadRotation.z = easedY * easedX * maxHeadRotation.z * 0.5; // Subtle tilt
                 
-                // Holoworld-style smooth interpolation for natural head movement
-                const headLerpSpeed = 0.06; // Slightly slower for more natural feel
-                model.rotation.y += (targetHeadRotationY - model.rotation.y) * headLerpSpeed;
-                model.rotation.x += (targetHeadRotationX - model.rotation.x) * headLerpSpeed;
+                // Smooth head rotation interpolation with natural speed
+                currentHeadRotation.x = lerp(currentHeadRotation.x, targetHeadRotation.x, headRotationSpeed);
+                currentHeadRotation.y = lerp(currentHeadRotation.y, targetHeadRotation.y, headRotationSpeed);
+                currentHeadRotation.z = lerp(currentHeadRotation.z, targetHeadRotation.z, headRotationSpeed * 0.5);
                 
-                // Add Holoworld-style subtle Z rotation for realistic neck movement
-                const targetHeadRotationZ = mousePosition.y * mousePosition.x * 0.005; // Reduced intensity
-                model.rotation.z += (targetHeadRotationZ - model.rotation.z) * headLerpSpeed;
-                
-                // FIXED: Keep model position completely stable (Holoworld approach)
-                // No position changes to prevent zoom/movement artifacts
-                model.position.set(0, -6.8, 0); // Lock position
+                // Head rotation is now handled in the animate function with all combined movements
+                // Store the target values for use in animate
             }
         }
 
         window.addEventListener('resize', onWindowResize, false);
         document.addEventListener('mousemove', onMouseMove, false);
+        
+        // Add mouse leave handler to reset to neutral position
+        document.addEventListener('mouseleave', function() {
+            targetMousePosition.x = 0;
+            targetMousePosition.y = 0;
+        });
 
         // Initialize when DOM is ready
         if (document.readyState === 'loading') {
