@@ -61,16 +61,36 @@ nav {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     position: relative;
-    background: radial-gradient(circle at center, rgba(131, 56, 236, 0.1) 0%, #000 50%);
+    background: #000;
+    overflow: visible;
+}
+
+#container {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: visible;
+}
+
+#container canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .hero-content {
-    text-align: left;
+    text-align: center;
     max-width: 800px;
     padding: 0 20px;
-    padding-right: 5%;
+    z-index: 2;
+    position: relative;
+    margin-left: 25%;
 }
 
 .hero h1 {
@@ -387,8 +407,32 @@ footer {
         display: none;
     }
     
+    .hero {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    #container {
+        width: 100%;
+        height: 50%;
+        position: relative;
+        order: 1;
+    }
+    
+    .hero-content {
+        margin-left: 0;
+        order: 2;
+        margin-top: 20px;
+    }
+    
     .hero h1 {
         font-size: 2.5rem;
+    }
+    
+    .hero p {
+        font-size: 1.2rem;
+        margin: 0 auto;
     }
     
     .services-grid {

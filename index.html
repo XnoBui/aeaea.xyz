@@ -64,7 +64,16 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: radial-gradient(circle at center, rgba(131, 56, 236, 0.1) 0%, #000 50%);
+            background: #000;
+        }
+
+        #gradient-canvas {
+            width:100%;
+            height:100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
         
         .hero-content {
@@ -417,6 +426,7 @@
 
     <!-- Hero -->
     <section class="hero">
+        <canvas id="gradient-canvas"></canvas>
         <div class="hero-content">
             <h1>Digital Innovation Studio</h1>
             <p>Creating digital humans, fashion, AR experiences, and metaverse spaces from Tokyo.</p>
@@ -589,5 +599,32 @@
     <footer>
         <p>© 2025 AEAEA by YGILABS. Creating the digital future from Tokyo.</p>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.min.js"></script>
+    <script>
+        var granimInstance = new Granim({
+            element: '#gradient-canvas',
+            isPausedWhenNotInView: true,
+            customDirection: {
+                x: '50%',
+                y: '50%'
+            },
+            states : {
+                "default-state": {
+                    gradients: [
+                        ['#ff9966', '#ff5e62'],
+                        ['#00F260', '#0575E6'],
+                        ['#e1eec3', '#f05053']
+                    ]
+                }
+            }
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            var x = e.clientX;
+            var y = e.clientY;
+            granimInstance.direction.x = x + 'px';
+            granimInstance.direction.y = y + 'px';
+        });
+    </script>
 </body>
 </html>
