@@ -75,15 +75,24 @@ if (child.name.toLowerCase().includes('mouth')) {
 ```
 
 ### Blinking Animation System
-Natural blinking with realistic timing and animation curves:
+Natural blinking with realistic timing and animation curves using proper eyelid simulation:
 
 ```javascript
 function handleBlinking(delta) {
     // Random intervals between blinks (2-6 seconds)
-    // Smooth animation curve for natural eye movement
+    // Realistic eyelid closure using position and rotation instead of scaling
+    // Simulates natural eyelid movement rather than eye disappearing/reappearing
     // Maintains base expression while blinking
+    // Eyes always remain visible during blinking animation
 }
 ```
+
+#### Key Improvements:
+- **Natural Eyelid Movement**: Uses position and rotation adjustments to simulate real eyelid closure
+- **No Eye Disappearing**: Eyes remain visible throughout the blink cycle
+- **Physically Accurate**: Mimics how real eyelids close rather than shrinking the eye
+- **Subtle Scale Adjustments**: Only minimal scaling for extreme closure situations
+- **Professional Animation**: Smooth, realistic blinking that looks natural
 
 ### Enhanced Lighting Setup
 Professional portrait lighting for better facial rendering:

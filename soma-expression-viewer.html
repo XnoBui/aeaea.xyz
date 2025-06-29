@@ -207,7 +207,7 @@
         
         <div class="control-group">
             <label>Eye Openness</label>
-            <input type="range" class="slider" id="eyeOpenness" min="0" max="1" step="0.01" value="0.7">
+            <input type="range" class="slider" id="eyeOpenness" min="0" max="1" step="0.01" value="0.5">
         </div>
 
         <div class="control-group">
@@ -255,17 +255,17 @@
         let blinkTimer = 0;
         let nextBlinkTime = Math.random() * 3 + 2; // Random blink between 2-5 seconds
         let isBlinking = false;
-        let blinkDuration = 0.15;
+        let blinkDuration = 0.3; // Slower, more natural blink duration
         let currentBlinkTime = 0;
 
-        // Expression presets
+        // Expression presets - adjusted for more natural eye openness
         const expressions = {
-            neutral: { eyeOpenness: 0.7, smileIntensity: 0.1, eyebrowRaise: 0.2, jawOpen: 0.05 },
-            happy: { eyeOpenness: 0.6, smileIntensity: 0.8, eyebrowRaise: 0.3, jawOpen: 0.1 },
-            surprised: { eyeOpenness: 1.0, smileIntensity: 0.0, eyebrowRaise: 0.9, jawOpen: 0.4 },
-            focused: { eyeOpenness: 0.5, smileIntensity: 0.0, eyebrowRaise: 0.1, jawOpen: 0.0 },
-            thoughtful: { eyeOpenness: 0.4, smileIntensity: 0.2, eyebrowRaise: 0.4, jawOpen: 0.0 },
-            confident: { eyeOpenness: 0.8, smileIntensity: 0.4, eyebrowRaise: 0.5, jawOpen: 0.0 }
+            neutral: { eyeOpenness: 0.5, smileIntensity: 0.1, eyebrowRaise: 0.2, jawOpen: 0.05 },
+            happy: { eyeOpenness: 0.4, smileIntensity: 0.8, eyebrowRaise: 0.3, jawOpen: 0.1 },
+            surprised: { eyeOpenness: 0.9, smileIntensity: 0.0, eyebrowRaise: 0.9, jawOpen: 0.4 },
+            focused: { eyeOpenness: 0.3, smileIntensity: 0.0, eyebrowRaise: 0.1, jawOpen: 0.0 },
+            thoughtful: { eyeOpenness: 0.25, smileIntensity: 0.2, eyebrowRaise: 0.4, jawOpen: 0.0 },
+            confident: { eyeOpenness: 0.6, smileIntensity: 0.4, eyebrowRaise: 0.5, jawOpen: 0.0 }
         };
 
         function init() {
@@ -476,12 +476,22 @@
                 if (child.isMesh && morphTargets[child.uuid]) {
                     const target = morphTargets[child.uuid];
                     
-                    // Eye effects - be more conservative with scaling to avoid disappearing eyes
+                    // Eye effects - simulate natural eyelid movement instead of scaling
                     if (child.name.toLowerCase().includes('eye')) {
                         console.log('Found eye mesh:', child.name);
-                        // Use more conservative scaling - minimum 50% to prevent disappearing
-                        child.scale.y = target.originalScale.y * Math.max(0.5, 0.5 + eyeOpenness * 0.5);
-                        child.visible = true; // Ensure eyes remain visible
+                        // Instead of scaling, use position and rotation to simulate eyelid closure
+                        // Move eyes slightly inward and adjust rotation for natural closing
+                        const closeFactor = 1 - eyeOpenness;
+                        child.position.y = target.originalPosition.y - closeFactor * 0.02;
+                        child.rotation.x = target.originalRotation.x + closeFactor * 0.1;
+                        child.visible = true; // Always keep eyes visible
+                        
+                        // Very subtle scale adjustment only for extreme closure
+                        if (eyeOpenness < 0.3) {
+                            child.scale.y = target.originalScale.y * (0.85 + eyeOpenness * 0.15);
+                        } else {
+                            child.scale.y = target.originalScale.y;
+                        }
                     }
                     
                     // Mouth/smile effects
@@ -537,14 +547,22 @@
                     isBlinking = false;
                 }
 
-                // Apply blink to eyes
+                // Apply realistic blink to eyes using natural eyelid movement
                 const baseEyeOpenness = parseFloat(document.getElementById('eyeOpenness').value);
-                const blinkEyeOpenness = baseEyeOpenness * (1 - blinkProgress * 0.9);
+                const blinkCloseFactor = blinkProgress * 0.4; // Reduced intensity to prevent eye disappearing
                 
                 model.traverse(function(child) {
                     if (child.isMesh && child.name.toLowerCase().includes('eye') && morphTargets[child.uuid]) {
                         const target = morphTargets[child.uuid];
-                        child.scale.y = target.originalScale.y * (0.3 + blinkEyeOpenness * 0.7);
+                        
+                        // Simulate natural eyelid closure with position and rotation only
+                        const totalCloseFactor = (1 - baseEyeOpenness) + blinkCloseFactor;
+                        child.position.y = target.originalPosition.y - totalCloseFactor * 0.015; // Reduced movement
+                        child.rotation.x = target.originalRotation.x + totalCloseFactor * 0.05; // Reduced rotation
+                        child.visible = true; // Always keep eyes visible
+                        
+                        // NO scaling during blink to prevent eyes from disappearing
+                        child.scale.y = target.originalScale.y;
                     }
                 });
             }
