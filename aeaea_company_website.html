@@ -8,6 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/aeaea_company_website.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -27,6 +35,7 @@
 
     <!-- Hero -->
     <section class="hero">
+        <div id="container"></div>
         <div class="hero-content">
             <h1>Digital Innovation Studio</h1>
             <p>We are at the forefront of digital innovation, creating cutting-edge digital humans, virtual fashion, immersive AR experiences, and metaverse spaces</p>
@@ -218,5 +227,176 @@
             <span>Contact</span>
         </a>
     </div>
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        let scene, camera, renderer, model, mixer, clock;
+
+        function init() {
+            console.log('Initializing 3D scene...');
+            
+            const container = document.getElementById('container');
+            if (!container) {
+                console.error('Container not found');
+                return;
+            }
+            
+            console.log('Container found and styled');
+            console.log('THREE.js loaded successfully');
+            
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            
+            container.appendChild(renderer.domElement);
+            console.log('Canvas added to container');
+
+            // Load the SOMA model
+            const loader = new GLTFLoader();
+            
+            // Try different file path formats
+            const possiblePaths = [
+                './SOMA MODEL ANIMATION TEST.glb',
+                'SOMA MODEL ANIMATION TEST.glb',
+                './SOMA%20MODEL%20ANIMATION%20TEST.glb',
+                'SOMA%20MODEL%20ANIMATION%20TEST.glb'
+            ];
+            
+            let currentPathIndex = 0;
+            
+            function tryLoadModel() {
+                if (currentPathIndex >= possiblePaths.length) {
+                    console.error('Could not load SOMA model from any path');
+                    return;
+                }
+                
+                const currentPath = possiblePaths[currentPathIndex];
+                console.log(`Trying to load SOMA model from: ${currentPath}`);
+                
+                loader.load(
+                    currentPath,
+                    function (gltf) {
+                        console.log('SOMA model loaded successfully');
+                        model = gltf.scene;
+                        
+                        // Position the model to be more prominent and visible
+                        model.position.set(0, 0, 0);
+                        model.scale.set(3, 3, 3);
+                        
+                        // Enable shadows and enhance materials
+                        model.traverse(function(child) {
+                            if (child.isMesh) {
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+                                
+                                if (child.material) {
+                                    const materials = Array.isArray(child.material) ? child.material : [child.material];
+                                    materials.forEach(material => {
+                                        if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
+                                            material.metalness = material.metalness || 0.2;
+                                            material.roughness = material.roughness || 0.3;
+                                            material.envMapIntensity = 1.5;
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                        
+                        scene.add(model);
+                        
+                        // Setup animations if available
+                        if (gltf.animations && gltf.animations.length > 0) {
+                            mixer = new THREE.AnimationMixer(model);
+                            gltf.animations.forEach((clip) => {
+                                const action = mixer.clipAction(clip);
+                                action.play();
+                            });
+                        }
+                    },
+                    function(progress) {
+                        console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
+                    },
+                    function (error) {
+                        console.error(`Error loading model from ${currentPath}:`, error);
+                        currentPathIndex++;
+                        tryLoadModel();
+                    }
+                );
+            }
+            
+            tryLoadModel();
+
+            // Enhanced lighting for face visibility
+            const light = new THREE.DirectionalLight(0xffffff, 1.5);
+            light.position.set(2, 3, 2);
+            light.castShadow = true;
+            scene.add(light);
+
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.8);
+            scene.add(ambientLight);
+
+            // Add fill light for better face illumination
+            const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            fillLight.position.set(-2, 2, 1);
+            scene.add(fillLight);
+
+            // Position camera to focus on face area
+            camera.position.set(0, 1.5, 3); // Position at face level, closer
+            camera.lookAt(0, 1.5, 0); // Look at face level
+
+            // Animation clock
+            clock = new THREE.Clock();
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const delta = clock.getDelta();
+            
+            // Update animations
+            if (mixer) {
+                mixer.update(delta);
+            }
+            
+            // Add subtle floating animation to the model
+            if (model) {
+                model.position.y = Math.sin(Date.now() * 0.001) * 0.1;
+            }
+            
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onMouseMove(event) {
+            if (model) {
+                const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                model.rotation.y = mouseX * 0.5;
+                model.rotation.x = mouseY * 0.5;
+            }
+        }
+
+        window.addEventListener('resize', onWindowResize, false);
+        document.addEventListener('mousemove', onMouseMove, false);
+
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
 </body>
 </html>
