@@ -239,11 +239,17 @@
                 <input type="checkbox" id="autoBlinking" checked> Auto Blinking
             </label>
         </div>
+        
+        <div class="control-group">
+            <label>
+                <input type="checkbox" id="eyeTracking" checked> Eye Tracking
+            </label>
+        </div>
     </div>
 
     <div class="info-panel">
         <h4>SOMA Enhanced</h4>
-        <p>Interactive facial expressions with natural eye movements and realistic blinking. Use the controls to adjust facial features and create lifelike expressions.</p>
+        <p>Interactive facial expressions with natural eye movements, realistic blinking, and mouse-tracking eyes. Move your mouse to see the eyes follow your cursor. Use the controls to adjust facial features and create lifelike expressions.</p>
     </div>
 
     <script type="module">
@@ -257,6 +263,14 @@
         let isBlinking = false;
         let blinkDuration = 0.3; // Slower, more natural blink duration
         let currentBlinkTime = 0;
+        
+        // Eye tracking variables
+        let eyeMeshes = [];
+        let mousePosition = { x: 0, y: 0 };
+        let targetEyeRotation = { x: 0, y: 0 };
+        let currentEyeRotation = { x: 0, y: 0 };
+        const eyeTrackingSpeed = 0.05;
+        const maxEyeRotation = { x: 0.3, y: 0.4 }; // Limit eye movement range
 
         // Expression presets - adjusted for more natural eye openness
         const expressions = {
@@ -379,6 +393,12 @@
                         child.name.toLowerCase().includes('head') ||
                         child.name.toLowerCase().includes('eye')) {
                         
+                        // Store eye meshes for tracking
+                        if (child.name.toLowerCase().includes('eye')) {
+                            eyeMeshes.push(child);
+                            console.log('Found eye mesh for tracking:', child.name);
+                        }
+                        
                         // Create artificial morph targets for facial expressions
                         if (child.geometry && !child.morphTargetInfluences) {
                             setupArtificialMorphTargets(child);
@@ -417,6 +437,49 @@
                 originalPosition: mesh.position.clone(),
                 originalRotation: mesh.rotation.clone()
             };
+        }
+
+        function updateEyeTracking() {
+            if (!model || eyeMeshes.length === 0) return;
+            
+            // Check if eye tracking is enabled
+            const eyeTrackingEnabled = document.getElementById('eyeTracking').checked;
+            if (!eyeTrackingEnabled) return;
+
+            // Calculate target eye rotation based on mouse position
+            targetEyeRotation.x = -mousePosition.y * maxEyeRotation.x;
+            targetEyeRotation.y = mousePosition.x * maxEyeRotation.y;
+
+            // Smoothly interpolate current eye rotation towards target
+            currentEyeRotation.x += (targetEyeRotation.x - currentEyeRotation.x) * eyeTrackingSpeed;
+            currentEyeRotation.y += (targetEyeRotation.y - currentEyeRotation.y) * eyeTrackingSpeed;
+
+            // Apply eye tracking to all eye meshes
+            eyeMeshes.forEach(eyeMesh => {
+                if (morphTargets[eyeMesh.uuid]) {
+                    const target = morphTargets[eyeMesh.uuid];
+                    
+                    // Apply eye tracking rotation while preserving original rotation
+                    eyeMesh.rotation.x = target.originalRotation.x + currentEyeRotation.x;
+                    eyeMesh.rotation.y = target.originalRotation.y + currentEyeRotation.y;
+                    
+                    // Preserve facial expression effects
+                    const eyeOpenness = parseFloat(document.getElementById('eyeOpenness').value);
+                    const closeFactor = 1 - eyeOpenness;
+                    
+                    // Apply eyelid closure on top of eye tracking
+                    eyeMesh.rotation.x += closeFactor * 0.1;
+                    eyeMesh.position.y = target.originalPosition.y - closeFactor * 0.02;
+                    
+                    // Maintain visibility and scale
+                    eyeMesh.visible = true;
+                    if (eyeOpenness < 0.3) {
+                        eyeMesh.scale.y = target.originalScale.y * (0.85 + eyeOpenness * 0.15);
+                    } else {
+                        eyeMesh.scale.y = target.originalScale.y;
+                    }
+                }
+            });
         }
 
         function setupLighting() {
@@ -581,6 +644,9 @@
             // Handle blinking
             handleBlinking(delta);
             
+            // Update eye tracking
+            updateEyeTracking();
+            
             renderer.render(scene, camera);
         }
 
@@ -614,12 +680,14 @@
         }
 
         function onMouseMove(event) {
+            // Update mouse position for eye tracking
+            mousePosition.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mousePosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            
             if (model) {
-                const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-                const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-                
-                model.rotation.y = mouseX * 0.3;
-                model.rotation.x = mouseY * 0.1;
+                // Keep subtle head movement but reduce it to not interfere with eye tracking
+                model.rotation.y = mousePosition.x * 0.1;
+                model.rotation.x = mousePosition.y * 0.05;
             }
         }
 
