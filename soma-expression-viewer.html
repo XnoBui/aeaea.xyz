@@ -264,13 +264,21 @@
         let blinkDuration = 0.3; // Slower, more natural blink duration
         let currentBlinkTime = 0;
         
-        // Eye tracking variables
+        // Eye tracking variables - Professional smooth tracking system
         let eyeMeshes = [];
         let mousePosition = { x: 0, y: 0 };
+        let smoothMousePosition = { x: 0, y: 0 };
         let targetEyeRotation = { x: 0, y: 0 };
         let currentEyeRotation = { x: 0, y: 0 };
-        const eyeTrackingSpeed = 0.05;
-        const maxEyeRotation = { x: 0.3, y: 0.4 }; // Limit eye movement range
+        let eyeVelocity = { x: 0, y: 0 };
+        
+        // Professional eye tracking parameters
+        const eyeTrackingSpeed = 0.15; // Smooth interpolation speed
+        const mouseSmoothing = 0.2; // Mouse position smoothing
+        const maxEyeRotation = { x: 0.35, y: 0.45 }; // Natural eye movement range
+        const eyeAcceleration = 0.08; // Eye acceleration factor
+        const eyeDamping = 0.92; // Velocity damping for natural deceleration
+        const deadZone = 0.02; // Small dead zone to prevent micro-movements
 
         // Expression presets - adjusted for more natural eye openness
         const expressions = {
@@ -444,40 +452,87 @@
             
             // Check if eye tracking is enabled
             const eyeTrackingEnabled = document.getElementById('eyeTracking').checked;
-            if (!eyeTrackingEnabled) return;
+            if (!eyeTrackingEnabled) {
+                // Gradually return eyes to center when tracking is disabled
+                currentEyeRotation.x *= 0.95;
+                currentEyeRotation.y *= 0.95;
+            } else {
+                // Professional smooth mouse position filtering
+                smoothMousePosition.x += (mousePosition.x - smoothMousePosition.x) * mouseSmoothing;
+                smoothMousePosition.y += (mousePosition.y - smoothMousePosition.y) * mouseSmoothing;
 
-            // Calculate target eye rotation based on mouse position
-            targetEyeRotation.x = -mousePosition.y * maxEyeRotation.x;
-            targetEyeRotation.y = mousePosition.x * maxEyeRotation.y;
+                // Calculate target eye rotation with smooth mouse position
+                targetEyeRotation.x = -smoothMousePosition.y * maxEyeRotation.x;
+                targetEyeRotation.y = smoothMousePosition.x * maxEyeRotation.y;
 
-            // Smoothly interpolate current eye rotation towards target
-            currentEyeRotation.x += (targetEyeRotation.x - currentEyeRotation.x) * eyeTrackingSpeed;
-            currentEyeRotation.y += (targetEyeRotation.y - currentEyeRotation.y) * eyeTrackingSpeed;
+                // Apply dead zone to prevent micro-movements
+                const deltaX = targetEyeRotation.x - currentEyeRotation.x;
+                const deltaY = targetEyeRotation.y - currentEyeRotation.y;
+                
+                if (Math.abs(deltaX) > deadZone || Math.abs(deltaY) > deadZone) {
+                    // Calculate velocity-based acceleration for natural movement
+                    eyeVelocity.x += deltaX * eyeAcceleration;
+                    eyeVelocity.y += deltaY * eyeAcceleration;
+                    
+                    // Apply damping to velocity for smooth deceleration
+                    eyeVelocity.x *= eyeDamping;
+                    eyeVelocity.y *= eyeDamping;
+                    
+                    // Update current eye rotation with velocity
+                    currentEyeRotation.x += eyeVelocity.x;
+                    currentEyeRotation.y += eyeVelocity.y;
+                    
+                    // Smooth interpolation towards target for final precision
+                    currentEyeRotation.x += (targetEyeRotation.x - currentEyeRotation.x) * eyeTrackingSpeed;
+                    currentEyeRotation.y += (targetEyeRotation.y - currentEyeRotation.y) * eyeTrackingSpeed;
+                }
+            }
 
-            // Apply eye tracking to all eye meshes
+            // Apply eye tracking to all eye meshes with professional smoothing
             eyeMeshes.forEach(eyeMesh => {
                 if (morphTargets[eyeMesh.uuid]) {
                     const target = morphTargets[eyeMesh.uuid];
                     
-                    // Apply eye tracking rotation while preserving original rotation
-                    eyeMesh.rotation.x = target.originalRotation.x + currentEyeRotation.x;
-                    eyeMesh.rotation.y = target.originalRotation.y + currentEyeRotation.y;
-                    
-                    // Preserve facial expression effects
+                    // Get current facial expression and blink values
                     const eyeOpenness = parseFloat(document.getElementById('eyeOpenness').value);
                     const closeFactor = 1 - eyeOpenness;
+                    const blinkFactor = window.currentBlinkFactor || 0;
+                    const totalCloseFactor = closeFactor + blinkFactor;
                     
-                    // Apply eyelid closure on top of eye tracking
-                    eyeMesh.rotation.x += closeFactor * 0.1;
-                    eyeMesh.position.y = target.originalPosition.y - closeFactor * 0.02;
+                    // Apply smooth eye tracking rotation with natural constraints and blink integration
+                    const finalRotationX = target.originalRotation.x + currentEyeRotation.x + (totalCloseFactor * 0.06);
+                    const finalRotationY = target.originalRotation.y + currentEyeRotation.y;
                     
-                    // Maintain visibility and scale
+                    // Professional smooth transition with adaptive speed based on movement distance
+                    const rotationDeltaX = finalRotationX - eyeMesh.rotation.x;
+                    const rotationDeltaY = finalRotationY - eyeMesh.rotation.y;
+                    const rotationDistance = Math.sqrt(rotationDeltaX * rotationDeltaX + rotationDeltaY * rotationDeltaY);
+                    
+                    // Adaptive smoothing - faster for larger movements, slower for precision
+                    const adaptiveSpeed = Math.min(0.4, 0.15 + rotationDistance * 2);
+                    
+                    eyeMesh.rotation.x += rotationDeltaX * adaptiveSpeed;
+                    eyeMesh.rotation.y += rotationDeltaY * adaptiveSpeed;
+                    
+                    // Apply eyelid position with integrated blink and expression
+                    const targetPositionY = target.originalPosition.y - totalCloseFactor * 0.016;
+                    const positionDelta = targetPositionY - eyeMesh.position.y;
+                    eyeMesh.position.y += positionDelta * 0.3;
+                    
+                    // Professional scale handling with smooth transitions
                     eyeMesh.visible = true;
-                    if (eyeOpenness < 0.3) {
-                        eyeMesh.scale.y = target.originalScale.y * (0.85 + eyeOpenness * 0.15);
-                    } else {
-                        eyeMesh.scale.y = target.originalScale.y;
+                    let targetScaleY = target.originalScale.y;
+                    
+                    if (eyeOpenness < 0.3 || blinkFactor > 0.1) {
+                        const scaleReduction = Math.max(totalCloseFactor * 0.15, 0);
+                        targetScaleY = target.originalScale.y * (1 - scaleReduction);
                     }
+                    
+                    const scaleDelta = targetScaleY - eyeMesh.scale.y;
+                    eyeMesh.scale.y += scaleDelta * 0.25;
+                    
+                    // Ensure minimum scale to prevent eye disappearing
+                    eyeMesh.scale.y = Math.max(eyeMesh.scale.y, target.originalScale.y * 0.3);
                 }
             });
         }
@@ -589,45 +644,45 @@
             blinkTimer += delta;
 
             if (!isBlinking && blinkTimer >= nextBlinkTime) {
-                // Start blink
+                // Start blink with natural timing variation
                 isBlinking = true;
                 currentBlinkTime = 0;
                 blinkTimer = 0;
-                nextBlinkTime = Math.random() * 4 + 2; // Next blink in 2-6 seconds
+                nextBlinkTime = Math.random() * 3 + 2.5; // Natural blink interval 2.5-5.5 seconds
             }
 
             if (isBlinking) {
                 currentBlinkTime += delta;
                 
-                // Calculate blink progress (0 to 1 and back to 0)
+                // Professional blink curve - more natural easing
                 let blinkProgress;
-                if (currentBlinkTime < blinkDuration / 2) {
-                    blinkProgress = (currentBlinkTime / (blinkDuration / 2));
+                const halfDuration = blinkDuration / 2;
+                
+                if (currentBlinkTime < halfDuration) {
+                    // Ease-in-out for closing phase
+                    const t = currentBlinkTime / halfDuration;
+                    blinkProgress = t * t * (3 - 2 * t); // Smooth step function
                 } else if (currentBlinkTime < blinkDuration) {
-                    blinkProgress = 1 - ((currentBlinkTime - blinkDuration / 2) / (blinkDuration / 2));
+                    // Ease-in-out for opening phase
+                    const t = (currentBlinkTime - halfDuration) / halfDuration;
+                    blinkProgress = 1 - (t * t * (3 - 2 * t));
                 } else {
                     blinkProgress = 0;
                     isBlinking = false;
                 }
 
-                // Apply realistic blink to eyes using natural eyelid movement
+                // Apply professional blink with smooth integration
                 const baseEyeOpenness = parseFloat(document.getElementById('eyeOpenness').value);
-                const blinkCloseFactor = blinkProgress * 0.4; // Reduced intensity to prevent eye disappearing
+                const blinkCloseFactor = blinkProgress * 0.25; // Subtle blink intensity
+                const eyeTrackingEnabled = document.getElementById('eyeTracking').checked;
                 
-                model.traverse(function(child) {
-                    if (child.isMesh && child.name.toLowerCase().includes('eye') && morphTargets[child.uuid]) {
-                        const target = morphTargets[child.uuid];
-                        
-                        // Simulate natural eyelid closure with position and rotation only
-                        const totalCloseFactor = (1 - baseEyeOpenness) + blinkCloseFactor;
-                        child.position.y = target.originalPosition.y - totalCloseFactor * 0.015; // Reduced movement
-                        child.rotation.x = target.originalRotation.x + totalCloseFactor * 0.05; // Reduced rotation
-                        child.visible = true; // Always keep eyes visible
-                        
-                        // NO scaling during blink to prevent eyes from disappearing
-                        child.scale.y = target.originalScale.y;
-                    }
-                });
+                // Store blink factor for use in updateEyeTracking
+                window.currentBlinkFactor = blinkCloseFactor;
+                
+                // Let updateEyeTracking handle the smooth application
+                // This prevents conflicts between blink and eye tracking systems
+            } else {
+                window.currentBlinkFactor = 0;
             }
         }
 
