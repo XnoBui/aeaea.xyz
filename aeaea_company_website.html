@@ -246,7 +246,7 @@
             console.log('THREE.js loaded successfully');
             
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setClearColor(0x000000, 0);
@@ -284,9 +284,9 @@
                         console.log('SOMA model loaded successfully');
                         model = gltf.scene;
                         
-                        // Position the model to be more prominent and visible
-                        model.position.set(0, 0, 0);
-                        model.scale.set(1.5, 1.5, 1.5);
+                        // Position the model with proper proportions
+                        model.position.set(0, -3, 0);
+                        model.scale.set(8, 6, 8);
                         
                         // Enable shadows and enhance materials
                         model.traverse(function(child) {
@@ -331,23 +331,39 @@
             
             tryLoadModel();
 
-            // Enhanced lighting for face visibility
-            const light = new THREE.DirectionalLight(0xffffff, 1.5);
-            light.position.set(2, 3, 2);
-            light.castShadow = true;
-            scene.add(light);
+            // Professional studio fashion photoshoot lighting setup
+            // Key light - main directional light for primary illumination
+            const keyLight = new THREE.DirectionalLight(0xffffff, 5.0);
+            keyLight.position.set(3, 4, 3);
+            keyLight.castShadow = true;
+            keyLight.shadow.mapSize.width = 2048;
+            keyLight.shadow.mapSize.height = 2048;
+            scene.add(keyLight);
 
-            const ambientLight = new THREE.AmbientLight(0x404040, 0.8);
-            scene.add(ambientLight);
-
-            // Add fill light for better face illumination
-            const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            fillLight.position.set(-2, 2, 1);
+            // Fill light - softer light to reduce harsh shadows
+            const fillLight = new THREE.DirectionalLight(0xffffff, 2.5);
+            fillLight.position.set(-3, 2, 2);
             scene.add(fillLight);
 
-            // Position camera to focus on face area
-            camera.position.set(0, 1.5, 3); // Position at face level, closer
-            camera.lookAt(0, 1.5, 0); // Look at face level
+            // Rim/Back light - creates separation and depth
+            const rimLight = new THREE.DirectionalLight(0xffffff, 3.0);
+            rimLight.position.set(0, 3, -3);
+            scene.add(rimLight);
+
+            // Soft ambient light for overall skin tone enhancement
+            const ambientLight = new THREE.AmbientLight(0xf5f5f5, 1.8);
+            scene.add(ambientLight);
+
+            // Beauty light - focused on face area for skin quality
+            const beautyLight = new THREE.SpotLight(0xffffff, 4.0, 10, Math.PI / 6, 0.3);
+            beautyLight.position.set(0, 5, 2);
+            beautyLight.target.position.set(0, 0, 0);
+            scene.add(beautyLight);
+            scene.add(beautyLight.target);
+
+            // Position camera with updated settings
+            camera.position.set(0, 1.2, 2.5); // Updated position
+            camera.lookAt(0, 1.2, 0); // Look at model at same height level
 
             // Animation clock
             clock = new THREE.Clock();
@@ -365,10 +381,7 @@
                 mixer.update(delta);
             }
             
-            // Add subtle floating animation to the model
-            if (model) {
-                model.position.y = Math.sin(Date.now() * 0.001) * 0.1;
-            }
+            // Model position is now static - no floating animation
             
             renderer.render(scene, camera);
         }
@@ -382,9 +395,8 @@
         function onMouseMove(event) {
             if (model) {
                 const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-                const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
                 model.rotation.y = mouseX * 0.5;
-                model.rotation.x = mouseY * 0.5;
+                // Removed vertical rotation - model only rotates horizontally
             }
         }
 
