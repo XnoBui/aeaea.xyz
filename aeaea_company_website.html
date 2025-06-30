@@ -476,7 +476,7 @@
                 }
 
                 // Apply professional blink with smooth integration
-                const blinkCloseFactor = blinkProgress * 0.25; // Subtle blink intensity
+                const blinkCloseFactor = blinkProgress; // Full blink
                 
                 // Store blink factor for use in updateEyeTracking
                 window.currentBlinkFactor = blinkCloseFactor;
@@ -695,10 +695,8 @@
                     const target = morphTargets[eyeMesh.uuid];
                     
                     // Get current facial expression and blink values
-                    const eyeOpenness = 0.2; // Default value from applyDefaultExpression
-                    const closeFactor = 1 - eyeOpenness;
                     const blinkFactor = window.currentBlinkFactor || 0;
-                    const totalCloseFactor = closeFactor + blinkFactor;
+                    const totalCloseFactor = blinkFactor;
                     
                     // Enhanced eye tracking with proper vertical movement physics
                     const finalRotationX = target.originalRotation.x + currentEyeRotation.x + (totalCloseFactor * 0.06);
@@ -738,8 +736,8 @@
                     let targetScaleX = target.originalScale.x;
                     
                     // Only apply scale reduction for actual eye closure (blinking), not vertical tracking
-                    if (eyeOpenness < 0.3 || blinkFactor > 0.1) {
-                        const scaleReduction = Math.max(totalCloseFactor * 0.15, 0);
+                    if (blinkFactor > 0.01) {
+                        const scaleReduction = Math.max(blinkFactor, 0);
                         targetScaleY = target.originalScale.y * (1 - scaleReduction);
                         targetScaleX = target.originalScale.x * (1 - scaleReduction * 0.3);
                     }
@@ -749,9 +747,9 @@
                     eyeMesh.scale.y += scaleDeltaY * 0.25;
                     eyeMesh.scale.x += scaleDeltaX * 0.25;
                     
-                    // Ensure minimum scale to prevent eye disappearing - increased minimum
-                    eyeMesh.scale.y = Math.max(eyeMesh.scale.y, target.originalScale.y * 0.8); // Increased from 0.3
-                    eyeMesh.scale.x = Math.max(eyeMesh.scale.x, target.originalScale.x * 0.9); // Increased from 0.7
+                    // Ensure minimum scale to prevent eye disappearing
+                    eyeMesh.scale.y = Math.max(eyeMesh.scale.y, 0.001);
+                    eyeMesh.scale.x = Math.max(eyeMesh.scale.x, target.originalScale.x * 0.7);
                 }
             });
         }
@@ -764,7 +762,7 @@
         function onMouseMove(event) {
             // Calculate normalized mouse position (-1 to 1)
             const rawX = (event.clientX / window.innerWidth) * 2 - 1;
-            const rawY = -(event.clientY / window.innerHeight) * 2 + 1;
+            const rawY = -((event.clientY - window.scrollY) / window.innerHeight) * 2 + 1;
             
             // Apply mouse influence for subtler movement
             mousePosition.x = rawX * mouseInfluence;
@@ -796,6 +794,7 @@
 
         window.addEventListener('resize', onWindowResize, false);
         document.addEventListener('mousemove', onMouseMove, false);
+        window.addEventListener('scroll', onWindowResize, false);
         
         // Add mouse leave handler to reset to neutral position
         document.addEventListener('mouseleave', function() {
