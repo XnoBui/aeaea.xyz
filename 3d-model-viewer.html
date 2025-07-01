@@ -106,6 +106,7 @@
     <script type="module">
         import * as THREE from 'three';
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
         let scene, camera, renderer, model, mixer, clock;
@@ -225,12 +226,15 @@
 
         function loadModel() {
             const loader = new GLTFLoader();
+            const dracoLoader = new DRACOLoader();
+            dracoLoader.setDecoderPath('https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/');
+            loader.setDRACOLoader(dracoLoader);
             
             // Try different file path formats
             const possiblePaths = [
-                './SOMA MODEL ANIMATION TEST.glb',
-                'SOMA MODEL ANIMATION TEST.glb',
-                './SOMA%20MODEL%20ANIMATION%20TEST.glb',
+                './chisa.glb',
+                'chisa.glb',
+                './chisa.glb',
                 'SOMA%20MODEL%20ANIMATION%20TEST.glb'
             ];
             

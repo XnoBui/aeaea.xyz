@@ -1,7 +1,7 @@
 # SOMA Model Integration Documentation
 
 ## Overview
-This document describes the integration of the SOMA MODEL ANIMATION TEST.glb file into the AEAEA company website, replacing previous 3D placeholder shapes with a fully functional digital human model.
+This document describes the integration of the chisa.glb file into the AEAEA company website, replacing previous 3D placeholder shapes with a fully functional digital human model.
 
 ## Changes Made
 
@@ -33,7 +33,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 ```
 
 ### 3. Model Configuration
-- **File**: SOMA MODEL ANIMATION TEST.glb (29MB)
+- **File**: chisa.glb (25MB)
 - **Position**: (0, 0, 0) - centered in the scene
 - **Scale**: 3x uniform scaling for optimal visibility
 - **Location**: Hero section, left side of the viewport
@@ -74,7 +74,7 @@ materials.forEach(material => {
 ```
 /
 ├── aeaea_company_website.html (updated)
-├── SOMA MODEL ANIMATION TEST.glb (new)
+├── chisa.glb (new)
 ├── css/
 │   └── aeaea_company_website.css
 └── images/
@@ -83,9 +83,9 @@ materials.forEach(material => {
 
 ### Loading Strategy
 The implementation uses a fallback loading strategy with multiple path formats:
-1. `./SOMA MODEL ANIMATION TEST.glb`
-2. `SOMA MODEL ANIMATION TEST.glb`
-3. `./SOMA%20MODEL%20ANIMATION%20TEST.glb`
+1. `./chisa.glb`
+2. `chisa.glb`
+3. `./chisa.glb`
 4. `SOMA%20MODEL%20ANIMATION%20TEST.glb`
 
 ### Performance Considerations
@@ -146,7 +146,7 @@ The implementation includes comprehensive console logging:
 - **Commit Hash**: 48df445
 - **Date**: June 29, 2025
 - **Files Changed**: 2 files, 180 insertions
-- **New Files**: SOMA MODEL ANIMATION TEST.glb
+- **New Files**: chisa.glb
 
 ## Testing Checklist
 - [x] Model loads successfully

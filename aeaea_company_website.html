@@ -81,11 +81,11 @@
         </div>
     </section>
 
-    <!-- CHISA Digital Humans -->
+    <!-- SOMA Digital Humans -->
     <section id="soma" class="service-detail">
         <div class="service-content">
             <div class="service-info">
-                <h3>CHISA Digital Humans</h3>
+                <h3>SOMA Digital Humans</h3>
                 <p>Our digital humans work like real talent. They create content, engage audiences, and represent brands. Each has their own personality, style, and growing fanbase.</p>
                 <ul class="service-features">
                     <li>5 established digital humans with real followers</li>
@@ -94,9 +94,9 @@
                     <li>24/7 availability, no geographic limits</li>
                     <li>AI-powered conversations and content</li>
                 </ul>
-                <a href="https://soma.ai" class="service-link">Visit CHISA →</a>
+                <a href="https://soma.ai" class="service-link">Visit SOMA →</a>
             </div>
-            <div class="service-visual">CHISA</div>
+            <div class="service-visual">SOMA</div>
         </div>
     </section>
 
@@ -230,40 +230,12 @@
     <script type="module">
         import * as THREE from 'three';
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
         let scene, camera, renderer, model, mixer, clock;
-        let morphTargets = {};
-        let blinkTimer = 0;
-        let nextBlinkTime = Math.random() * 3 + 2;
-        let isBlinking = false;
-        let blinkDuration = 0.3; // Slower, more natural blink duration
-        let currentBlinkTime = 0;
-        let idleTime = 0; // For subtle idle animation
-        
-        // Enhanced animation variables
-        let microMovementTime = 0;
-        let saccadeTimer = 0;
-        let nextSaccadeTime = Math.random() * 2 + 1;
-        let currentSaccade = { x: 0, y: 0 };
-        let targetSaccade = { x: 0, y: 0 };
-        let saccadeProgress = 1;
-        let breathingPhase = 0;
-        let breathingIntensity = 1;
-        let postureShiftTimer = 0;
-        let nextPostureShift = Math.random() * 10 + 5;
-        let currentPosture = { x: 0, y: 0, z: 0 };
-        let targetPosture = { x: 0, y: 0, z: 0 };
-        let postureProgress = 1;
-        let blinkType = 'normal'; // normal, quick, slow, double
-        let facialTwitchTimer = 0;
-        let nextFacialTwitch = Math.random() * 5 + 3;
-        let headNodTimer = 0;
-        let nextHeadNod = Math.random() * 15 + 10;
-        let isNodding = false;
-        let nodProgress = 0;
 
         function init() {
-            console.log('Initializing enhanced SOMA model viewer...');
+            console.log('Initializing 3D scene...');
             
             const container = document.getElementById('container');
             if (!container) {
@@ -271,77 +243,115 @@
                 return;
             }
             
+            console.log('Container found and styled');
+            console.log('THREE.js loaded successfully');
+            
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setClearColor(0x000000, 0);
             renderer.shadowMap.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-            renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.2;
             
             container.appendChild(renderer.domElement);
+            console.log('Canvas added to container');
 
-            // Load the CHISA model
+            // Load the SOMA model with DRACO support
             const loader = new GLTFLoader();
+            const dracoLoader = new DRACOLoader();
+            dracoLoader.setDecoderPath('https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/');
+            loader.setDRACOLoader(dracoLoader);
             
+            // Try different file path formats
             const possiblePaths = [
-                './CHISA_FORWEB.glb',
-                'CHISA_FORWEB.glb'
+                './chisa.glb',
+                'chisa.glb',
+                './chisa.glb',
+                'SOMA%20MODEL%20ANIMATION%20TEST.glb'
             ];
             
             let currentPathIndex = 0;
             
             function tryLoadModel() {
                 if (currentPathIndex >= possiblePaths.length) {
-                    console.error('Could not load CHISA model from any path');
+                    console.error('Could not load SOMA model from any path');
                     return;
                 }
                 
                 const currentPath = possiblePaths[currentPathIndex];
-                console.log(`Trying to load CHISA model from: ${currentPath}`);
+                console.log(`Trying to load SOMA model from: ${currentPath}`);
                 
                 loader.load(
                     currentPath,
                     function (gltf) {
-                        console.log('CHISA model loaded successfully');
+                        console.log('SOMA model loaded successfully');
+                        console.log('Model data:', gltf);
+                        
                         model = gltf.scene;
                         
-                        // Debug model information
-                        console.log('Model bounding box:', model);
-                        const bbox = new THREE.Box3().setFromObject(model);
-                        console.log('Model bounding box:', bbox);
-                        console.log('Model size:', bbox.getSize(new THREE.Vector3()));
-                        console.log('Model center:', bbox.getCenter(new THREE.Vector3()));
+                        // Get model bounding box for proper scaling
+                        const box = new THREE.Box3().setFromObject(model);
+                        const size = box.getSize(new THREE.Vector3());
+                        const center = box.getCenter(new THREE.Vector3());
                         
-                        // Position the model at origin first
-                        model.position.set(0, 0, 0);
-                        model.scale.set(1, 1, 1);
+                        console.log('Model size:', size);
+                        console.log('Model center:', center);
                         
-                        // Setup enhanced model features
-                        setupModelEnhancements(model);
+                        // Center the model
+                        model.position.sub(center);
+                        
+                        // Scale the model to a reasonable size
+                        const maxDimension = Math.max(size.x, size.y, size.z);
+                        const scale = 2 / maxDimension; // Scale to fit in a 2-unit space
+                        model.scale.setScalar(scale);
+                        
+                        // Position the model
+                        model.position.set(0, -1, 0);
+                        
+                        console.log('Final model position:', model.position);
+                        console.log('Final model scale:', model.scale);
+                        
+                        // Enable shadows and enhance materials
+                        model.traverse(function(child) {
+                            if (child.isMesh) {
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+                                
+                                console.log('Found mesh:', child.name, child.material);
+                                
+                                if (child.material) {
+                                    const materials = Array.isArray(child.material) ? child.material : [child.material];
+                                    materials.forEach(material => {
+                                        if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
+                                            material.metalness = material.metalness || 0.2;
+                                            material.roughness = material.roughness || 0.3;
+                                            material.envMapIntensity = 1.5;
+                                        }
+                                    });
+                                }
+                            }
+                        });
                         
                         scene.add(model);
-
-                        const box = new THREE.BoxHelper( model, 0xffff00 );
-                        scene.add( box );
+                        console.log('Model added to scene');
                         
                         // Setup animations if available
                         if (gltf.animations && gltf.animations.length > 0) {
+                            console.log('Found animations:', gltf.animations.length);
                             mixer = new THREE.AnimationMixer(model);
                             gltf.animations.forEach((clip) => {
                                 const action = mixer.clipAction(clip);
                                 action.play();
                             });
                         }
-
                     },
                     function(progress) {
                         console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
                     },
                     function (error) {
                         console.error(`Error loading model from ${currentPath}:`, error);
+                        console.error('Full error details:', error);
                         currentPathIndex++;
                         tryLoadModel();
                     }
@@ -350,149 +360,44 @@
             
             tryLoadModel();
 
-            // Enhanced lighting setup for facial features
-            setupLighting();
-
-
-            // Position camera - fixed to prevent any zoom effect
-            camera.position.set(0, 0, 5);
-            camera.lookAt(0, 0, 0);
-            camera.fov = 35; // Lock FOV
-            camera.updateProjectionMatrix();
-
-            // Animation clock
-            clock = new THREE.Clock();
-
-            animate();
-        }
-
-        function setupModelEnhancements(model) {
-            model.traverse(function(child) {
-                if (child.isMesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                    
-                    // Look for facial meshes and setup morphing
-                    if (child.name.toLowerCase().includes('face') || 
-                        child.name.toLowerCase().includes('head') ||
-                        child.name.toLowerCase().includes('eye') ||
-                        child.name.toLowerCase().includes('mouth') ||
-                        child.name.toLowerCase().includes('brow')) {
-                        
-                        // Store eye meshes for tracking
-                        if (child.name.toLowerCase().includes('eye')) {
-                            eyeMeshes.push(child);
-                            console.log('Found eye mesh for tracking:', child.name);
-                        }
-                        
-                        // Create artificial morph targets for facial expressions
-                        setupArtificialMorphTargets(child);
-                    }
-                    
-                    // Enhance materials
-                    if (child.material) {
-                        const materials = Array.isArray(child.material) ? child.material : [child.material];
-                        materials.forEach(material => {
-                            if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
-                                material.metalness = material.metalness || 0.1;
-                                material.roughness = material.roughness || 0.4;
-                                material.envMapIntensity = 1.2;
-                                
-                                // Enhance skin materials
-                                if (material.name && material.name.toLowerCase().includes('skin')) {
-                                    material.roughness = 0.6;
-                                    material.metalness = 0.0;
-                                    material.transparent = true;
-                                    material.opacity = 0.95;
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-        }
-
-        function setupArtificialMorphTargets(mesh) {
-            morphTargets[mesh.uuid] = {
-                mesh: mesh,
-                originalScale: mesh.scale.clone(),
-                originalPosition: mesh.position.clone(),
-                originalRotation: mesh.rotation.clone()
-            };
-        }
-
-        function setupLighting() {
-            // Key light for main illumination
-            const keyLight = new THREE.DirectionalLight(0xffffff, 3.0);
-            keyLight.position.set(2, 4, 3);
+            // Professional studio fashion photoshoot lighting setup
+            // Key light - main directional light for primary illumination
+            const keyLight = new THREE.DirectionalLight(0xffffff, 5.0);
+            keyLight.position.set(3, 4, 3);
             keyLight.castShadow = true;
             keyLight.shadow.mapSize.width = 2048;
             keyLight.shadow.mapSize.height = 2048;
             scene.add(keyLight);
 
-            // Fill light to soften shadows
-            const fillLight = new THREE.DirectionalLight(0xfff8e1, 1.5);
-            fillLight.position.set(-2, 2, 2);
+            // Fill light - softer light to reduce harsh shadows
+            const fillLight = new THREE.DirectionalLight(0xffffff, 2.5);
+            fillLight.position.set(-3, 2, 2);
             scene.add(fillLight);
 
-            // Rim light for depth
-            const rimLight = new THREE.DirectionalLight(0xe3f2fd, 2.0);
-            rimLight.position.set(0, 3, -2);
+            // Rim/Back light - creates separation and depth
+            const rimLight = new THREE.DirectionalLight(0xffffff, 3.0);
+            rimLight.position.set(0, 3, -3);
             scene.add(rimLight);
 
-            // Soft ambient light
-            const ambientLight = new THREE.AmbientLight(0xf5f5f5, 0.8);
+            // Soft ambient light for overall skin tone enhancement
+            const ambientLight = new THREE.AmbientLight(0xf5f5f5, 1.8);
             scene.add(ambientLight);
 
-            // Focused face light
-            const faceLight = new THREE.SpotLight(0xffffff, 2.5, 8, Math.PI / 8, 0.2);
-            faceLight.position.set(0, 4, 1.5);
-            faceLight.target.position.set(0, 0, 0);
-            scene.add(faceLight);
-            scene.add(faceLight.target);
-        }
+            // Beauty light - focused on face area for skin quality
+            const beautyLight = new THREE.SpotLight(0xffffff, 4.0, 10, Math.PI / 6, 0.3);
+            beautyLight.position.set(0, 5, 2);
+            beautyLight.target.position.set(0, 0, 0);
+            scene.add(beautyLight);
+            scene.add(beautyLight.target);
 
+            // Position camera with updated settings
+            camera.position.set(0, 1.2, 2.5); // Updated position
+            camera.lookAt(0, 1.2, 0); // Look at model at same height level
 
-        function handleBlinking(delta) {
-            blinkTimer += delta;
+            // Animation clock
+            clock = new THREE.Clock();
 
-            if (!isBlinking && blinkTimer >= nextBlinkTime) {
-                // Start blink with natural timing variation
-                isBlinking = true;
-                currentBlinkTime = 0;
-                blinkTimer = 0;
-                nextBlinkTime = Math.random() * 3 + 2.5; // Natural blink interval 2.5-5.5 seconds
-            }
-
-            if (isBlinking) {
-                currentBlinkTime += delta;
-                
-                // Professional blink curve - more natural easing
-                let blinkProgress;
-                const halfDuration = blinkDuration / 2;
-                
-                if (currentBlinkTime < halfDuration) {
-                    // Ease-in-out for closing phase
-                    const t = currentBlinkTime / halfDuration;
-                    blinkProgress = t * t * (3 - 2 * t); // Smooth step function
-                } else if (currentBlinkTime < blinkDuration) {
-                    // Ease-in-out for opening phase
-                    const t = (currentBlinkTime - halfDuration) / halfDuration;
-                    blinkProgress = 1 - (t * t * (3 - 2 * t));
-                } else {
-                    blinkProgress = 0;
-                    isBlinking = false;
-                }
-
-                // Apply professional blink with smooth integration
-                const blinkCloseFactor = blinkProgress; // Full blink
-                
-                // Store blink factor for use in updateEyeTracking
-                window.currentBlinkFactor = blinkCloseFactor;
-                
-            } else {
-                window.currentBlinkFactor = 0;
-            }
+            animate();
         }
 
         function animate() {
@@ -505,295 +410,29 @@
                 mixer.update(delta);
             }
             
+            // Model position is now static - no floating animation
+            
             renderer.render(scene, camera);
-        }
-        
-        // Handle saccadic eye movements
-        function handleSaccades(delta) {
-            saccadeTimer += delta;
-            
-            if (saccadeProgress >= 1 && saccadeTimer >= nextSaccadeTime) {
-                // Generate new saccade target
-                targetSaccade.x = (Math.random() - 0.5) * 0.15;
-                targetSaccade.y = (Math.random() - 0.5) * 0.1;
-                saccadeProgress = 0;
-                saccadeTimer = 0;
-                nextSaccadeTime = Math.random() * 2 + 0.5;
-            }
-            
-            if (saccadeProgress < 1) {
-                // Quick saccade movement
-                saccadeProgress = Math.min(1, saccadeProgress + delta * 8);
-                const t = saccadeProgress;
-                currentSaccade.x = lerp(currentSaccade.x, targetSaccade.x, t);
-                currentSaccade.y = lerp(currentSaccade.y, targetSaccade.y, t);
-            }
-        }
-        
-        // Handle posture shifts
-        function handlePostureShifts(delta) {
-            postureShiftTimer += delta;
-            
-            if (postureProgress >= 1 && postureShiftTimer >= nextPostureShift) {
-                // Generate subtle posture adjustment
-                targetPosture.x = (Math.random() - 0.5) * 0.02;
-                targetPosture.y = (Math.random() - 0.5) * 0.03;
-                targetPosture.z = (Math.random() - 0.5) * 0.01;
-                postureProgress = 0;
-                postureShiftTimer = 0;
-                nextPostureShift = Math.random() * 15 + 10;
-            }
-            
-            if (postureProgress < 1) {
-                // Slow posture transition
-                postureProgress = Math.min(1, postureProgress + delta * 0.3);
-                const t = postureProgress * postureProgress * (3 - 2 * postureProgress);
-                currentPosture.x = lerp(currentPosture.x, targetPosture.x, t);
-                currentPosture.y = lerp(currentPosture.y, targetPosture.y, t);
-                currentPosture.z = lerp(currentPosture.z, targetPosture.z, t);
-            }
-        }
-        
-        // Handle head nods
-        function handleHeadNods(delta) {
-            headNodTimer += delta;
-            
-            if (!isNodding && headNodTimer >= nextHeadNod) {
-                isNodding = true;
-                nodProgress = 0;
-                headNodTimer = 0;
-                nextHeadNod = Math.random() * 20 + 15;
-            }
-            
-            if (isNodding) {
-                nodProgress += delta * 2;
-                if (nodProgress < 1) {
-                    // Subtle nod animation
-                    const nodAmount = Math.sin(nodProgress * Math.PI) * 0.03;
-                    currentPosture.x += nodAmount;
-                } else {
-                    isNodding = false;
-                }
-            }
-        }
-        
-        // Handle facial twitches
-        function handleFacialTwitches(delta) {
-            facialTwitchTimer += delta;
-            
-            if (facialTwitchTimer >= nextFacialTwitch) {
-                facialTwitchTimer = 0;
-                nextFacialTwitch = Math.random() * 8 + 5;
-                
-                // Apply subtle facial muscle movements
-                model.traverse(function(child) {
-                    if (child.isMesh && morphTargets[child.uuid]) {
-                        const target = morphTargets[child.uuid];
-                        
-                        // Subtle eyebrow twitch
-                        if (child.name.toLowerCase().includes('brow')) {
-                            const twitchAmount = (Math.random() - 0.5) * 0.01;
-                            child.position.y = target.originalPosition.y + twitchAmount;
-                            
-                            // Reset after a short time
-                            setTimeout(() => {
-                                child.position.y = target.originalPosition.y;
-                            }, 200);
-                        }
-                        
-                        // Subtle mouth corner movement
-                        if (child.name.toLowerCase().includes('mouth') || 
-                            child.name.toLowerCase().includes('lip')) {
-                            const twitchX = (Math.random() - 0.5) * 0.005;
-                            child.position.x = target.originalPosition.x + twitchX;
-                            
-                            setTimeout(() => {
-                                child.position.x = target.originalPosition.x;
-                            }, 300);
-                        }
-                    }
-                });
-            }
         }
 
         function onWindowResize() {
-            const container = document.getElementById('container');
-            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        }
-
-        // Optimized mouse tracking variables (Holoworld best practices)
-        let mousePosition = { x: 0, y: 0 };
-        let eyeMeshes = [];
-        let targetMousePosition = { x: 0, y: 0 };
-        let currentMousePosition = { x: 0, y: 0 };
-        let targetHeadRotation = { x: 0, y: 0, z: 0 };
-        let currentHeadRotation = { x: 0, y: 0, z: 0 };
-        let targetEyeRotation = { x: 0, y: 0 };
-        let currentEyeRotation = { x: 0, y: 0 };
-        let smoothMousePosition = { x: 0, y: 0 };
-        let eyeVelocity = { x: 0, y: 0 };
-        
-        // Natural movement parameters (refined for realistic behavior)
-        const mouseSmoothingFactor = 0.08; // Slower for more natural movement
-        const headRotationSpeed = 0.05; // Much slower, more realistic head movement
-        const eyeTrackingSpeed = 0.15; // Natural eye speed
-        const maxHeadRotation = { x: 0.15, y: 0.25, z: 0.05 }; // Increased range for visibility
-        const maxEyeRotation = { x: 0.15, y: 0.25 }; // Natural eye movement range
-        const mouseInfluence = 0.7; // Reduce mouse influence for subtler movement
-
-        function updateEyeTracking() {
-            if (!model || eyeMeshes.length === 0) return;
-            
-            // Professional smooth mouse position filtering
-            smoothMousePosition.x += (mousePosition.x - smoothMousePosition.x) * 0.25; // mouseSmoothing
-            smoothMousePosition.y += (mousePosition.y - smoothMousePosition.y) * 0.25; // mouseSmoothing
-
-            // Enhanced target eye rotation with proper vertical tracking
-            if (smoothMousePosition.y < -0.5) { // When mouse is at the bottom, stop vertical eye movement
-                targetEyeRotation.x = 0;
-            } else {
-                targetEyeRotation.x = -smoothMousePosition.y * 0.4; // maxEyeRotation.x
-            }
-            targetEyeRotation.y = smoothMousePosition.x * 0.5;  // maxEyeRotation.y
-
-            // Apply dead zone to prevent micro-movements
-            const deltaX = targetEyeRotation.x - currentEyeRotation.x;
-            const deltaY = targetEyeRotation.y - currentEyeRotation.y;
-            
-            if (Math.abs(deltaX) > 0.015 || Math.abs(deltaY) > 0.015) { // deadZone
-                // Calculate velocity-based acceleration for natural movement
-                eyeVelocity.x += deltaX * 0.12; // eyeAcceleration
-                eyeVelocity.y += deltaY * 0.12; // eyeAcceleration
-                
-                // Apply damping to velocity for smooth deceleration
-                eyeVelocity.x *= 0.88; // eyeDamping
-                eyeVelocity.y *= 0.88; // eyeDamping
-                
-                // Update current eye rotation with velocity
-                currentEyeRotation.x += eyeVelocity.x;
-                currentEyeRotation.y += eyeVelocity.y;
-                
-                // Smooth interpolation towards target for final precision
-                currentEyeRotation.x += (targetEyeRotation.x - currentEyeRotation.x) * 0.18; // eyeTrackingSpeed
-                currentEyeRotation.y += (targetEyeRotation.y - currentEyeRotation.y) * 0.18; // eyeTrackingSpeed
-            }
-
-            // Apply eye tracking to all eye meshes with enhanced vertical movement
-            eyeMeshes.forEach(eyeMesh => {
-                if (morphTargets[eyeMesh.uuid]) {
-                    const target = morphTargets[eyeMesh.uuid];
-                    
-                    // Get current facial expression and blink values
-                    const blinkFactor = window.currentBlinkFactor || 0;
-                    const totalCloseFactor = blinkFactor;
-                    
-                    // Enhanced eye tracking with proper vertical movement physics
-                    const finalRotationX = target.originalRotation.x + currentEyeRotation.x + (totalCloseFactor * 0.06);
-                    const finalRotationY = target.originalRotation.y + currentEyeRotation.y;
-                    const finalRotationZ = target.originalRotation.z + (currentEyeRotation.x * 0.1); // Subtle Z rotation for realism
-                    
-                    // Professional smooth transition with adaptive speed
-                    const rotationDeltaX = finalRotationX - eyeMesh.rotation.x;
-                    const rotationDeltaY = finalRotationY - eyeMesh.rotation.y;
-                    const rotationDeltaZ = finalRotationZ - eyeMesh.rotation.z;
-                    const rotationDistance = Math.sqrt(rotationDeltaX * rotationDeltaX + rotationDeltaY * rotationDeltaY + rotationDeltaZ * rotationDeltaZ);
-                    
-                    // Adaptive smoothing - faster for larger movements, slower for precision
-                    const adaptiveSpeed = Math.min(0.4, 0.15 + rotationDistance * 2);
-                    
-                    eyeMesh.rotation.x += rotationDeltaX * adaptiveSpeed;
-                    eyeMesh.rotation.y += rotationDeltaY * adaptiveSpeed;
-                    eyeMesh.rotation.z += rotationDeltaZ * adaptiveSpeed;
-                    
-                    // Enhanced eyelid position with vertical tracking influence
-                    const upperLidInfluence = Math.max(0, currentEyeRotation.x) * 0.025; // Eyelid lowers when looking down
-                    const lowerLidInfluence = Math.min(0, currentEyeRotation.x) * 0.015; // Eyelid raises slightly when looking up
-
-                    const targetPositionY = target.originalPosition.y - totalCloseFactor * 0.016 - upperLidInfluence + lowerLidInfluence;
-                    const positionDelta = targetPositionY - eyeMesh.position.y;
-                    eyeMesh.position.y += positionDelta * 0.3;
-                    
-                    // Subtle position adjustments for realistic eye movement
-                    const targetPositionX = target.originalPosition.x + currentEyeRotation.y * 0.004;
-                    const targetPositionZ = target.originalPosition.z + currentEyeRotation.x * 0.003;
-                    eyeMesh.position.x += (targetPositionX - eyeMesh.position.x) * 0.2;
-                    eyeMesh.position.z += (targetPositionZ - eyeMesh.position.z) * 0.2;
-                    
-                    // Enhanced scale handling - NO vertical squinting
-                    eyeMesh.visible = true;
-                    let targetScaleY = target.originalScale.y;
-                    let targetScaleX = target.originalScale.x;
-                    
-                    // Only apply scale reduction for actual eye closure (blinking), not vertical tracking
-                    if (blinkFactor > 0.01) {
-                        const scaleReduction = Math.max(blinkFactor, 0);
-                        targetScaleY = target.originalScale.y * (1 - scaleReduction);
-                        targetScaleX = target.originalScale.x * (1 - scaleReduction * 0.3);
-                    }
-                    
-                    const scaleDeltaY = targetScaleY - eyeMesh.scale.y;
-                    const scaleDeltaX = targetScaleX - eyeMesh.scale.x;
-                    eyeMesh.scale.y += scaleDeltaY * 0.25;
-                    eyeMesh.scale.x += scaleDeltaX * 0.25;
-                    
-                    // Ensure minimum scale to prevent eye disappearing
-                    eyeMesh.scale.y = Math.max(eyeMesh.scale.y, 0.001);
-                    eyeMesh.scale.x = Math.max(eyeMesh.scale.x, target.originalScale.x * 0.7);
-                }
-            });
-        }
-        
-        // Linear interpolation helper function (from Holoworld)
-        function lerp(start, end, factor) {
-            return start + (end - start) * factor;
+            renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
         function onMouseMove(event) {
-            // Calculate normalized mouse position (-1 to 1)
-            const rawX = (event.clientX / window.innerWidth) * 2 - 1;
-            const rawY = -((event.clientY - window.scrollY) / window.innerHeight) * 2 + 1;
-            
-            // Apply mouse influence for subtler movement
-            mousePosition.x = rawX * mouseInfluence;
-            mousePosition.y = rawY * mouseInfluence;
-            
-            // Update target mouse position with smooth clamping
-            targetMousePosition.x = Math.max(-1, Math.min(1, mousePosition.x));
-            targetMousePosition.y = Math.max(-1, Math.min(1, mousePosition.y));
-            
             if (model) {
-                // Calculate target head rotation with easing curve for natural movement
-                // Apply non-linear transformation for more natural feel
-                const easedX = Math.sign(targetMousePosition.x) * Math.pow(Math.abs(targetMousePosition.x), 1.5);
-                const easedY = Math.sign(targetMousePosition.y) * Math.pow(Math.abs(targetMousePosition.y), 1.5);
-                
-                targetHeadRotation.y = easedX * maxHeadRotation.y;
-                targetHeadRotation.x = easedY * maxHeadRotation.x * 0.7; // Reduce vertical movement
-                targetHeadRotation.z = easedY * easedX * maxHeadRotation.z * 0.5; // Subtle tilt
-                
-                // Smooth head rotation interpolation with natural speed
-                currentHeadRotation.x = lerp(currentHeadRotation.x, targetHeadRotation.x, headRotationSpeed);
-                currentHeadRotation.y = lerp(currentHeadRotation.y, targetHeadRotation.y, headRotationSpeed);
-                currentHeadRotation.z = lerp(currentHeadRotation.z, targetHeadRotation.z, headRotationSpeed * 0.5);
-                
-                // Head rotation is now handled in the animate function with all combined movements
-                // Store the target values for use in animate
+                const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                model.rotation.y = mouseX * 0.5;
+                // Removed vertical rotation - model only rotates horizontally
             }
         }
 
         window.addEventListener('resize', onWindowResize, false);
         document.addEventListener('mousemove', onMouseMove, false);
-        window.addEventListener('scroll', onWindowResize, false);
-        
-        // Add mouse leave handler to reset to neutral position
-        document.addEventListener('mouseleave', function() {
-            targetMousePosition.x = 0;
-            targetMousePosition.y = 0;
-        });
 
-        // Initialize when DOM is ready
+        // Wait for DOM to be ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', init);
         } else {
