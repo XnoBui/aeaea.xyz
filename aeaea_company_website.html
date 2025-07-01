@@ -247,7 +247,7 @@
             console.log('THREE.js loaded successfully');
             
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setClearColor(0x000000, 0);
@@ -301,13 +301,11 @@
                         // Center the model
                         model.position.sub(center);
                         
-                        // Scale the model to a reasonable size
-                        const maxDimension = Math.max(size.x, size.y, size.z);
-                        const scale = 2 / maxDimension; // Scale to fit in a 2-unit space
-                        model.scale.setScalar(scale);
+                        // Set specific scale values
+                        model.scale.set(12, 9, 12);
                         
                         // Position the model
-                        model.position.set(0, -1, 0);
+                        model.position.set(0, -13.5, 0);
                         
                         console.log('Final model position:', model.position);
                         console.log('Final model scale:', model.scale);
@@ -391,8 +389,8 @@
             scene.add(beautyLight.target);
 
             // Position camera with updated settings
-            camera.position.set(0, 1.2, 2.5); // Updated position
-            camera.lookAt(0, 1.2, 0); // Look at model at same height level
+            camera.position.set(0, 0.5, 5); // Updated position
+            camera.lookAt(0, 0.5, 0); // Look at model at same height level
 
             // Animation clock
             clock = new THREE.Clock();
