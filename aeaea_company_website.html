@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/aeaea_company_website.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="100x100" href="images/favicon-100x100.png">
     <script type="importmap">
         {
             "imports": {
@@ -290,7 +294,7 @@
                         
                         model = gltf.scene;
                         
-                        // Get model bounding box for proper scaling
+                        // Get model bounding box for debugging
                         const box = new THREE.Box3().setFromObject(model);
                         const size = box.getSize(new THREE.Vector3());
                         const center = box.getCenter(new THREE.Vector3());
@@ -298,14 +302,11 @@
                         console.log('Model size:', size);
                         console.log('Model center:', center);
                         
-                        // Center the model
-                        model.position.sub(center);
+                        // Adjust Y-axis scaling to fix vertical stretching - compress height
+                        model.scale.set(8, 6, 8);
                         
-                        // Set specific scale values
-                        model.scale.set(12, 9, 12);
-                        
-                        // Position the model
-                        model.position.set(0, -13.5, 0);
+                        // Position the model without centering manipulation
+                        model.position.set(0, -8, 0);
                         
                         console.log('Final model position:', model.position);
                         console.log('Final model scale:', model.scale);
@@ -388,9 +389,9 @@
             scene.add(beautyLight);
             scene.add(beautyLight.target);
 
-            // Position camera with updated settings
-            camera.position.set(0, 0.5, 5); // Updated position
-            camera.lookAt(0, 0.5, 0); // Look at model at same height level
+            // Position camera with settings to ensure model visibility
+            camera.position.set(0, 0, 5); // Standard position
+            camera.lookAt(0, 0, 0); // Look at model center
 
             // Animation clock
             clock = new THREE.Clock();
