@@ -124,28 +124,44 @@ nav {
 
 /* Services Overview */
 .services-overview {
-    padding: 120px 5%;
+    padding: 120px 0;
+    background: #ffffff;
+    color: #000000;
+    width: 100%;
+}
+
+.services-overview .section-header,
+.services-overview .services-grid {
     max-width: 1400px;
     margin: 0 auto;
+    padding: 0 5%;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 90px;
 }
 
 .section-header h2 {
-    font-size: 3rem;
-    font-weight: 200;
-    margin-bottom: 20px;
-    letter-spacing: -1px;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #000000;
+    font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 .section-header p {
-    font-size: 1.1rem;
-    color: #999;
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-transform: uppercase;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 60px auto;
 }
 
 .services-grid {
@@ -155,52 +171,61 @@ nav {
 }
 
 .service-card {
-    border: 1px solid #333;
+    border: 1px solid #e0e0e0;
     padding: 50px 40px;
     transition: all 0.3s ease;
     cursor: pointer;
-    background: #111;
-    border-radius: 10px;
+    background: #ffffff;
+    border-radius: 0;
 }
 
 .service-card:hover {
-    border-color: #fff;
-    transform: translateY(-10px);
-    background: #1a1a1a;
+    border-color: #000000;
+    transform: translateY(-5px);
+    background: #fafafa;
 }
 
 .service-number {
-    font-size: 3rem;
-    font-weight: 100;
-    color: #333;
+    font-size: 2.5rem;
+    font-weight: 200;
+    color: #cccccc;
     margin-bottom: 20px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 .service-card h3 {
-    font-size: 1.75rem;
-    font-weight: 300;
+    font-size: 1.5rem;
+    font-weight: 400;
     margin-bottom: 15px;
-    letter-spacing: -0.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #000000;
+    font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 .service-card p {
-    color: #999;
-    font-size: 15px;
-    line-height: 1.8;
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.7;
     margin-bottom: 30px;
+    font-weight: 300;
+    letter-spacing: 0.3px;
 }
 
 .service-link {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
-    font-size: 14px;
-    border-bottom: 1px solid #666;
+    font-size: 12px;
+    border-bottom: 1px solid #cccccc;
     padding-bottom: 2px;
     transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
 }
 
 .service-link:hover {
-    border-bottom-color: #fff;
+    border-bottom-color: #000000;
 }
 
 /* Service Sections */
