@@ -269,10 +269,10 @@
             
             // Try different file path formats
             const possiblePaths = [
+                './AEAEA_DOLL_FORWEB.glb',
+                'AEAEA_DOLL_FORWEB.glb',
                 './chisa.glb',
-                'chisa.glb',
-                './chisa.glb',
-                'SOMA%20MODEL%20ANIMATION%20TEST.glb'
+                'chisa.glb'
             ];
             
             let currentPathIndex = 0;
@@ -294,7 +294,7 @@
                         
                         model = gltf.scene;
                         
-                        // Get model bounding box for debugging
+                        // Get model bounding box for proper scaling
                         const box = new THREE.Box3().setFromObject(model);
                         const size = box.getSize(new THREE.Vector3());
                         const center = box.getCenter(new THREE.Vector3());
@@ -302,14 +302,26 @@
                         console.log('Model size:', size);
                         console.log('Model center:', center);
                         
-                        // Adjust Y-axis scaling to fix vertical stretching - compress height
-                        model.scale.set(8, 6, 8);
+                        // Center the model
+                        model.position.sub(center);
                         
-                        // Position the model without centering manipulation
-                        model.position.set(0, -8, 0);
+                        // Set uniform scale values to maintain proper proportions
+                        model.scale.set(3, 3, 3);
                         
+                        // Position the model to show full body including head - moved down further
+                        model.position.set(0, -4, 0);
+                        
+                        console.log('Model original size:', size);
+                        console.log('Model original center:', center);
                         console.log('Final model position:', model.position);
                         console.log('Final model scale:', model.scale);
+                        
+                        // Calculate and log bounding box after transformations
+                        const finalBox = new THREE.Box3().setFromObject(model);
+                        const finalSize = finalBox.getSize(new THREE.Vector3());
+                        const finalCenter = finalBox.getCenter(new THREE.Vector3());
+                        console.log('Final model size after scaling:', finalSize);
+                        console.log('Final model center after positioning:', finalCenter);
                         
                         // Enable shadows and enhance materials
                         model.traverse(function(child) {
@@ -389,9 +401,9 @@
             scene.add(beautyLight);
             scene.add(beautyLight.target);
 
-            // Position camera with settings to ensure model visibility
-            camera.position.set(0, 0, 5); // Standard position
-            camera.lookAt(0, 0, 0); // Look at model center
+            // Position camera with updated settings for full model view
+            camera.position.set(0, 2, 10); // Moved back further and up for better full-body framing
+            camera.lookAt(0, 0, 0); // Look at model center for better composition
 
             // Animation clock
             clock = new THREE.Clock();
