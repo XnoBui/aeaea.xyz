@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'BB Condensed';
+    src: url('../font/BB Condensed/Web Fonts/857c87f9e1434e30f777d7aaa316e8b8.woff2') format('woff2'),
+         url('../font/BB Condensed/Web Fonts/857c87f9e1434e30f777d7aaa316e8b8.woff') format('woff'),
+         url('../font/BB Condensed/Web Fonts/857c87f9e1434e30f777d7aaa316e8b8.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +21,24 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     font-size: 16px;
+}
+
+/* Apply BB Condensed font to all h2 elements */
+h2 {
+    font-family: 'BB Condensed', "Helvetica Neue", Arial, sans-serif !important;
+    font-size: 1.7rem;
+    font-weight: 400;
+    line-height: 125%;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Apply BB Condensed font to all h3 elements */
+h3 {
+    font-family: 'BB Condensed', "Helvetica Neue", Arial, sans-serif !important;
+    font-size: 0.85rem;
+    line-height: 125%;
+    text-transform: uppercase;
 }
 
 /* Navigation */
@@ -148,13 +176,8 @@ nav {
 }
 
 .section-header h2 {
-    font-size: 2rem;
-    font-weight: 500;
     margin-bottom: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
     color: #000000;
-    font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 .section-header p {
@@ -227,13 +250,9 @@ nav {
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
-    font-weight: 400;
     margin-bottom: 15px;
     letter-spacing: 1px;
-    text-transform: uppercase;
     color: #000000;
-    font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 .service-card p {
@@ -289,7 +308,7 @@ nav {
 }
 
 .service-info h3 {
-    font-size: 2.5rem;
+    font-size: 1.7rem;
     font-weight: 200;
     margin-bottom: 30px;
     letter-spacing: -1px;
@@ -366,7 +385,6 @@ nav {
 }
 
 .about-section h2 {
-    font-size: 2.5rem;
     font-weight: 200;
     margin-bottom: 30px;
 }
@@ -385,7 +403,7 @@ nav {
 }
 
 .team-info h3 {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 300;
     margin-bottom: 20px;
 }
@@ -403,7 +421,6 @@ nav {
 }
 
 .contact-content h2 {
-    font-size: 2.5rem;
     font-weight: 200;
     margin-bottom: 30px;
 }
