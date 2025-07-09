@@ -124,22 +124,27 @@ nav {
 
 /* Services Overview */
 .services-overview {
-    padding: 120px 0;
+    padding: 68px 0;
     background: #ffffff;
     color: #000000;
     width: 100%;
 }
 
-.services-overview .section-header,
-.services-overview .services-grid {
+.services-overview .section-header {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 5%;
 }
 
+.services-overview .services-grid {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .section-header {
     text-align: center;
-    margin-bottom: 90px;
+    margin-bottom: 68px;
 }
 
 .section-header h2 {
@@ -166,12 +171,15 @@ nav {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 60px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
 }
 
 .service-card {
-    border: 1px solid #e0e0e0;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-left: none;
+    border-right: 1px solid #000000;
     padding: 50px 40px;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -179,10 +187,35 @@ nav {
     border-radius: 0;
 }
 
+.service-card:last-child {
+    border-right: none;
+}
+
 .service-card:hover {
     border-color: #000000;
-    transform: translateY(-5px);
-    background: #fafafa;
+    background: #000000;
+    color: #ffffff;
+}
+
+.service-card:hover .service-number {
+    color: #666666;
+}
+
+.service-card:hover h3 {
+    color: #ffffff;
+}
+
+.service-card:hover p {
+    color: #cccccc;
+}
+
+.service-card:hover .service-link {
+    color: #ffffff;
+    border-bottom-color: #666666;
+}
+
+.service-card:hover .service-link:hover {
+    border-bottom-color: #ffffff;
 }
 
 .service-number {
