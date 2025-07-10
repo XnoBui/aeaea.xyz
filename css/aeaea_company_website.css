@@ -373,8 +373,16 @@ nav {
 
 /* Showcase */
 .showcase-section {
-    padding: 100px 5%;
+    padding: 100px 0 0 0;
     background: rgba(255,255,255,0.02);
+    width: 100%;
+}
+
+.showcase-section .section-header {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    margin-bottom: 100px;
 }
 
 .showcase-section h2 {
@@ -383,28 +391,48 @@ nav {
 
 .showcase-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .showcase-item {
     aspect-ratio: 1;
     background: #111;
-    border: 1px solid #222;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+    border-left: none;
+    border-right: 1px solid #222;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    color: #333;
     transition: all 0.3s;
     cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+}
+
+.showcase-item:last-child {
+    border-right: none;
+}
+
+.showcase-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s;
 }
 
 .showcase-item:hover {
-    border-color: #666;
-    transform: scale(0.98);
+    background: #222;
+    transform: none;
+}
+
+.showcase-item:hover img {
+    transform: scale(1.05);
+    opacity: 0.8;
 }
 
 /* About */
@@ -530,6 +558,16 @@ footer {
     .services-grid {
         grid-template-columns: 1fr;
         gap: 40px;
+    }
+    
+    .showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 0px;
+    }
+    
+    .showcase-item {
+        border-left: 1px solid #222;
+        border-right: 1px solid #222;
     }
     
     .contact-info {
