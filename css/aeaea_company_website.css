@@ -449,10 +449,13 @@ nav {
 }
 
 .about-section p {
+    font-family: 'BB Condensed', "Helvetica Neue", Arial, sans-serif !important;
     color: #ccc;
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 0.9rem;
+    line-height: 1.6;
     margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 .team-info {
@@ -465,6 +468,12 @@ nav {
     font-size: 1.7rem;
     font-weight: 300;
     margin-bottom: 20px;
+}
+
+.team-info p {
+    font-family: 'BB Condensed', "Helvetica Neue", Arial, sans-serif !important;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 /* Contact */
