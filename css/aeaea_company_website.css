@@ -437,7 +437,7 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    transition: all 0.5s ease-in-out;
+    transition: top 0.5s ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -445,56 +445,6 @@ nav {
 
 .slide.active {
     top: 0;
-    left: 0;
-}
-
-/* Up/Down transitions for grids 1, 3, 5 */
-.showcase-item[data-item="0"] .slide.exiting,
-.showcase-item[data-item="2"] .slide.exiting,
-.showcase-item[data-item="4"] .slide.exiting {
-    top: -100%;
-    left: 0;
-}
-
-/* Left/Right transitions for grids 2, 4, 7 */
-.showcase-item[data-item="1"] .slide,
-.showcase-item[data-item="3"] .slide,
-.showcase-item[data-item="6"] .slide {
-    top: 0;
-    left: 100%;
-}
-
-.showcase-item[data-item="1"] .slide.active,
-.showcase-item[data-item="3"] .slide.active,
-.showcase-item[data-item="6"] .slide.active {
-    top: 0;
-    left: 0;
-}
-
-.showcase-item[data-item="1"] .slide.exiting,
-.showcase-item[data-item="3"] .slide.exiting,
-.showcase-item[data-item="6"] .slide.exiting {
-    top: 0;
-    left: -100%;
-}
-
-/* Corner transitions for grids 6, 8 */
-.showcase-item[data-item="5"] .slide,
-.showcase-item[data-item="7"] .slide {
-    top: 100%;
-    left: 100%;
-}
-
-.showcase-item[data-item="5"] .slide.active,
-.showcase-item[data-item="7"] .slide.active {
-    top: 0;
-    left: 0;
-}
-
-.showcase-item[data-item="5"] .slide.exiting,
-.showcase-item[data-item="7"] .slide.exiting {
-    top: -100%;
-    left: -100%;
 }
 
 .slide img,
