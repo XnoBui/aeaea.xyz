@@ -4,3 +4,4 @@ videos/aeaea-intro-original.mov filter=lfs diff=lfs merge=lfs -text
 videos/meta-original.mp4 filter=lfs diff=lfs merge=lfs -text
 videos/ar.mp4 filter=lfs diff=lfs merge=lfs -text
 videos/meta.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
