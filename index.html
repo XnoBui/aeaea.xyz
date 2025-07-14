@@ -4,432 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AEAEA - Digital Fashion & Innovation Studio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000;
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 5%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: 300;
-            letter-spacing: 3px;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-        
-        .nav-links a {
-            color: #999;
-            text-decoration: none;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #fff;
-        }
-        
-        /* Hero */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: #000;
-        }
-
-        #gradient-canvas {
-            width:100%;
-            height:100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-        
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 200;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            color: #999;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #666;
-            font-size: 14px;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-        
-        /* Services Overview */
-        .services-overview {
-            padding: 120px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-        
-        .section-header h2 {
-            font-size: 3rem;
-            font-weight: 200;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-        
-        .section-header p {
-            font-size: 1.1rem;
-            color: #999;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 60px;
-        }
-        
-        .service-card {
-            border: 1px solid #222;
-            padding: 50px 40px;
-            transition: all 0.3s;
-            cursor: pointer;
-            background: rgba(255,255,255,0.02);
-        }
-        
-        .service-card:hover {
-            border-color: #666;
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.05);
-        }
-        
-        .service-number {
-            font-size: 3rem;
-            font-weight: 100;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        .service-card h3 {
-            font-size: 1.75rem;
-            font-weight: 300;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-        }
-        
-        .service-card p {
-            color: #999;
-            font-size: 15px;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-        
-        .service-link {
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
-            border-bottom: 1px solid #666;
-            padding-bottom: 2px;
-            transition: all 0.3s;
-        }
-        
-        .service-link:hover {
-            border-bottom-color: #fff;
-        }
-        
-        /* Service Sections */
-        .service-detail {
-            padding: 100px 5%;
-            border-top: 1px solid #222;
-        }
-        
-        .service-detail:nth-child(even) {
-            background: rgba(255,255,255,0.02);
-        }
-        
-        .service-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-        
-        .service-detail:nth-child(even) .service-content {
-            direction: rtl;
-        }
-        
-        .service-detail:nth-child(even) .service-content > * {
-            direction: ltr;
-        }
-        
-        .service-info h3 {
-            font-size: 2.5rem;
-            font-weight: 200;
-            margin-bottom: 30px;
-            letter-spacing: -1px;
-        }
-        
-        .service-info p {
-            color: #ccc;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-        
-        .service-features {
-            list-style: none;
-            margin-bottom: 40px;
-        }
-        
-        .service-features li {
-            padding: 15px 0;
-            border-bottom: 1px solid #333;
-            color: #999;
-            font-size: 15px;
-        }
-        
-        .service-visual {
-            height: 500px;
-            background: #111;
-            border: 1px solid #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: #222;
-        }
-        
-        /* Showcase */
-        .showcase-section {
-            padding: 100px 5%;
-            background: rgba(255,255,255,0.02);
-        }
-        
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .showcase-item {
-            aspect-ratio: 1;
-            background: #111;
-            border: 1px solid #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #333;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .showcase-item:hover {
-            border-color: #666;
-            transform: scale(0.98);
-        }
-        
-        /* About */
-        .about-section {
-            padding: 120px 5%;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .about-section h2 {
-            font-size: 2.5rem;
-            font-weight: 200;
-            margin-bottom: 30px;
-        }
-        
-        .about-section p {
-            color: #ccc;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-        
-        .team-info {
-            margin-top: 60px;
-            padding-top: 60px;
-            border-top: 1px solid #333;
-        }
-        
-        .team-info h3 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
-        
-        /* Contact */
-        .contact-section {
-            padding: 100px 5%;
-            background: #111;
-            text-align: center;
-        }
-        
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .contact-content h2 {
-            font-size: 2.5rem;
-            font-weight: 200;
-            margin-bottom: 30px;
-        }
-        
-        .contact-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-        
-        .contact-item h4 {
-            font-size: 1rem;
-            font-weight: 400;
-            margin-bottom: 10px;
-            color: #999;
-        }
-        
-        .contact-item p {
-            color: #fff;
-            font-size: 1.1rem;
-        }
-        
-        .contact-item a {
-            color: #fff;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-        
-        .contact-item a:hover {
-            opacity: 0.7;
-        }
-        
-        /* Footer */
-        footer {
-            padding: 40px 5%;
-            border-top: 1px solid #222;
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-        }
-        
-        /* Responsive */
-        @media (max-width: 968px) {
-            .service-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .service-detail:nth-child(even) .service-content {
-                direction: ltr;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .contact-info {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/aeaea_company_website.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="100x100" href="images/favicon-100x100.png">
 </head>
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="logo">AEAEA</div>
+        <div class="logo">
+            <a href="#"><img src="images/aelogo_1.png" alt="AEAEA Logo"></a>
+        </div>
         <div class="nav-links">
-            <a href="#services">Services</a>
-            <a href="#soma">Digital Humans</a>
-            <a href="#fashion">Digital Fashion</a>
-            <a href="#ar">AR</a>
-            <a href="#metaverse">Metaverse</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <canvas id="gradient-canvas"></canvas>
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="videos/aeaea-intro.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <div class="hero-content">
-            <h1>Digital Innovation Studio</h1>
-            <p>Creating digital humans, fashion, AR experiences, and metaverse spaces from Tokyo.</p>
         </div>
         <div class="scroll-indicator">↓</div>
     </section>
@@ -438,35 +39,35 @@
     <section id="services" class="services-overview">
         <div class="section-header">
             <h2>What We Do</h2>
-            <p>Four specialized services for the digital future</p>
+            <p>We offer four specialized services that are shaping the digital future.</p>
         </div>
         
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-number">01</div>
                 <h3>Digital Humans</h3>
-                <p>SOMA - Professional digital humans for campaigns, content, and partnerships. Luna, Riven, and more.</p>
+                <p>AI-powered virtual beings who think, create, and work independently. Meet SOMA - your autonomous digital team members with real personalities.</p>
                 <a href="#soma" class="service-link">Learn more →</a>
             </div>
             
             <div class="service-card">
                 <div class="service-number">02</div>
                 <h3>Digital Fashion</h3>
-                <p>Virtual clothing and accessories. From concept to 3D modeling. For games, metaverse, and social media.</p>
+                <p>Build your infinite digital wardrobe. Change outfits in one second across all platforms - social media, metaverse, games. Fashion without limits.</p>
                 <a href="#fashion" class="service-link">Learn more →</a>
             </div>
             
             <div class="service-card">
                 <div class="service-number">03</div>
-                <h3>AR Experiences</h3>
-                <p>Augmented reality filters, try-ons, and interactive experiences. Instagram, Snapchat, and custom apps.</p>
+                <h3>Interactive Experiences</h3>
+                <p>Blending virtual and real worlds through AR, VR, and mixed reality. We transform spaces into interactive playgrounds that engage all your senses.</p>
                 <a href="#ar" class="service-link">Learn more →</a>
             </div>
             
             <div class="service-card">
                 <div class="service-number">04</div>
                 <h3>Metaverse Spaces</h3>
-                <p>Virtual worlds, showrooms, and event spaces. Spatial design for Decentraland, Roblox, and custom platforms.</p>
+                <p>Virtual worlds designed for real connections. We build digital destinations where communities gather, businesses thrive, and new possibilities emerge.</p>
                 <a href="#metaverse" class="service-link">Learn more →</a>
             </div>
         </div>
@@ -475,25 +76,36 @@
     <!-- SOMA Digital Humans -->
     <section id="soma" class="service-detail">
         <div class="service-content">
+            <div class="service-visual">
+                <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="videos/digital_human.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="service-info">
                 <h3>SOMA Digital Humans</h3>
                 <p>Our digital humans work like real talent. They create content, engage audiences, and represent brands. Each has their own personality, style, and growing fanbase.</p>
                 <ul class="service-features">
-                    <li>5 established digital humans with real followers</li>
+                    <li>Established digital humans with real followers</li>
                     <li>Fashion campaigns and brand partnerships</li>
                     <li>Music creation and performances</li>
                     <li>24/7 availability, no geographic limits</li>
                     <li>AI-powered conversations and content</li>
                 </ul>
-                <a href="digital_human/index.html" class="service-link">Visit SOMA Legacy Site →</a> <!-- MODIFIED: Link to moved SOMA page -->
+                <a href="digital_human/soma.html" class="service-link">Visit SOMA →</a>
             </div>
-            <div class="service-visual">SOMA</div>
         </div>
     </section>
 
     <!-- Digital Fashion -->
     <section id="fashion" class="service-detail">
         <div class="service-content">
+            <div class="service-visual">
+                <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="videos/digital_fashion.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="service-info">
                 <h3>Digital Fashion</h3>
                 <p>We design and create virtual clothing that exists purely in digital spaces. From haute couture to streetwear, our pieces can be worn in photos, videos, games, and virtual worlds.</p>
@@ -504,15 +116,20 @@
                     <li>Game-ready wearables</li>
                     <li>Social media fashion filters</li>
                 </ul>
-                <a href="#contact" class="service-link">Start a project →</a>
+                <a href="digital-fashion-details.html" class="service-link">Explore More →</a>
             </div>
-            <div class="service-visual">FASHION</div>
         </div>
     </section>
 
     <!-- AR Experiences -->
     <section id="ar" class="service-detail">
         <div class="service-content">
+            <div class="service-visual">
+                <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="videos/ar.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="service-info">
                 <h3>AR Experiences</h3>
                 <p>Augmented reality that bridges physical and digital. We create filters, effects, and interactive experiences that transform how people engage with brands and content.</p>
@@ -525,13 +142,18 @@
                 </ul>
                 <a href="#contact" class="service-link">Create AR experience →</a>
             </div>
-            <div class="service-visual">AR</div>
         </div>
     </section>
 
     <!-- Metaverse Spaces -->
     <section id="metaverse" class="service-detail">
         <div class="service-content">
+            <div class="service-visual">
+                <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="videos/meta.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="service-info">
                 <h3>Metaverse Spaces</h3>
                 <p>Virtual environments where people gather, shop, and experience. We design and build spaces that feel alive, from intimate showrooms to massive event venues.</p>
@@ -544,7 +166,6 @@
                 </ul>
                 <a href="#contact" class="service-link">Build your space →</a>
             </div>
-            <div class="service-visual">META</div>
         </div>
     </section>
 
@@ -554,26 +175,122 @@
             <h2>Selected Work</h2>
         </div>
         <div class="showcase-grid">
-            <div class="showcase-item">📸</div>
-            <div class="showcase-item">👗</div>
-            <div class="showcase-item">🎭</div>
-            <div class="showcase-item">🌐</div>
-            <div class="showcase-item">✨</div>
-            <div class="showcase-item">🎵</div>
-            <div class="showcase-item">🏛️</div>
-            <div class="showcase-item">👁️</div>
+            <div class="showcase-item" data-item="0">
+                <div class="slideshow-container">
+                    <div class="slide active">
+                        <img src="images/selected_work/selected_1.png" alt="Selected Work 1">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_2.png" alt="Selected Work 2">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_3.png" alt="Selected Work 3">
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item" data-item="1">
+                <div class="slideshow-container">
+                    <div class="slide">
+                        <img src="images/selected_work/selected_4.png" alt="Selected Work 4">
+                    </div>
+                    <div class="slide active">
+                        <img src="images/selected_work/selected_5.png" alt="Selected Work 5">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_6.png" alt="Selected Work 6">
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item" data-item="2">
+                <div class="slideshow-container">
+                    <div class="slide">
+                        <img src="images/selected_work/selected_7.png" alt="Selected Work 7">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_8.png" alt="Selected Work 8">
+                    </div>
+                    <div class="slide active">
+                        <img src="images/selected_work/selected_9.png" alt="Selected Work 9">
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item" data-item="3">
+                <div class="slideshow-container">
+                    <div class="slide">
+                        <img src="images/selected_work/selected_10.png" alt="Selected Work 10">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_11.png" alt="Selected Work 11">
+                    </div>
+                    <div class="slide active">
+                        <img src="images/selected_work/selected_12.png" alt="Selected Work 12">
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item" data-item="4">
+                <div class="slideshow-container">
+                    <div class="slide active">
+                        <img src="images/selected_work/selected_13.png" alt="Selected Work 13">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_14.png" alt="Selected Work 14">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_15.png" alt="Selected Work 15">
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item" data-item="5">
+                <div class="slideshow-container">
+                    <div class="slide">
+                        <img src="images/selected_work/selected_16.png" alt="Selected Work 16">
+                    </div>
+                    <div class="slide active">
+                        <img src="images/selected_work/selected_17.png" alt="Selected Work 17">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_18.png" alt="Selected Work 18">
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item" data-item="6">
+                <div class="slideshow-container">
+                    <div class="slide">
+                        <img src="images/selected_work/selected_19.png" alt="Selected Work 19">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_20.png" alt="Selected Work 20">
+                    </div>
+                    <div class="slide active">
+                        <img src="images/selected_work/selected_21.png" alt="Selected Work 21">
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item" data-item="7">
+                <div class="slideshow-container">
+                    <div class="slide">
+                        <img src="images/selected_work/selected_22.png" alt="Selected Work 22">
+                    </div>
+                    <div class="slide">
+                        <img src="images/selected_work/selected_23.png" alt="Selected Work 23">
+                    </div>
+                    <div class="slide active">
+                        <img src="images/selected_work/selected_24.png" alt="Selected Work 24">
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- About -->
     <section class="about-section">
         <h2>About AEAEA</h2>
-        <p>We're a digital innovation studio exploring the intersection of fashion, technology, and human expression. Based in Tokyo, working globally.</p>
-        <p>After three years of R&D, we're ready to share our vision of digital humanity through practical applications that work today.</p>
+        <p>We are a digital innovation studio at the intersection of fashion, technology, and human expression.</p>
+        <p>After years of R&D, we're excited to share our vision of digital humanity through practical applications.</p>
         
         <div class="team-info">
-            <h3>YGILABS Tokyo</h3>
-            <p>Founded by a team with backgrounds in fashion design, interior design, and technology. We believe the future is both digital and deeply human.</p>
+            <h3>YGILABS</h3>
+            <p>Founded by XNO BUI with backgrounds in fashion design, interior design, and technology. She believes the future is both digital and deeply human.</p>
         </div>
     </section>
 
@@ -591,39 +308,82 @@
                     <p><a href="mailto:soma@aeaea.xyz">soma@aeaea.xyz</a></p>
                 </div>
             </div>
-            <p style="color: #666;">Tokyo, Japan</p>
+            <p style="color: #666;">Contact us for project inquiries</p>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>© 2025 AEAEA by YGILABS. Creating the digital future from Tokyo.</p>
+        <p>© 2025 AEAEA by YGILABS. Creating the digital future.</p>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.min.js"></script>
-    <script>
-        var granimInstance = new Granim({
-            element: '#gradient-canvas',
-            isPausedWhenNotInView: true,
-            customDirection: {
-                x: '50%',
-                y: '50%'
-            },
-            states : {
-                "default-state": {
-                    gradients: [
-                        ['#ff9966', '#ff5e62'],
-                        ['#00F260', '#0575E6'],
-                        ['#e1eec3', '#f05053']
-                    ]
-                }
-            }
-        });
 
-        document.addEventListener('mousemove', function(e) {
-            var x = e.clientX;
-            var y = e.clientY;
-            granimInstance.direction.x = x + 'px';
-            granimInstance.direction.y = y + 'px';
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#services" class="bottom-nav-link">
+            <span>Services</span>
+        </a>
+        <a href="#soma" class="bottom-nav-link">
+            <span>Digital Humans</span>
+        </a>
+        <a href="#fashion" class="bottom-nav-link">
+            <span>Digital Fashion</span>
+        </a>
+        <a href="#ar" class="bottom-nav-link">
+            <span>AR</span>
+        </a>
+        <a href="#metaverse" class="bottom-nav-link">
+            <span>Metaverse</span>
+        </a>
+    </div>
+
+    <script>
+        // Slideshow functionality
+        class ShowcaseSlideshow {
+            constructor() {
+                this.showcaseItems = document.querySelectorAll('.showcase-item');
+                this.slideInterval = 4000; // 4 seconds per slide
+                this.init();
+            }
+
+            init() {
+                this.showcaseItems.forEach((item, itemIndex) => {
+                    const slides = item.querySelectorAll('.slide');
+                    let currentSlide = itemIndex % slides.length; // Start each item at a different slide
+                    
+                    // Set initial active slide
+                    slides.forEach((slide, slideIndex) => {
+                        slide.classList.remove('active', 'next');
+                        if (slideIndex === currentSlide) {
+                            slide.classList.add('active');
+                        }
+                    });
+
+                    // Start slideshow for this item with staggered timing
+                    setTimeout(() => {
+                        setInterval(() => {
+                            const nextSlide = (currentSlide + 1) % slides.length;
+                            
+                            // Prepare next slide
+                            slides[nextSlide].classList.add('next');
+                            
+                            // Crossfade transition
+                            setTimeout(() => {
+                                slides[currentSlide].classList.remove('active');
+                                slides[nextSlide].classList.remove('next');
+                                slides[nextSlide].classList.add('active');
+                                
+                                currentSlide = nextSlide;
+                            }, 50);
+                            
+                        }, this.slideInterval);
+                    }, itemIndex * 800); // Stagger start times by 800ms
+                });
+            }
+        }
+
+        // Initialize slideshow when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ShowcaseSlideshow();
         });
     </script>
 </body>

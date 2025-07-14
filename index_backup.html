@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEAEA - Digital Fashion & Innovation Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+        }
+        
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #000;
+        }
+
+        #gradient-canvas {
+            width:100%;
+            height:100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 200;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: #999;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            font-size: 14px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        /* Services Overview */
+        .services-overview {
+            padding: 120px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 200;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        .section-header p {
+            font-size: 1.1rem;
+            color: #999;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+        }
+        
+        .service-card {
+            border: 1px solid #222;
+            padding: 50px 40px;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .service-card:hover {
+            border-color: #666;
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .service-number {
+            font-size: 3rem;
+            font-weight: 100;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 1.75rem;
+            font-weight: 300;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+        
+        .service-card p {
+            color: #999;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .service-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            border-bottom: 1px solid #666;
+            padding-bottom: 2px;
+            transition: all 0.3s;
+        }
+        
+        .service-link:hover {
+            border-bottom-color: #fff;
+        }
+        
+        /* Service Sections */
+        .service-detail {
+            padding: 100px 5%;
+            border-top: 1px solid #222;
+        }
+        
+        .service-detail:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .service-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .service-detail:nth-child(even) .service-content {
+            direction: rtl;
+        }
+        
+        .service-detail:nth-child(even) .service-content > * {
+            direction: ltr;
+        }
+        
+        .service-info h3 {
+            font-size: 2.5rem;
+            font-weight: 200;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+        
+        .service-info p {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        
+        .service-features li {
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            color: #999;
+            font-size: 15px;
+        }
+        
+        .service-visual {
+            height: 500px;
+            background: #111;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: #222;
+        }
+        
+        /* Showcase */
+        .showcase-section {
+            padding: 100px 5%;
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .showcase-item {
+            aspect-ratio: 1;
+            background: #111;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #333;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .showcase-item:hover {
+            border-color: #666;
+            transform: scale(0.98);
+        }
+        
+        /* About */
+        .about-section {
+            padding: 120px 5%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .about-section h2 {
+            font-size: 2.5rem;
+            font-weight: 200;
+            margin-bottom: 30px;
+        }
+        
+        .about-section p {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .team-info {
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: 1px solid #333;
+        }
+        
+        .team-info h3 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        /* Contact */
+        .contact-section {
+            padding: 100px 5%;
+            background: #111;
+            text-align: center;
+        }
+        
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-content h2 {
+            font-size: 2.5rem;
+            font-weight: 200;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .contact-item h4 {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #999;
+        }
+        
+        .contact-item p {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item a {
+            color: #fff;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .contact-item a:hover {
+            opacity: 0.7;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            border-top: 1px solid #222;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .service-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .service-detail:nth-child(even) .service-content {
+                direction: ltr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">AEAEA</div>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#soma">Digital Humans</a>
+            <a href="#fashion">Digital Fashion</a>
+            <a href="#ar">AR</a>
+            <a href="#metaverse">Metaverse</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <canvas id="gradient-canvas"></canvas>
+        <div class="hero-content">
+            <h1>Digital Innovation Studio</h1>
+            <p>Creating digital humans, fashion, AR experiences, and metaverse spaces from Tokyo.</p>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Services Overview -->
+    <section id="services" class="services-overview">
+        <div class="section-header">
+            <h2>What We Do</h2>
+            <p>Four specialized services for the digital future</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-number">01</div>
+                <h3>Digital Humans</h3>
+                <p>SOMA - Professional digital humans for campaigns, content, and partnerships. Luna, Riven, and more.</p>
+                <a href="#soma" class="service-link">Learn more →</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-number">02</div>
+                <h3>Digital Fashion</h3>
+                <p>Virtual clothing and accessories. From concept to 3D modeling. For games, metaverse, and social media.</p>
+                <a href="#fashion" class="service-link">Learn more →</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-number">03</div>
+                <h3>AR Experiences</h3>
+                <p>Augmented reality filters, try-ons, and interactive experiences. Instagram, Snapchat, and custom apps.</p>
+                <a href="#ar" class="service-link">Learn more →</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-number">04</div>
+                <h3>Metaverse Spaces</h3>
+                <p>Virtual worlds, showrooms, and event spaces. Spatial design for Decentraland, Roblox, and custom platforms.</p>
+                <a href="#metaverse" class="service-link">Learn more →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOMA Digital Humans -->
+    <section id="soma" class="service-detail">
+        <div class="service-content">
+            <div class="service-info">
+                <h3>SOMA Digital Humans</h3>
+                <p>Our digital humans work like real talent. They create content, engage audiences, and represent brands. Each has their own personality, style, and growing fanbase.</p>
+                <ul class="service-features">
+                    <li>5 established digital humans with real followers</li>
+                    <li>Fashion campaigns and brand partnerships</li>
+                    <li>Music creation and performances</li>
+                    <li>24/7 availability, no geographic limits</li>
+                    <li>AI-powered conversations and content</li>
+                </ul>
+                <a href="digital_human/index.html" class="service-link">Visit SOMA Legacy Site →</a> <!-- MODIFIED: Link to moved SOMA page -->
+            </div>
+            <div class="service-visual">SOMA</div>
+        </div>
+    </section>
+
+    <!-- Digital Fashion -->
+    <section id="fashion" class="service-detail">
+        <div class="service-content">
+            <div class="service-info">
+                <h3>Digital Fashion</h3>
+                <p>We design and create virtual clothing that exists purely in digital spaces. From haute couture to streetwear, our pieces can be worn in photos, videos, games, and virtual worlds.</p>
+                <ul class="service-features">
+                    <li>3D garment design and modeling</li>
+                    <li>Virtual try-on technology</li>
+                    <li>NFT fashion collections</li>
+                    <li>Game-ready wearables</li>
+                    <li>Social media fashion filters</li>
+                </ul>
+                <a href="#contact" class="service-link">Start a project →</a>
+            </div>
+            <div class="service-visual">FASHION</div>
+        </div>
+    </section>
+
+    <!-- AR Experiences -->
+    <section id="ar" class="service-detail">
+        <div class="service-content">
+            <div class="service-info">
+                <h3>AR Experiences</h3>
+                <p>Augmented reality that bridges physical and digital. We create filters, effects, and interactive experiences that transform how people engage with brands and content.</p>
+                <ul class="service-features">
+                    <li>Instagram and Snapchat filters</li>
+                    <li>Virtual try-on for products</li>
+                    <li>Interactive AR campaigns</li>
+                    <li>WebAR experiences</li>
+                    <li>Custom AR applications</li>
+                </ul>
+                <a href="#contact" class="service-link">Create AR experience →</a>
+            </div>
+            <div class="service-visual">AR</div>
+        </div>
+    </section>
+
+    <!-- Metaverse Spaces -->
+    <section id="metaverse" class="service-detail">
+        <div class="service-content">
+            <div class="service-info">
+                <h3>Metaverse Spaces</h3>
+                <p>Virtual environments where people gather, shop, and experience. We design and build spaces that feel alive, from intimate showrooms to massive event venues.</p>
+                <ul class="service-features">
+                    <li>Virtual showrooms and galleries</li>
+                    <li>Event spaces and concert venues</li>
+                    <li>Roblox and Decentraland builds</li>
+                    <li>Custom virtual worlds</li>
+                    <li>Spatial UX design</li>
+                </ul>
+                <a href="#contact" class="service-link">Build your space →</a>
+            </div>
+            <div class="service-visual">META</div>
+        </div>
+    </section>
+
+    <!-- Showcase -->
+    <section class="showcase-section">
+        <div class="section-header">
+            <h2>Selected Work</h2>
+        </div>
+        <div class="showcase-grid">
+            <div class="showcase-item">📸</div>
+            <div class="showcase-item">👗</div>
+            <div class="showcase-item">🎭</div>
+            <div class="showcase-item">🌐</div>
+            <div class="showcase-item">✨</div>
+            <div class="showcase-item">🎵</div>
+            <div class="showcase-item">🏛️</div>
+            <div class="showcase-item">👁️</div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about-section">
+        <h2>About AEAEA</h2>
+        <p>We're a digital innovation studio exploring the intersection of fashion, technology, and human expression. Based in Tokyo, working globally.</p>
+        <p>After three years of R&D, we're ready to share our vision of digital humanity through practical applications that work today.</p>
+        
+        <div class="team-info">
+            <h3>YGILABS Tokyo</h3>
+            <p>Founded by a team with backgrounds in fashion design, interior design, and technology. We believe the future is both digital and deeply human.</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+        <div class="contact-content">
+            <h2>Start a Project</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>General Inquiries</h4>
+                    <p><a href="mailto:hello@aeaea.xyz">hello@aeaea.xyz</a></p>
+                </div>
+                <div class="contact-item">
+                    <h4>SOMA Bookings</h4>
+                    <p><a href="mailto:soma@aeaea.xyz">soma@aeaea.xyz</a></p>
+                </div>
+            </div>
+            <p style="color: #666;">Tokyo, Japan</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 AEAEA by YGILABS. Creating the digital future from Tokyo.</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.min.js"></script>
+    <script>
+        var granimInstance = new Granim({
+            element: '#gradient-canvas',
+            isPausedWhenNotInView: true,
+            customDirection: {
+                x: '50%',
+                y: '50%'
+            },
+            states : {
+                "default-state": {
+                    gradients: [
+                        ['#ff9966', '#ff5e62'],
+                        ['#00F260', '#0575E6'],
+                        ['#e1eec3', '#f05053']
+                    ]
+                }
+            }
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            var x = e.clientX;
+            var y = e.clientY;
+            granimInstance.direction.x = x + 'px';
+            granimInstance.direction.y = y + 'px';
+        });
+    </script>
+</body>
+</html>
