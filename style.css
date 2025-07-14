@@ -1593,3 +1593,40 @@ main .feature-description {
     color: #fff; /* White text on hover */
     border-color: #fff; /* Change border color on hover to white */
 }
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(145, 145, 145, 0.30);
+    backdrop-filter: blur(30px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    border-top: 1.117px solid rgba(207, 213, 219, 0.10);
+    box-shadow: 0px 0px 6.699px 0px rgba(207, 213, 219, 0.05) inset;
+    padding: 5px;
+    border-radius: 30px;
+}
+
+.bottom-nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    transition: background 0.3s;
+    border-radius: 25px;
+}
+
+.bottom-nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.bottom-nav-link span {
+    display: block;
+    text-align: center;
+}

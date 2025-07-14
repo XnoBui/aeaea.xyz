@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     el.style.transition = `all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) ${delay}ms`;
                     el.style.transform = `translateY(${translateY}px)`;
-                    // el.style.opacity = progress; // REMOVED Opacity setting for children
+                    el.style.opacity = '1'; // FIXED: Force opacity to 1
                 });
                 
                 // Special animation for spec items

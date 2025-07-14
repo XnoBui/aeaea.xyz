@@ -1792,7 +1792,7 @@ html {
 }
 
 section {
-    opacity: 0;
+    opacity: 1; /* FIXED: Start with opacity 1 instead of 0 */
     animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     animation-play-state: paused;
     will-change: transform, opacity, filter;

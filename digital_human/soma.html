@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ææa | SOMA</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../mobile-fix.css">
+    <link rel="stylesheet" href="../mobile-overlay.css">
+    <link rel="stylesheet" href="../mobile-video-fix.css">
+    <link rel="stylesheet" href="../ai-gene-video-fix.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" href="/images/favicon-100x100.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <!-- Using a common CDN for Helvetica Neue - adjust if specific version needed -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Note: Poxel Font needs to be sourced or replaced -->
+    <style>
+        /* Basic font setup - ideally use a proper web font import */
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        /* Placeholder for Poxel Font if needed */
+        .poxel-font { font-family: 'Courier New', Courier, monospace; /* Replace with actual Poxel Font if available */ }
+        
+        /* Mobile-specific styles for feature items */
+        @media (max-width: 768px) {
+            .feature-item {
+                position: relative;
+                margin-bottom: 40px;
+            }
+            
+            .feature-video-container {
+                width: 100%;
+            }
+            
+            .feature-video, .feature-fallback-image {
+                width: 100%;
+                height: auto;
+            }
+            
+            
+            .feature-overlay-container {
+                display: none !important;
+            }
+            
+            .feature-text-container {
+                position: relative;
+                z-index: 20 !important;
+                padding: 0 20px;
+                margin-top: -120px;
+            }
+            
+            .feature-title {
+                font-size: 28px;
+                font-weight: 500;
+                margin-bottom: 15px;
+                background: linear-gradient(to right, #E8E0D7 0%, #547B84 54%, #A0A57B 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                text-align: left;
+            }
+            
+            /* Removed general .feature-description rule - now handled in mobile-fix.css */
+        }
+
+        /* Style for the SOMA logo in the collection section */
+        .collection-logo-img {
+            max-width: 300px; /* Adjusted size slightly smaller */
+            height: auto;     /* Maintain aspect ratio */
+            display: block;   /* Center if needed, or adjust margin */
+            margin: 0 auto 15px; /* Add some bottom margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-page">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="../images/aelogo_1.png" alt="Ææa Logo" class="logo-img" loading="lazy">
+                </a>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <button class="mobile-menu-icon" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="main-nav">
+                <a href="../aeaea_company_website.html" class="nav-link">HOME</a>
+                <a href="#" class="nav-link">CONNECT</a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-background">
+                    <video autoplay loop muted playsinline class="hero-background-video">
+                        <source src="../videos/hero-background.mp4" type="video/mp4">
+                        <!-- Fallback image removed -->
+                    </video>
+                    <div class="hero-bottom-gradient-overlay"></div> <!-- Added new overlay div -->
+                </div>
+                <div class="hero-content">
+                    <div class="hero-logo-container">
+                        <svg class="soma-logo-svg" width="361" height="183" viewBox="0 0 361 183" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M113.095 64.4204L103.867 83.4149H53.3512C53.3512 83.4149 48.0065 81.7087 47.2807 89.989H85.833C87.0442 89.989 88.241 90.2059 89.3657 90.6493C92.8744 92.0181 98.8007 95.9028 93.5857 105.764C89.2359 113.986 83.4634 125.057 83.4634 125.057C83.4634 125.057 75.206 136.504 62.5747 136.504H0.403809L11.5739 116.049H66.218C66.218 116.049 72.774 113.615 70.1016 109.229H36.101C36.101 109.229 20.3168 108.256 22.9843 96.5631L33.4287 75.3756C33.4287 75.3756 39.0137 64.9024 53.1013 64.4156C67.1889 63.9288 113.09 64.4156 113.09 64.4156L113.095 64.4204Z" fill="url(#paint0_linear_46753_18507)"/>
+                            <path d="M191.848 64.2035H140.756C122.381 65.6928 115.109 80.5327 115.109 80.5327L91.8842 123.867C89.4618 135.815 101.781 135.612 101.781 135.612H143.582L189.195 91.8976L200.73 73.6453C202.749 63.3167 191.843 64.1987 191.843 64.1987L191.848 64.2035ZM169.224 87.825L158.064 111.924C158.064 111.924 156.968 116.175 151.291 116.377H122.929C122.929 116.377 117.075 117.187 118.718 111.924L130.778 87.8491C130.778 87.8491 132.753 83.9788 137.569 83.9788H166.485C166.485 83.9788 171.06 83.574 169.229 87.825H169.224Z" fill="url(#paint1_linear_46753_18507)"/>
+                            <path d="M106.952 182.808L171.132 135.613L215.38 99.8987L206.974 130.957C206.339 133.304 208.103 135.613 210.526 135.613H213.376L265.03 96.0525L245.699 135.613H265.03L301.386 70.99C303.342 67.7608 300.665 63.7026 296.935 64.252L278.358 64.1845L235.702 96.7225L297.349 0.173828" fill="url(#paint2_linear_46753_18507)"/>
+                            <path d="M334.022 64.204L267.564 135.613H290.447L303.213 121.795H330.729L327.692 135.613H348.355L360.577 70.2576C361.534 66.8934 358.659 63.6835 355.223 64.2715L334.027 64.1992L334.022 64.204ZM333.479 104.767H318.305L334.892 87.5267C335.843 86.5338 337.497 87.4351 337.184 88.775L333.479 104.767Z" fill="url(#paint3_linear_46753_18507)"/>
+                            <defs>
+                                <linearGradient id="paint0_linear_46753_18507" x1="362.862" y1="100.7" x2="269.663" y2="100.7" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#8D8D8D" stop-opacity="0.875781"/>
+                                    <stop offset="0.533654" stop-color="#698EA3" stop-opacity="0.701927"/>
+                                    <stop offset="1" stop-color="white" stop-opacity="0.55"/>
+                                </linearGradient>
+                                <linearGradient id="paint1_linear_46753_18507" x1="362.862" y1="100.7" x2="269.663" y2="100.7" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#8D8D8D" stop-opacity="0.875781"/>
+                                    <stop offset="0.533654" stop-color="#698EA3" stop-opacity="0.701927"/>
+                                    <stop offset="1" stop-color="white" stop-opacity="0.55"/>
+                                </linearGradient>
+                                <linearGradient id="paint2_linear_46753_18507" x1="362.862" y1="100.7" x2="269.663" y2="100.7" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#8D8D8D" stop-opacity="0.875781"/>
+                                    <stop offset="0.533654" stop-color="#698EA3" stop-opacity="0.701927"/>
+                                    <stop offset="1" stop-color="white" stop-opacity="0.55"/>
+                                </linearGradient>
+                                <linearGradient id="paint3_linear_46753_18507" x1="362.862" y1="100.7" x2="269.663" y2="100.7" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#8D8D8D" stop-opacity="0.875781"/>
+                                    <stop offset="0.533654" stop-color="#698EA3" stop-opacity="0.701927"/>
+                                    <stop offset="1" stop-color="white" stop-opacity="0.55"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <p class="hero-subtitle-jp">ソーマ</p>
+                    </div>
+                    <div class="cta-links">
+                        <a href="aboutsoma.html" class="buy-button" style="margin-top: 20px; margin-bottom: 20px;">✦ Explore More</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Introduction Section -->
+            <section class="intro-section">
+                <div class="intro-content">
+                    <!-- Feature points moved first -->
+                    <div class="hero-sub-features">
+                        <div class="feature-point" style="--index: 0">Customizable AI Companions</div>
+                        <div class="feature-point" style="--index: 1">Income Generation</div>
+                        <div class="feature-point" style="--index: 2">Influence Over the Platform's Future</div>
+                    </div>
+                    <!-- Main title moved second, matching Figma design -->
+                    <div class="hero-title-frame">
+                        <h2 class="hero-main-title" data-text="Meet Your AI Sidekick:Customize, Earn, and Shape the Future">Meet Your AI Sidekick:<br>Customize, Earn, and Shape the Future</h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <!-- Feature 1: Customizable AI Companions -->
+                <div class="feature-item" id="feature-customizable" style="position: relative; margin-bottom: 40px;">
+                    <div class="feature-content-wrapper">
+                        <div class="feature-video-container">
+                            <video loop muted playsinline class="feature-video lazy-load-video" poster="../images/AEAEA_SOCIAL_The_Birth_of_an_AI_Twin_1_1.png">
+                                <source data-src="../videos/feature1.mp4" type="video/mp4">
+                                <img src="../images/AEAEA_SOCIAL_The_Birth_of_an_AI_Twin_1_1.png" alt="Customizable AI Companions Visual" class="feature-fallback-image" loading="lazy">
+                            </video>
+                            <div class="feature-bottom-gradient-overlay"></div> <!-- Added gradient overlay -->
+                        </div>
+                        <div class="feature-text-container">
+                            <div class="feature-title-frame">
+                                <h3 class="feature-title">Customizable AI Companions</h3>
+                            </div>
+                            <div class="feature-description-frame">
+                                <p class="feature-description">Imagine an AI that learns your preferences, adapts to your needs, and evolves with you. With SOMA NFTs, you can tweak your agent's skills, memory, and even its language model. Whether you need help with daily tasks, creative projects, or business automation, your AI companion is ready to assist—just the way you like it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Earn with Agent-as-a-Service -->
+                <div class="feature-item" id="feature-earn">
+                    <div class="feature-content-wrapper">
+                        <div class="feature-video-container">
+                            <video loop muted playsinline class="feature-video lazy-load-video">
+                                <source data-src="../videos/feature2.mp4" type="video/mp4">
+                                <!-- Removed reference to missing image: images/MODEL_1_CAM_87_24_2.png -->
+                            </video>
+                            <div class="feature-bottom-gradient-overlay"></div> <!-- Added gradient overlay -->
+                        </div>
+                        <div class="feature-text-container">
+                            <div class="feature-title-frame">
+                                <h3 class="feature-title">Earn with Agent-as-a-Service</h3>
+                            </div>
+                            <div class="feature-description-frame">
+                                <p class="feature-description">Your SOMA NFT isn't just a collectible—it's an asset that works for you. Deploy your AI agent to complete tasks for others, integrate it into apps, or rent it out to businesses. With our Agent-as-a-Service model, you can earn passive income effortlessly. It's like having a digital employee that never clocks out.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Shape the Future -->
+                <div class="feature-item" id="feature-shape">
+                    <div class="feature-content-wrapper">
+                        <div class="feature-video-container">
+                            <video loop muted playsinline class="feature-video lazy-load-video">
+                                <source data-src="../videos/feature3.mp4" type="video/mp4">
+                                <!-- Removed reference to missing image: images/MODEL_1_CAM_87_24_4.png -->
+                            </video>
+                            <div class="feature-bottom-gradient-overlay"></div> <!-- Added gradient overlay -->
+                        </div>
+                        <div class="feature-text-container">
+                            <div class="feature-title-frame">
+                                <h3 class="feature-title">Shape the Platform's Future</h3>
+                            </div>
+                            <div class="feature-description-frame">
+                                <p class="feature-description">As a SOMA NFT holder, you'll have a direct say in the platform's evolution. Vote on new features, AI model upgrades, and ecosystem expansions. Your feedback shapes our development roadmap, ensuring the platform evolves to meet your needs. Join a community of forward-thinkers who are collectively defining the future of AI companions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Gene Video Section (Moved before CTA) -->
+            <div class="cta-image-container" style="margin: 40px auto 20px;">
+                <video loop muted playsinline class="cta-video lazy-load-video">
+                    <source data-src="../videos/AI Gene video.mp4" type="video/mp4">
+                    <img src="../images/AI Gene image.jpg" alt="AI Gene Visual" loading="lazy"> <!-- Added fallback/poster image -->
+                </video>
+            </div>
+
+            <!-- CTA Section -->
+            <section class="cta-section" style="padding-top: 20px;">
+                <div class="cta-content">
+                    <h2 class="cta-title" data-text="Ready to own a piece of the AI revolution?">Ready to own a piece of the AI revolution?</h2>
+                    <p class="cta-description">Join our waitlist to be the first to mint your SOMA NFT and start customizing, earning, and influencing today!</p>
+                </div>
+            </section>
+
+            <!-- Collection Section - Modified for Horizontal Scroll -->
+            <section class="collection-section" id="collection-section">
+                <div class="collection-sticky-container">
+                    <!-- Agent Gallery - Now inside a horizontal track -->
+                    <div class="collection-horizontal-track">
+                        <div class="agent-gallery">
+                            <!-- NFT Cards using the new design -->
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_1.png">
+                                        <source data-src="../videos/NFT_1.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#1</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_2.png">
+                                        <source data-src="../videos/NFT_2.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#2</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_3.png">
+                                        <source data-src="../videos/NFT_3.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#3</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_4.png">
+                                        <source data-src="../videos/NFT_4.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#4</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_5.png">
+                                        <source data-src="../videos/NFT_5.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#5</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_6.png">
+                                        <source data-src="../videos/NFT_6.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#6</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_7.png">
+                                        <source data-src="../videos/NFT_7.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#7</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_8.png">
+                                        <source data-src="../videos/NFT_8.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#8</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_9.png">
+                                        <source data-src="../videos/NFT_9.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#9</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_10.png">
+                                        <source data-src="../videos/NFT_10.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#10</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_11.png">
+                                        <source data-src="../videos/NFT_11.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#11</div>
+                                </div>
+                            </div>
+                            <div class="agent-card">
+                                <div class="agent-card-pulse-gradient"></div>
+                                <div class="agent-card-decoration"></div>
+                                <div class="agent-card-background"></div>
+                                <div class="agent-card-media-container">
+                                    <video loop muted playsinline class="nft-video lazy-load-video" poster="../videos/NFT_12.png">
+                                        <source data-src="../videos/NFT_12.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="agent-card-text-container">
+                                    <div class="agent-card-title">SOMA</div>
+                                    <div class="agent-card-subtitle">#12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Collection Text Content - Moved outside sticky container -->
+                <div class="collection-text-content">
+                    <p class="collection-subtitle">The First Collection</p>
+                    <div class="collection-logo-container">
+                        <video loop muted playsinline class="collection-logo-img lazy-load-video" poster="../images/SOMA LOGO.gif">
+                            <source data-src="../videos/Soma Logo.mp4" type="video/mp4">
+                        </video> <!-- Used GIF as poster -->
+                        <p class="collection-soma-jp">ソーマ</p>
+                    </div>
+                    <div class="collection-title-container">
+                        <h3 class="collection-title-first">1,000</h3>
+                        <h3 class="collection-title-second">Ever-Evolving Agents</h3>
+                    </div>
+                    <p class="collection-info">Mint Date: <span>05.05.2025</span><br>Mint Price: <span>42 $BERA</span></p>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fas fa-globe"></i></a>
+                </div>
+            </footer>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="aboutsoma.html" class="bottom-nav-link">
+                <span>ABOUT SOMA</span>
+            </a>
+            <a href="soma.html" class="bottom-nav-link">
+                <span>MINT SOMA</span>
+            </a>
+            <a href="#" class="bottom-nav-link">
+                <span>WHITEPAPER</span>
+            </a>
+        </div>
+    </div>
+    <script src="../script.js"></script>
+</body>
+</html>
