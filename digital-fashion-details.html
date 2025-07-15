@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/aeaea_company_website.css">
+    <link rel="stylesheet" href="css/digital-fashion-mobile.css">
     <link rel="icon" type="image/svg+xml" href="images/ae favicon.svg">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
@@ -21,6 +22,9 @@
             <a href="aeaea_home.html">Home</a>
             <a href="#contact">Contact</a>
         </div>
+        <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+            ☰
+        </button>
     </nav>
 
     <!-- Hero -->
@@ -37,9 +41,10 @@
     </section>
 
     <!-- Portfolio Showcase -->
-    <section class="showcase-section">
+    <section id="portfolio" class="showcase-section">
         <div class="section-header">
             <h2>Digital Fashion Portfolio</h2>
+            <div class="section-divider"></div>
         </div>
         <div class="showcase-grid">
             <div class="showcase-item" data-item="0">
@@ -214,9 +219,10 @@
     </section>
 
     <!-- Digital Fashion Overview -->
-    <section class="services-overview">
+    <section id="services" class="services-overview">
         <div class="section-header">
             <h2>Digital Fashion Services</h2>
+            <div class="section-divider"></div>
             <p>We create virtual clothing that exists purely in digital spaces. From haute couture to streetwear, our pieces can be worn across all digital platforms.</p>
         </div>
         
@@ -453,9 +459,84 @@
             }
         }
 
-        // Initialize portfolio showcase when DOM is loaded
+        // Scroll-based navigation highlighting
+        class ScrollHighlighter {
+            constructor() {
+                this.sections = [
+                    { id: 'portfolio', navIndex: 1 }, // 3D Design
+                    { id: 'services', navIndex: 1 },  // 3D Design
+                    { id: 'contact', navIndex: 4 }    // Start Project
+                ];
+                this.navLinks = document.querySelectorAll('.bottom-nav-link');
+                this.currentActive = null;
+                this.init();
+            }
+
+            init() {
+                // Add scroll listener with throttling
+                let ticking = false;
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            this.updateActiveSection();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+
+                // Initial check
+                this.updateActiveSection();
+            }
+
+            updateActiveSection() {
+                const scrollPosition = window.scrollY + window.innerHeight / 2;
+                let activeSection = null;
+
+                // Find the current section
+                for (const section of this.sections) {
+                    const element = document.getElementById(section.id);
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        const elementTop = rect.top + window.scrollY;
+                        const elementBottom = elementTop + rect.height;
+
+                        if (scrollPosition >= elementTop && scrollPosition <= elementBottom) {
+                            activeSection = section;
+                            break;
+                        }
+                    }
+                }
+
+                // Update navigation highlighting
+                if (activeSection && activeSection !== this.currentActive) {
+                    this.highlightNavItem(activeSection.navIndex);
+                    this.currentActive = activeSection;
+                } else if (!activeSection && this.currentActive) {
+                    this.clearHighlight();
+                    this.currentActive = null;
+                }
+            }
+
+            highlightNavItem(index) {
+                // Clear all active states
+                this.navLinks.forEach(link => link.classList.remove('active'));
+                
+                // Add active state to current item
+                if (this.navLinks[index]) {
+                    this.navLinks[index].classList.add('active');
+                }
+            }
+
+            clearHighlight() {
+                this.navLinks.forEach(link => link.classList.remove('active'));
+            }
+        }
+
+        // Initialize portfolio showcase and scroll highlighter when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             new PortfolioShowcase();
+            new ScrollHighlighter();
         });
 
         // Add CSS for lightbox and interactions
