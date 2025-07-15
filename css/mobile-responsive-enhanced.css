@@ -47,6 +47,19 @@
     min-height: 600px !important;
   }
 
+  /* Hero Video Mobile Rotation */
+  .hero-video {
+    transform: rotate(90deg) !important;
+    width: 100vh !important;
+    height: 100vw !important;
+    object-fit: cover !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform-origin: center center !important;
+    transform: translate(-50%, -50%) rotate(90deg) !important;
+  }
+
 
   /* Services Grid Enhancement */
   .services-grid {
