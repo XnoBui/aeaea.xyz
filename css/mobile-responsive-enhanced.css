@@ -1,6 +1,102 @@
 /* Enhanced Mobile Responsive Design for AEAEA Website */
 /* Optimized for better mobile user experience */
 
+/* Mobile Typography Refinements - Inspired by luxury fashion brands */
+@media (max-width: 768px) {
+  /* Refined h1 styling for mobile */
+  h1 {
+    font-size: 1.2rem !important;
+    font-weight: 300 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.02em !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Refined paragraph styling for mobile */
+  p {
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0.01em !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Section header h2 mobile refinement */
+  .section-header h2 {
+    font-size: 1.3rem !important;
+    font-weight: 300 !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.03em !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Section header paragraph mobile refinement */
+  .section-header p {
+    font-size: 0.75rem !important;
+    font-weight: 300 !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0.02em !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* About section typography refinement */
+  .about-section h2 {
+    font-size: 1.2rem !important;
+    font-weight: 300 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.02em !important;
+    margin-bottom: 20px !important;
+  }
+
+  .about-section p {
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0.01em !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Team info typography refinement */
+  .team-info h3 {
+    font-size: 1.1rem !important;
+    font-weight: 300 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.02em !important;
+    margin-bottom: 14px !important;
+  }
+
+  .team-info p {
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  /* Contact section typography refinement */
+  .contact-content h2 {
+    font-size: 1.2rem !important;
+    font-weight: 300 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.02em !important;
+    margin-bottom: 20px !important;
+  }
+
+  .contact-item h4 {
+    font-size: 0.75rem !important;
+    font-weight: 300 !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0.02em !important;
+    margin-bottom: 6px !important;
+  }
+
+  .contact-item p {
+    font-size: 0.85rem !important;
+    font-weight: 300 !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0.01em !important;
+  }
+}
+
 /* Global mobile optimizations */
 @media (max-width: 768px) {
   /* Prevent horizontal overflow */
@@ -88,18 +184,26 @@
   }
 
   .service-card h3 {
-    font-size: 1rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 300 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.02em !important;
     margin-bottom: 12px !important;
   }
 
   .service-card p {
-    font-size: 14px !important;
-    line-height: 1.6 !important;
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0.01em !important;
     margin-bottom: 20px !important;
   }
 
   .service-link {
-    font-size: 12px !important;
+    font-size: 0.7rem !important;
+    font-weight: 300 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.02em !important;
     padding: 8px 0 !important;
     min-height: 44px !important;
     display: flex;
@@ -123,13 +227,18 @@
   }
 
   .service-info h3 {
-    font-size: 1.4rem !important;
+    font-size: 1.1rem !important;
+    font-weight: 300 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.02em !important;
     margin-bottom: 20px !important;
   }
 
   .service-info p {
-    font-size: 0.9rem !important;
-    line-height: 1.6 !important;
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0.01em !important;
     margin-bottom: 24px !important;
   }
 
@@ -139,7 +248,10 @@
 
   .service-features li {
     padding: 12px 0 !important;
-    font-size: 0.85rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 300 !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0.01em !important;
   }
 
   /* Showcase Grid Optimization */
@@ -159,35 +271,14 @@
     padding: 80px 20px !important;
   }
 
-  .about-section h2 {
-    font-size: 1.6rem !important;
-    margin-bottom: 24px !important;
-  }
-
-  .about-section p {
-    font-size: 0.9rem !important;
-    line-height: 1.6 !important;
-    margin-bottom: 16px !important;
-  }
-
   .team-info {
     margin-top: 40px !important;
     padding-top: 40px !important;
   }
 
-  .team-info h3 {
-    font-size: 1.4rem !important;
-    margin-bottom: 16px !important;
-  }
-
   /* Contact Section */
   .contact-section {
     padding: 80px 20px !important;
-  }
-
-  .contact-content h2 {
-    font-size: 1.6rem !important;
-    margin-bottom: 24px !important;
   }
 
   .contact-info {
@@ -201,15 +292,6 @@
     padding: 20px !important;
     background: rgba(255, 255, 255, 0.05) !important;
     border-radius: 8px !important;
-  }
-
-  .contact-item h4 {
-    font-size: 0.9rem !important;
-    margin-bottom: 8px !important;
-  }
-
-  .contact-item p {
-    font-size: 1rem !important;
   }
 
   .contact-item a {
