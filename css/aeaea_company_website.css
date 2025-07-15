@@ -105,40 +105,6 @@ nav {
     object-fit: cover;
 }
 
-.hero-content {
-    text-align: left;
-    max-width: 550px;
-    padding: 0 20px;
-    z-index: 2;
-    position: absolute;
-    right: 5%;
-    bottom: 15%;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    padding: 12px 20px;
-}
-
-.hero h1 {
-    font-family: 'BB Condensed', "Helvetica Neue", Arial, sans-serif !important;
-    font-size: 1.7rem;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    margin-bottom: 8px;
-    line-height: 125%;
-    text-transform: uppercase;
-}
-
-.hero p {
-    font-family: 'BB Condensed', "Helvetica Neue", Arial, sans-serif !important;
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-bottom: 10px;
-    font-weight: 400;
-    max-width: 500px;
-    line-height: 1.6;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-}
 
 .scroll-indicator {
     position: absolute;
@@ -643,21 +609,6 @@ footer {
         flex-direction: column;
         justify-content: center;
         text-align: center;
-    }
-    
-    .hero-content {
-        margin: 0;
-        padding: 30px 20px;
-        background: rgba(0, 0, 0, 0.6);
-    }
-    
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero p {
-        font-size: 1.2rem;
-        margin: 0 auto;
     }
     
     .services-grid {

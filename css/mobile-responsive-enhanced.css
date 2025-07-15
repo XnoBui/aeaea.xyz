@@ -47,26 +47,6 @@
     min-height: 600px !important;
   }
 
-  .hero-content {
-    right: 20px !important;
-    bottom: 120px !important; /* Account for bottom nav */
-    left: 20px !important;
-    max-width: none !important;
-    padding: 20px !important;
-    background: rgba(0, 0, 0, 0.6) !important;
-    backdrop-filter: blur(10px) !important;
-    border-radius: 12px !important;
-  }
-
-  .hero h1 {
-    font-size: 1.8rem !important;
-    margin-bottom: 12px !important;
-  }
-
-  .hero p {
-    font-size: 0.9rem !important;
-    line-height: 1.5 !important;
-  }
 
   /* Services Grid Enhancement */
   .services-grid {
@@ -317,19 +297,6 @@
 
 /* Small phone optimizations */
 @media (max-width: 480px) {
-  .hero-content {
-    bottom: 100px !important;
-    padding: 16px !important;
-  }
-
-  .hero h1 {
-    font-size: 1.5rem !important;
-  }
-
-  .hero p {
-    font-size: 0.8rem !important;
-  }
-
   .service-card {
     padding: 30px 20px !important;
   }
