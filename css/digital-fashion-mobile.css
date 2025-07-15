@@ -231,7 +231,7 @@
 
   /* Portfolio Showcase Mobile Grid */
   .showcase-section {
-    padding: 40px 0 !important;
+    padding: 40px 0 0 0 !important;
   }
 
   .showcase-section .section-header {
