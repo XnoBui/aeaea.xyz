@@ -527,18 +527,19 @@
     text-decoration: none !important;
     font-size: 0.7rem !important;
     font-weight: 500 !important;
-    padding: 10px 8px !important;
+    padding: 8px 28px !important;
+    margin: 0 4px !important;
     transition: all 0.3s ease !important;
     border-radius: 8px !important;
-    min-height: 44px !important;
-    min-width: 60px !important;
+    min-height: 36px !important;
+    min-width: 90px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     position: relative !important;
     flex: 1 !important;
-    max-width: 80px !important;
+    max-width: 110px !important;
   }
 
   .bottom-nav-link:hover,
