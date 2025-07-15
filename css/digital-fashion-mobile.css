@@ -247,11 +247,11 @@
     margin-bottom: 16px !important;
   }
 
-  /* Portfolio grid: 6 columns, each showing 4 items vertically */
+  /* Portfolio grid: 4 columns, each showing 6 items vertically */
   .showcase-grid {
     display: grid !important;
-    grid-template-columns: repeat(6, 1fr) !important;
-    grid-template-rows: repeat(4, 1fr) !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: repeat(6, 1fr) !important;
     grid-auto-flow: column !important;
     gap: 2px !important;
     width: 100% !important;
@@ -277,7 +277,7 @@
     transition: transform 0.5s ease-out !important;
   }
 
-  /* Improved overlay for mobile */
+  /* Improved overlay for mobile - hidden by default, shown on touch */
   .showcase-overlay {
     position: absolute !important;
     bottom: 0 !important;
@@ -286,8 +286,20 @@
     background: linear-gradient(transparent, rgba(0,0,0,0.9)) !important;
     color: white !important;
     padding: 15px !important;
-    opacity: 1 !important; /* Always visible on mobile */
+    opacity: 0 !important; /* Hidden by default on mobile */
     transition: opacity 0.3s ease !important;
+    pointer-events: none !important;
+  }
+
+  /* Show overlay on touch/active state */
+  .showcase-item:active .showcase-overlay,
+  .showcase-item.touched .showcase-overlay {
+    opacity: 1 !important;
+  }
+
+  /* Add touch feedback for the item itself */
+  .showcase-item:active {
+    transform: scale(0.98) !important;
   }
 
   .showcase-overlay h3 {
@@ -625,10 +637,10 @@
 
 /* Small mobile devices (≤480px) */
 @media (max-width: 480px) {
-  /* Keep 6 columns, 4 rows layout even on small screens */
+  /* Keep 4 columns, 6 rows layout even on small screens */
   .showcase-grid {
-    grid-template-columns: repeat(6, 1fr) !important;
-    grid-template-rows: repeat(4, 1fr) !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: repeat(6, 1fr) !important;
     grid-auto-flow: column !important;
     gap: 1px !important;
     padding: 0 2px !important;

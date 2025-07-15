@@ -288,7 +288,7 @@
     </section>
 
     <!-- Pricing Section -->
-    <section class="services-overview">
+    <section id="packages" class="services-overview">
         <div class="section-header">
             <h2>Service Packages</h2>
             <p>Choose the package that best fits your digital fashion needs. All packages include consultation and revisions.</p>
@@ -350,17 +350,14 @@
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
-        <a href="aeaea_company_website.html#services" class="bottom-nav-link">
-            <span>All Services</span>
+        <a href="#portfolio" class="bottom-nav-link">
+            <span>COLLECTION</span>
         </a>
-        <a href="#contact" class="bottom-nav-link">
-            <span>3D Design</span>
+        <a href="#services" class="bottom-nav-link">
+            <span>SERVICES</span>
         </a>
-        <a href="#contact" class="bottom-nav-link">
-            <span>Virtual Try-On</span>
-        </a>
-        <a href="#contact" class="bottom-nav-link">
-            <span>NFT Collections</span>
+        <a href="#packages" class="bottom-nav-link">
+            <span>PACKAGES</span>
         </a>
         <a href="#contact" class="bottom-nav-link">
             <span>Start Project</span>
@@ -377,13 +374,24 @@
 
             init() {
                 this.showcaseItems.forEach((item, index) => {
-                    // Add hover effects and click interactions
+                    // Add hover effects and click interactions for desktop
                     item.addEventListener('mouseenter', () => {
                         this.handleItemHover(item, true);
                     });
 
                     item.addEventListener('mouseleave', () => {
                         this.handleItemHover(item, false);
+                    });
+
+                    // Add touch events for mobile
+                    item.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        this.handleTouchStart(item);
+                    });
+
+                    item.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        this.handleTouchEnd(item, index);
                     });
 
                     item.addEventListener('click', () => {
@@ -396,16 +404,39 @@
             }
 
             handleItemHover(item, isHovering) {
-                const overlay = item.querySelector('.showcase-overlay');
-                const img = item.querySelector('img');
-                
-                if (isHovering) {
-                    overlay.style.opacity = '1';
-                    img.style.transform = 'scale(1.05)';
-                } else {
-                    overlay.style.opacity = '0';
-                    img.style.transform = 'scale(1)';
+                // Only apply hover effects on non-touch devices
+                if (!('ontouchstart' in window)) {
+                    const overlay = item.querySelector('.showcase-overlay');
+                    const img = item.querySelector('img');
+                    
+                    if (isHovering) {
+                        overlay.style.opacity = '1';
+                        img.style.transform = 'scale(1.05)';
+                    } else {
+                        overlay.style.opacity = '0';
+                        img.style.transform = 'scale(1)';
+                    }
                 }
+            }
+
+            handleTouchStart(item) {
+                // Add touched class to show overlay
+                item.classList.add('touched');
+                
+                // Clear any existing timeout
+                if (this.touchTimeout) {
+                    clearTimeout(this.touchTimeout);
+                }
+            }
+
+            handleTouchEnd(item, index) {
+                // Set timeout to hide overlay after touch ends
+                this.touchTimeout = setTimeout(() => {
+                    item.classList.remove('touched');
+                }, 2000); // Hide after 2 seconds
+                
+                // Handle click/tap for lightbox
+                this.handleItemClick(item, index);
             }
 
             handleItemClick(item, index) {
@@ -463,9 +494,10 @@
         class ScrollHighlighter {
             constructor() {
                 this.sections = [
-                    { id: 'portfolio', navIndex: 1 }, // 3D Design
-                    { id: 'services', navIndex: 1 },  // 3D Design
-                    { id: 'contact', navIndex: 4 }    // Start Project
+                    { id: 'portfolio', navIndex: 0 }, // COLLECTION
+                    { id: 'services', navIndex: 1 },  // SERVICES
+                    { id: 'packages', navIndex: 2 },  // PACKAGES
+                    { id: 'contact', navIndex: 3 }    // Start Project
                 ];
                 this.navLinks = document.querySelectorAll('.bottom-nav-link');
                 this.currentActive = null;
@@ -658,8 +690,8 @@
 
             @media (max-width: 768px) {
                 .showcase-grid {
-                    grid-template-columns: repeat(6, 1fr);
-                    grid-template-rows: repeat(4, 1fr);
+                    grid-template-columns: repeat(4, 1fr);
+                    grid-template-rows: repeat(6, 1fr);
                     grid-auto-flow: column;
                     gap: 2px;
                     padding: 0 4px;
@@ -672,9 +704,19 @@
                 }
                 
                 .showcase-overlay {
-                    opacity: 1;
+                    opacity: 0;
                     background: linear-gradient(transparent, rgba(0,0,0,0.9));
                     padding: 15px;
+                    pointer-events: none;
+                }
+
+                .showcase-item:active .showcase-overlay,
+                .showcase-item.touched .showcase-overlay {
+                    opacity: 1;
+                }
+
+                .showcase-item:active {
+                    transform: scale(0.98);
                 }
                 
                 .showcase-overlay h3 {
@@ -699,8 +741,8 @@
 
             @media (max-width: 480px) {
                 .showcase-grid {
-                    grid-template-columns: repeat(6, 1fr);
-                    grid-template-rows: repeat(4, 1fr);
+                    grid-template-columns: repeat(4, 1fr);
+                    grid-template-rows: repeat(6, 1fr);
                     grid-auto-flow: column;
                     gap: 1px;
                     padding: 0 2px;
