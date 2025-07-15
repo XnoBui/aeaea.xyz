@@ -658,20 +658,33 @@
 
             @media (max-width: 768px) {
                 .showcase-grid {
-                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-columns: repeat(6, 1fr);
+                    grid-template-rows: repeat(4, 1fr);
+                    grid-auto-flow: column;
+                    gap: 2px;
+                    padding: 0 4px;
+                    height: auto;
+                }
+                
+                .showcase-item {
+                    aspect-ratio: 3/4;
+                    border-radius: 2px;
                 }
                 
                 .showcase-overlay {
                     opacity: 1;
-                    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+                    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+                    padding: 15px;
                 }
                 
                 .showcase-overlay h3 {
-                    font-size: 0.9em;
+                    font-size: 0.55em;
+                    margin: 0 0 2px 0;
                 }
                 
                 .showcase-overlay p {
-                    font-size: 0.7em;
+                    font-size: 0.45em;
+                    line-height: 1.1;
                 }
                 
                 .lightbox-content {
@@ -686,7 +699,23 @@
 
             @media (max-width: 480px) {
                 .showcase-grid {
-                    grid-template-columns: repeat(1, 1fr);
+                    grid-template-columns: repeat(6, 1fr);
+                    grid-template-rows: repeat(4, 1fr);
+                    grid-auto-flow: column;
+                    gap: 1px;
+                    padding: 0 2px;
+                }
+                
+                .showcase-overlay {
+                    padding: 4px;
+                }
+                
+                .showcase-overlay h3 {
+                    font-size: 0.45em;
+                }
+                
+                .showcase-overlay p {
+                    font-size: 0.35em;
                 }
             }
         `;
