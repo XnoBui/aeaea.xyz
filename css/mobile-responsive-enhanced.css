@@ -1,0 +1,386 @@
+/* Enhanced Mobile Responsive Design for AEAEA Website */
+/* Optimized for better mobile user experience */
+
+/* Global mobile optimizations */
+@media (max-width: 768px) {
+  /* Prevent horizontal overflow */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Enhanced Navigation */
+  nav {
+    padding: 12px 20px !important;
+    height: 60px !important;
+    backdrop-filter: blur(20px) !important;
+  }
+
+  .logo img {
+    height: 24px !important;
+  }
+
+  .nav-links {
+    display: none !important;
+  }
+
+  /* Add hamburger menu button */
+  .mobile-menu-toggle {
+    display: block !important;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hero Section Optimization */
+  .hero {
+    height: 100vh !important;
+    min-height: 600px !important;
+  }
+
+  .hero-content {
+    right: 20px !important;
+    bottom: 120px !important; /* Account for bottom nav */
+    left: 20px !important;
+    max-width: none !important;
+    padding: 20px !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 12px !important;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero p {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Services Grid Enhancement */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    margin-top: 40px !important;
+  }
+
+  .service-card {
+    padding: 40px 30px !important;
+    border-left: 1px solid #000000 !important;
+    border-right: 1px solid #000000 !important;
+    min-height: 200px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .service-card:first-child {
+    border-top: 1px solid #000000 !important;
+  }
+
+  .service-number {
+    font-size: 2rem !important;
+    margin-bottom: 16px !important;
+  }
+
+  .service-card h3 {
+    font-size: 1rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .service-card p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .service-link {
+    font-size: 12px !important;
+    padding: 8px 0 !important;
+    min-height: 44px !important;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Service Detail Sections */
+  .service-detail {
+    padding: 0 !important;
+  }
+
+  .service-visual {
+    height: 50vh !important;
+    min-height: 300px !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  .service-info {
+    padding: 40px 20px !important;
+  }
+
+  .service-info h3 {
+    font-size: 1.4rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  .service-info p {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 24px !important;
+  }
+
+  .service-features {
+    margin-bottom: 30px !important;
+  }
+
+  .service-features li {
+    padding: 12px 0 !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Showcase Grid Optimization */
+  .showcase-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(4, 1fr) !important;
+    gap: 1px !important;
+  }
+
+  .showcase-item {
+    aspect-ratio: 4/5 !important;
+    border: 1px solid #222 !important;
+  }
+
+  /* About Section */
+  .about-section {
+    padding: 80px 20px !important;
+  }
+
+  .about-section h2 {
+    font-size: 1.6rem !important;
+    margin-bottom: 24px !important;
+  }
+
+  .about-section p {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .team-info {
+    margin-top: 40px !important;
+    padding-top: 40px !important;
+  }
+
+  .team-info h3 {
+    font-size: 1.4rem !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    padding: 80px 20px !important;
+  }
+
+  .contact-content h2 {
+    font-size: 1.6rem !important;
+    margin-bottom: 24px !important;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .contact-item {
+    text-align: center !important;
+    padding: 20px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 8px !important;
+  }
+
+  .contact-item h4 {
+    font-size: 0.9rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .contact-item p {
+    font-size: 1rem !important;
+  }
+
+  .contact-item a {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 16px !important;
+  }
+}
+
+/* Enhanced Bottom Navigation for Mobile */
+@media (max-width: 768px) {
+  .bottom-nav {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+    max-width: calc(100% - 40px) !important;
+    background: rgba(145, 145, 145, 0.30) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border-top: 1.117px solid rgba(207, 213, 219, 0.10) !important;
+    box-shadow: 0px 0px 6.699px 0px rgba(207, 213, 219, 0.05) inset !important;
+    padding: 8px !important;
+    padding-bottom: max(8px, env(safe-area-inset-bottom)) !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 8px !important;
+  }
+
+  .bottom-nav-link {
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-decoration: none !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    padding: 8px 4px !important;
+    transition: all 0.3s ease !important;
+    border-radius: 8px !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    flex: 1 !important;
+    max-width: 80px !important;
+  }
+
+  .bottom-nav-link:hover,
+  .bottom-nav-link:active,
+  .bottom-nav-link.active {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    transform: translateY(-2px) !important;
+  }
+
+  .bottom-nav-link span {
+    display: block !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    margin-top: 0 !important;
+    font-size: 12px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+  }
+
+
+  /* Ensure content doesn't get hidden behind bottom nav */
+  body {
+    padding-bottom: 100px !important;
+  }
+
+  footer {
+    margin-bottom: 20px !important;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  .showcase-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .bottom-nav {
+    display: none !important;
+  }
+}
+
+/* Small phone optimizations */
+@media (max-width: 480px) {
+  .hero-content {
+    bottom: 100px !important;
+    padding: 16px !important;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .hero p {
+    font-size: 0.8rem !important;
+  }
+
+  .service-card {
+    padding: 30px 20px !important;
+  }
+
+  .service-number {
+    font-size: 1.8rem !important;
+  }
+
+  .bottom-nav-link span {
+    font-size: 9px !important;
+  }
+
+  .bottom-nav-link::before {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+/* Performance optimizations */
+.bottom-nav {
+  will-change: transform !important;
+  contain: layout style paint !important;
+}
+
+.bottom-nav-link {
+  will-change: transform, background-color !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .bottom-nav-link {
+    transition: none !important;
+  }
+  
+  .bottom-nav-link:hover {
+    transform: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bottom-nav {
+    background: rgba(0, 0, 0, 0.95) !important;
+    border-top: 2px solid #fff !important;
+  }
+  
+  .bottom-nav-link {
+    color: #fff !important;
+  }
+  
+  .bottom-nav-link:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+  }
+}
